@@ -5,364 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="THAJ HRS — Portfolio and CV">
   <title>THAJ HRS | Portfolio</title>
-  
-  <style>
-    /* --- CSS THEME VARIABLES --- */
-    :root {
-      /* Light Mode Colors */
-      --clr-bg: #ffffff;
-      --clr-bg-alt: #f8f9fa;
-      --clr-card-bg: #ffffff;
-      --clr-text: #212529;
-      --clr-text-muted: #6c757d;
-      --clr-border: #dee2e6;
-      --clr-primary: #0d6efd;
-      --clr-primary-hover: #0b5ed7;
-      --clr-header-bg: rgba(255, 255, 255, 0.95);
-    }
-
-    [data-theme="dark"] {
-      /* Dark Mode Colors */
-      --clr-bg: #121212;
-      --clr-bg-alt: #1e1e1e;
-      --clr-card-bg: #252525;
-      --clr-text: #f8f9fa;
-      --clr-text-muted: #a0a0a0;
-      --clr-border: #333333;
-      --clr-primary: #3788ff;
-      --clr-primary-hover: #5499ff;
-      --clr-header-bg: rgba(18, 18, 18, 0.95);
-    }
-
-    /* --- BASE STYLES --- */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background-color: var(--clr-bg);
-      color: var(--clr-text);
-      line-height: 1.6;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    a {
-      color: var(--clr-primary);
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-    a:hover {
-      color: var(--clr-primary-hover);
-    }
-
-    ul {
-      list-style: none;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    .section {
-      padding: 5rem 0;
-    }
-
-    .section--alt {
-      background-color: var(--clr-bg-alt);
-      transition: background-color 0.3s ease;
-    }
-
-    .section__title {
-      font-size: 2rem;
-      margin-bottom: 2rem;
-      position: relative;
-    }
-
-    .card {
-      background-color: var(--clr-card-bg);
-      border: 1px solid var(--clr-border);
-      border-radius: 8px;
-      padding: 1.5rem;
-      transition: background-color 0.3s ease, border-color 0.3s ease;
-    }
-
-    /* --- NAVIGATION & HEADER --- */
-    .skip-link {
-      position: absolute;
-      top: -40px;
-      left: 0;
-      background: var(--clr-primary);
-      color: white;
-      padding: 8px;
-      z-index: 100;
-    }
-    .skip-link:focus {
-      top: 0;
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      background-color: var(--clr-header-bg);
-      border-bottom: 1px solid var(--clr-border);
-      z-index: 10;
-      backdrop-filter: blur(5px);
-      transition: background-color 0.3s ease, border-color 0.3s ease;
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 1rem 1.5rem;
-    }
-
-    .nav__logo {
-      font-weight: bold;
-      font-size: 1.25rem;
-      color: var(--clr-text);
-    }
-
-    .nav__menu {
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    .nav__menu a {
-      color: var(--clr-text-muted);
-      font-weight: 500;
-    }
-    .nav__menu a:hover {
-      color: var(--clr-text);
-    }
-
-    /* Theme Toggle Button Styles */
-    .theme-toggle {
-      background: none;
-      border: none;
-      font-size: 1.2rem;
-      cursor: pointer;
-      padding: 0.5rem;
-      margin-left: auto;
-      margin-right: 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      color: var(--clr-text);
-      transition: background-color 0.2s ease;
-    }
-    .theme-toggle:hover {
-      background-color: var(--clr-bg-alt);
-    }
-
-    .nav__toggle {
-      display: none;
-      flex-direction: column;
-      gap: 4px;
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-    .nav__toggle-bar {
-      width: 22px;
-      height: 2px;
-      background-color: var(--clr-text);
-    }
-
-    /* --- HERO SECTION --- */
-    .hero__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 2rem;
-      padding: 6rem 1.5rem;
-    }
-    .hero__greeting {
-      color: var(--clr-primary);
-      font-weight: 600;
-    }
-    .hero__name {
-      font-size: 3rem;
-      margin: 0.5rem 0;
-    }
-    .hero__title {
-      font-size: 1.5rem;
-      color: var(--clr-text-muted);
-      margin-bottom: 1rem;
-    }
-    .hero__tagline {
-      max-width: 600px;
-      margin-bottom: 2rem;
-    }
-    .hero__actions {
-      display: flex;
-      gap: 1rem;
-    }
-    .hero__image {
-      border-radius: 50%;
-      object-fit: cover;
-      background-color: var(--clr-bg-alt);
-    }
-
-    /* --- BUTTONS --- */
-    .btn {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .btn--primary {
-      background-color: var(--clr-primary);
-      color: white !important;
-    }
-    .btn--primary:hover {
-      background-color: var(--clr-primary-hover);
-    }
-    .btn--secondary {
-      border: 1px solid var(--clr-border);
-      color: var(--clr-text);
-    }
-    .btn--secondary:hover {
-      background-color: var(--clr-bg-alt);
-    }
-    .btn--block {
-      display: block;
-      width: 100%;
-      text-align: center;
-    }
-
-    /* --- ABOUT SECTION --- */
-    .about__grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 2rem;
-    }
-    .about__text p {
-      margin-bottom: 1rem;
-    }
-    .about__highlights-title {
-      margin-bottom: 1rem;
-    }
-    .about__list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    /* --- SKILLS SECTION --- */
-    .skills__grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-    .skill-group__title {
-      margin-bottom: 1rem;
-      border-bottom: 2px solid var(--clr-border);
-      padding-bottom: 0.5rem;
-    }
-    .tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    .tag {
-      background-color: var(--clr-bg-alt);
-      border: 1px solid var(--clr-border);
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.875rem;
-    }
-
-    /* --- TIMELINE / EDUCATION --- */
-    .timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-    .timeline__header {
-      margin-bottom: 0.75rem;
-    }
-    .timeline__meta {
-      font-size: 0.875rem;
-      color: var(--clr-text-muted);
-    }
-    .timeline__bullets {
-      padding-left: 1.25rem;
-      color: var(--clr-text-muted);
-      list-style-type: disc;
-    }
-
-    /* --- CONTACT SECTION --- */
-    .contact__grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-    }
-    .contact__links {
-      margin-top: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .contact__link-label {
-      display: block;
-      font-weight: bold;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      color: var(--clr-text-muted);
-    }
-    .contact__cta-title {
-      margin-bottom: 0.5rem;
-    }
-    .contact__cta-text {
-      margin-bottom: 1.5rem;
-      color: var(--clr-text-muted);
-    }
-
-    /* --- FOOTER --- */
-    .footer {
-      border-top: 1px solid var(--clr-border);
-      padding: 2rem 0;
-      font-size: 0.875rem;
-      color: var(--clr-text-muted);
-    }
-    .footer__inner {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    /* --- RESPONSIVE MEDIA QUERIES --- */
-    @media (max-width: 768px) {
-      .hero__inner {
-        flex-direction: column-reverse;
-        text-align: center;
-        padding: 3rem 1.5rem;
-      }
-      .hero__actions {
-        justify-content: center;
-      }
-      .about__grid, .contact__grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-      .nav__menu {
-        display: none; /* In a full build, your nav.js toggles this */
-      }
-      .nav__toggle {
-        display: flex;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -370,10 +13,6 @@
   <header class="site-header">
     <nav class="nav" aria-label="Main navigation">
       <a class="nav__logo" href="#">THAJ HRS</a>
-
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">
-        <span class="theme-toggle__icon">🌙</span>
-      </button>
 
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle menu">
         <span class="nav__toggle-bar"></span>
@@ -392,6 +31,7 @@
   </header>
 
   <main id="main">
+    <!-- Hero Section -->
     <section class="hero" aria-labelledby="hero-heading">
       <div class="container hero__inner">
         <div class="hero__content">
@@ -410,6 +50,7 @@
       </div>
     </section>
 
+    <!-- About Section -->
     <section id="about" class="section" aria-labelledby="about-heading">
       <div class="container">
         <h2 id="about-heading" class="section__title">About Me</h2>
@@ -436,6 +77,7 @@
       </div>
     </section>
 
+    <!-- Skills Section -->
     <section id="skills" class="section section--alt" aria-labelledby="skills-heading">
       <div class="container">
         <h2 id="skills-heading" class="section__title">Skills</h2>
@@ -476,6 +118,7 @@
       </div>
     </section>
 
+    <!-- Education Section -->
     <section id="education" class="section" aria-labelledby="education-heading">
       <div class="container">
         <h2 id="education-heading" class="section__title">Education</h2>
@@ -511,6 +154,7 @@
       </div>
     </section>
 
+    <!-- Certifications Section -->
     <section id="certifications" class="section section--alt" aria-labelledby="certifications-heading">
       <div class="container">
         <h2 id="certifications-heading" class="section__title">Courses &amp; Certifications</h2>
@@ -518,7 +162,7 @@
           <article class="card education-card">
             <h3 class="education-card__degree">Certification in Web Development &amp; Programming</h3>
             <p class="education-card__meta">Specialized Dual-Course Training</p>
-            <ul class="timeline__bullets">
+            <ul class="timeline__bullets" style="padding-left: 1.25rem; color: var(--clr-text-muted); list-style-type: disc;">
               <li>Completed 2 comprehensive specialized courses covering HTML, CSS, Python, and MySQL database foundations.</li>
               <li>Trained in building clean, responsive web layouts and utilizing Python &amp; SQL for robust data handling logic.</li>
             </ul>
@@ -527,6 +171,7 @@
       </div>
     </section>
 
+    <!-- Contact Section -->
     <section id="contact" class="section" aria-labelledby="contact-heading">
       <div class="container">
         <h2 id="contact-heading" class="section__title">Contact</h2>
@@ -571,61 +216,6 @@
     </div>
   </footer>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const themeToggleBtn = document.getElementById('theme-toggle');
-      const toggleIcon = themeToggleBtn.querySelector('.theme-toggle__icon');
-      
-      // Look for previous local storage session or standard device setup rules
-      const savedTheme = localStorage.getItem('theme');
-      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-      
-      // Inject theme into root html node 
-      if (currentTheme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        toggleIcon.textContent = '☀️';
-      } else {
-        document.documentElement.setAttribute('data-theme', 'light');
-        toggleIcon.textContent = '🌙';
-      }
-
-      // Action event triggered when toggle icon button is pressed
-      themeToggleBtn.addEventListener('click', () => {
-        const theme = document.documentElement.getAttribute('data-theme');
-        
-        if (theme === 'light') {
-          document.documentElement.setAttribute('data-theme', 'dark');
-          localStorage.setItem('theme', 'dark');
-          toggleIcon.textContent = '☀️';
-        } else {
-          document.documentElement.setAttribute('data-theme', 'light');
-          localStorage.setItem('theme', 'light');
-          toggleIcon.textContent = '🌙';
-        }
-      });
-
-      // Simple nav drawer helper logic for mobile viewports
-      const navToggle = document.querySelector('.nav__toggle');
-      const navMenu = document.getElementById('nav-menu');
-      if (navToggle && navMenu) {
-        navToggle.addEventListener('click', () => {
-          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-          navToggle.setAttribute('aria-expanded', !expanded);
-          navMenu.style.display = expanded ? 'none' : 'flex';
-          if(!expanded) {
-            navMenu.style.flexDirection = 'column';
-            navMenu.style.position = 'absolute';
-            navMenu.style.top = '100%';
-            navMenu.style.left = '0';
-            navMenu.style.width = '100%';
-            navMenu.style.background = 'var(--clr-card-bg)';
-            navMenu.style.padding = '1rem';
-            navMenu.style.borderBottom = '1px solid var(--clr-border)';
-          }
-        });
-      }
-    });
-  </script>
+  <script src="js/nav.js"></script>
 </body>
 </html>
