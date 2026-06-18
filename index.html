@@ -163,6 +163,11 @@
       border-bottom-left-radius: 4px;
       border: 1px solid rgba(255,255,255,0.03);
     }
+    .ai-msg-bot a {
+      color: #00f2fe;
+      text-decoration: underline;
+      font-weight: 600;
+    }
     .ai-msg-user {
       background: linear-gradient(135deg, #00f2fe, #4facfe);
       color: #000;
@@ -357,6 +362,7 @@
               <li>Completed 2 comprehensive specialized courses covering HTML, CSS, Python, and MySQL database foundations.</li>
               <li>Trained in building clean, responsive web layouts and utilizing Python &amp; SQL for robust data handling logic.</li>
             </ul>
+            <!-- புதிய வெப் பக்கத்திற்குச் செல்வதற்கான பட்டன் இங்கே இணைக்கப்பட்டுள்ளது -->
             <div style="margin-top: 1.5rem;">
               <a href="certificates.html" class="btn btn--primary" style="display: inline-block; padding: 0.6rem 1.5rem; text-decoration: none; color: #ffffff !important;">View Certificates →</a>
             </div>
@@ -377,6 +383,7 @@
               <li>
                 <a href="mailto:thajhrs@gmail.com" class="contact__link">
                   <div class="contact__link-container">
+                    <!-- Email SVG Icon -->
                     <svg class="contact-icon" viewBox="0 0 24 24">
                       <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                     </svg>
@@ -388,6 +395,7 @@
               <li>
                 <a href="https://wa.me/94774259549" class="contact__link" target="_blank" rel="noopener noreferrer">
                   <div class="contact__link-container">
+                    <!-- WhatsApp SVG Icon -->
                     <svg class="contact-icon" viewBox="0 0 24 24">
                       <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.6.95 3.488 1.451 5.414 1.452 5.352 0 9.709-4.357 9.711-9.71.002-2.595-1.005-5.035-2.837-6.87C17.103 2.187 14.661 1.93 12.01 1.93c-5.354 0-9.712 4.358-9.715 9.713-.001 1.97.513 3.894 1.492 5.594L2.78 21.2l4.133-1.083zm12.08-5.719c-.33-.165-1.952-.963-2.251-1.072-.3-.11-.518-.165-.736.165-.218.33-.846 1.072-1.037 1.29-.19.218-.38.245-.71.08-.33-.165-1.395-.515-2.657-1.64-1.012-.903-1.694-2.02-1.892-2.35-.198-.33-.021-.508.144-.672.148-.148.33-.385.495-.578.165-.192.22-.33.33-.55.11-.22.055-.413-.028-.578-.083-.165-.736-1.774-1.009-2.434-.266-.64-.538-.554-.736-.564-.19-.01-.408-.01-.626-.01-.218 0-.573.082-.872.413-.3.33-1.146 1.12-1.146 2.732 0 1.612 1.173 3.169 1.336 3.39 1.65 2.185 3.19 3.39 5.088 4.21 1.897.818 2.328.655 3.154.545.825-.109 1.952-.797 2.227-1.54.275-.743.275-1.378.193-1.51-.083-.133-.3-.217-.63-.382z"/>
                     </svg>
@@ -398,6 +406,7 @@
               </li>
               <li>
                 <div class="contact__link-container" style="color: var(--clr-text-muted);">
+                  <!-- Location SVG Icon -->
                   <svg class="contact-icon" viewBox="0 0 24 24" style="color: var(--clr-text);">
                     <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                   </svg>
@@ -424,6 +433,9 @@
     </div>
   </footer>
 
+  <!-- ==========================================================================
+       AUTOMATED SITE-SCRAPER CHATBOT ASSISTANT WITH INTENT SPELLING CORRECTION
+       ========================================================================== -->
   <button id="ai-chat-toggle" class="ai-chat-trigger" aria-label="Open AI Assistant">
     <svg viewBox="0 0 24 24" class="ai-chat-icon">
       <path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm1 14h-2v2h2v-2zm0-10h-2v8h2V6z"/>
@@ -444,7 +456,7 @@
     </div>
 
     <div id="ai-chat-messages" class="ai-messages-body">
-      <div class="ai-msg class-ai-msg-bot ai-msg-bot">
+      <div class="ai-msg ai-msg-bot">
         Hello! I can automatically scan this entire portfolio page. Ask me any question about Thaj's details!
       </div>
     </div>
@@ -457,6 +469,7 @@
 
   <script src="js/nav.js"></script>
 
+  <!-- Advanced Automated Scraper AI Code Logic with Auto-Spelling Correction & Deep Intent Detection -->
   <script>
     const chatToggle = document.getElementById('ai-chat-toggle');
     const chatWindow = document.getElementById('ai-chat-window');
@@ -470,6 +483,7 @@
     });
     chatClose.addEventListener('click', () => { chatWindow.style.display = 'none'; });
 
+    // பக்கத்தில் உள்ள அனைத்து டெக்ஸ்ட்டுகளையும் ஸ்கேன் செய்யும் வசதி
     function getKnowledgeFromWebsite() {
       const dataPoints = [];
       document.querySelectorAll('section, .card, .timeline__item, .about__list li, .tag-list li').forEach(el => {
@@ -482,6 +496,7 @@
       return dataPoints;
     }
 
+    // எழுத்து பிழைகளை ஒப்பிட்டு சரிபார்க்கும் லெவன்ஸ்டீன் டிஸ்டன்ஸ் அல்காரிதம் (Fuzzy Match)
     function fuzzyMatch(word1, word2) {
       if (word1 === word2) return true;
       if (word1.length < 3 || word2.length < 3) return word1.includes(word2) || word2.includes(word1);
@@ -503,7 +518,7 @@
       
       const distance = track[word2.length][word1.length];
       const maxLength = Math.max(word1.length, word2.length);
-      return (maxLength - distance) / maxLength > 0.75; 
+      return (maxLength - distance) / maxLength > 0.70; // 70% மேட்ச் ஆனால் ஸ்பெல்லிங் மிஸ்டேக் என எடுத்துக்கொள்ளும்
     }
 
     function handleResponse() {
@@ -514,7 +529,44 @@
       chatInput.value = '';
 
       setTimeout(() => {
-        const queryWords = query.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(' ').filter(w => w.length > 2);
+        const cleanQuery = query.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+        const queryWords = cleanQuery.split(' ').filter(w => w.length > 1);
+        
+        // ஸ்பெல்லிங் மிஸ்டேக் கீவேர்டுகள் செக் செய்ய
+        const phoneKeywords = ['phone', 'mobile', 'number', 'numbar', 'contect', 'contact', 'whatsapp', 'watsap', 'call', 'phn'];
+        const emailKeywords = ['email', 'mail', 'emil', 'gmal', 'gmail', 'id', 'contect'];
+
+        let isPhoneQuery = false;
+        let isEmailQuery = false;
+
+        queryWords.forEach(word => {
+          phoneKeywords.forEach(kw => { if(fuzzyMatch(word, kw)) isPhoneQuery = true; });
+          emailKeywords.forEach(kw => { if(fuzzyMatch(word, kw)) isEmailQuery = true; });
+        });
+
+        // மிக முக்கியமாக "contect number" என்று கேட்டால் ஃபோன் நம்பருக்கு முன்னுரிமை வழங்கப்படும்
+        if (cleanQuery.includes('number') || cleanQuery.includes('numbar') || cleanQuery.includes('whatsapp') || cleanQuery.includes('watsap')) {
+          isPhoneQuery = true;
+          isEmailQuery = false;
+        }
+
+        let reply = "";
+
+        // 1. காண்டாக்ட் நம்பர் மற்றும் வாட்ஸ்அப் லிங்க் ஜெனரேட் செய்தல்
+        if (isPhoneQuery) {
+          reply = `📞 <strong>Thaj's Contact Number:</strong> +94 77 425 9549<br><br>👉 Click here to chat on WhatsApp: <a href="https://wa.me/94774259549" target="_blank" rel="noopener noreferrer">Open WhatsApp Chat</a>`;
+          appendHtmlMessage(reply, 'bot');
+          return;
+        }
+
+        // 2. ஈமெயில் மற்றும் அதற்கான நேரடி லிங்க் ஜெனரேட் செய்தல்
+        if (isEmailQuery) {
+          reply = `✉️ <strong>Thaj's Email Address:</strong> thajhrs@gmail.com<br><br>👉 Click here to send an email: <a href="mailto:thajhrs@gmail.com">Send Email Now</a>`;
+          appendHtmlMessage(reply, 'bot');
+          return;
+        }
+
+        // 3. இதர கேள்விகளுக்கு வெப்சைட் பக்கத்தை அனலைஸ் செய்து துல்லியமான பதில் வழங்குதல்
         const sourceData = getKnowledgeFromWebsite();
         let bestMatch = "";
         let highestScore = 0;
@@ -536,12 +588,13 @@
             }
           });
 
+          // கூடுதல் கீவேர்டு வெயிட்டேஜ் முறைகள் (Context Weights)
           const lowerBlock = textBlock.toLowerCase();
           queryWords.forEach(qw => {
-            if ((fuzzyMatch(qw, 'skill') || fuzzyMatch(qw, 'skils')) && lowerBlock.includes('skill')) score += 1;
-            if ((fuzzyMatch(qw, 'education') || fuzzyMatch(qw, 'edukation')) && lowerBlock.includes('education')) score += 1;
-            if ((fuzzyMatch(qw, 'contact') || fuzzyMatch(qw, 'contack')) && lowerBlock.includes('email')) score += 1;
-            if (qw === 'aat' && lowerBlock.includes('aat')) score += 2;
+            if ((fuzzyMatch(qw, 'skill') || fuzzyMatch(qw, 'skils')) && lowerBlock.includes('skill')) score += 2;
+            if ((fuzzyMatch(qw, 'education') || fuzzyMatch(qw, 'edukation')) && lowerBlock.includes('education')) score += 2;
+            if (fuzzyMatch(qw, 'aat') && lowerBlock.includes('aat')) score += 3;
+            if ((fuzzyMatch(qw, 'place') || fuzzyMatch(qw, 'location') || fuzzyMatch(qw, 'live')) && lowerBlock.includes('location')) score += 2;
           });
 
           if (score > highestScore) {
@@ -550,19 +603,28 @@
           }
         });
 
-        let reply = "I searched through the page but couldn't find a specific detail for that. Please try asking about Thaj's skills, AAT education, or contact details!";
         if (highestScore > 1 && bestMatch) {
-          reply = `Based on Thaj's website: "${bestMatch}"`;
+          reply = `Based on Thaj's website:<br><br>"${bestMatch}"`;
+        } else {
+          reply = "I scanned the page but couldn't find exact details for that. Feel free to ask about Thaj's skills, education, AAT, location, or contact info!";
         }
 
-        appendMessage(reply, 'bot');
-      }, 550);
+        appendHtmlMessage(reply, 'bot');
+      }, 500);
     }
 
     function appendMessage(text, sender) {
       const msg = document.createElement('div');
       msg.classList.add('ai-msg', `ai-msg-${sender}`);
       msg.innerText = text;
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function appendHtmlMessage(html, sender) {
+      const msg = document.createElement('div');
+      msg.classList.add('ai-msg', `ai-msg-${sender}`);
+      msg.innerHTML = html;
       chatMessages.appendChild(msg);
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
