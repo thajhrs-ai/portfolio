@@ -54,6 +54,216 @@
       fill: currentColor;
       flex-shrink: 0;
     }
+
+    /* ==========================================================================
+       MELA MENU-IL VALATHU PAKKAM VARUM VITIYASAMANA PREMIUM BUTTON STYLE
+       ========================================================================== */
+    .nav-premium-btn {
+      background: #0f0f11;
+      color: #ffffff !important;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 8px; /* Maththa buttons kku matching-ana curves outline */
+      position: relative;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Magic Glow Border Line */
+    .nav-premium-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: 8px;
+      padding: 2px; /* Border thickness details */
+      background: linear-gradient(45deg, #00f2fe, #4facfe, #0000ff);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      transition: all 0.4s ease;
+    }
+
+    /* Light hover background backdrop */
+    .nav-premium-btn::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 130%; height: 130%;
+      background: linear-gradient(45deg, rgba(0,242,254,0.25), rgba(79,172,254,0.25));
+      transform: translate(-50%, -50%) scale(0);
+      border-radius: 50%;
+      transition: transform 0.5s ease;
+    }
+
+    /* Hover States - Maththa normal green buttons vida unique ah minungum */
+    .nav-premium-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(79, 172, 254, 0.5);
+    }
+
+    .nav-premium-btn:hover::after {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .nav-premium-btn:active {
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+       AI CHATBOT CORE DESIGN STYLES
+       ========================================================================== */
+    .ai-chat-trigger {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      z-index: 9999;
+      background: #0f0f11;
+      color: #ffffff;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 24px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+      transition: all 0.3s ease;
+    }
+    .ai-chat-trigger::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: 50px;
+      padding: 2px;
+      background: linear-gradient(45deg, #00f2fe, #4facfe, #0000ff);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+    .ai-chat-trigger:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(79, 172, 254, 0.5);
+    }
+    .ai-chat-icon {
+      width: 18px;
+      height: 18px;
+      fill: #00f2fe;
+    }
+    .ai-window-container {
+      position: fixed;
+      bottom: 85px;
+      right: 25px;
+      width: 340px;
+      max-width: 90vw;
+      height: 450px;
+      background: #16161a;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    .ai-window-header {
+      background: #0f0f11;
+      color: #fff;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .ai-status-dot {
+      width: 8px;
+      height: 8px;
+      background: #00ff88;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #00ff88;
+    }
+    .ai-close-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: 0.2s;
+    }
+    .ai-close-btn:hover { opacity: 1; }
+    .ai-messages-body {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: #121214;
+    }
+    .ai-msg {
+      max-width: 80%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+    .ai-msg-bot {
+      background: #1f1f24;
+      color: #e1e1e6;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    .ai-msg-user {
+      background: linear-gradient(135deg, #00f2fe, #4facfe);
+      color: #000;
+      font-weight: 500;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .ai-window-footer {
+      padding: 12px;
+      background: #0f0f11;
+      display: flex;
+      gap: 8px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .ai-window-footer input {
+      flex: 1;
+      background: #1c1c21;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      outline: none;
+    }
+    .ai-window-footer input:focus { border-color: #4facfe; }
+    .ai-window-footer button {
+      background: #4facfe;
+      color: #000;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .ai-window-footer button:hover { background: #00f2fe; }
   </style>
 </head>
 <body>
@@ -69,12 +279,20 @@
         <span class="nav__toggle-bar"></span>
       </button>
 
+      <!-- UNGA TOP MENU LIST WITH PREMIUM BUTTON -->
       <ul class="nav__menu" id="nav-menu">
         <li><a href="#about" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">About</a></li>
         <li><a href="#skills" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Skills</a></li>
         <li><a href="#education" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Education</a></li>
         <li><a href="#certifications" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Certifications</a></li>
         <li><a href="#contact" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Contact</a></li>
+        
+        <!-- EXTRA VITIYASAMANA PREMIUM GLOW BUTTON MELA ADD SEYYAPATTULLATHU -->
+        <li>
+          <a href="certificates.html" class="nav-premium-btn">
+            <span>View Certificates &rarr;</span>
+          </a>
+        </li>
       </ul>
     </nav>
   </header>
@@ -207,14 +425,10 @@
           <article class="card education-card">
             <h3 class="education-card__degree">Certification in Web Development &amp; Programming</h3>
             <p class="education-card__meta">Specialized Dual-Course Training</p>
-            <ul class="timeline__bullets" style="padding-left: 1.25rem; color: var(--clr-text-muted); list-style-type: disc; margin-bottom: 1.5rem;">
+            <ul class="timeline__bullets" style="padding-left: 1.25rem; color: var(--clr-text-muted); list-style-type: disc;">
               <li>Completed 2 comprehensive specialized courses covering HTML, CSS, Python, and MySQL database foundations.</li>
               <li>Trained in building clean, responsive web layouts and utilizing Python &amp; SQL for robust data handling logic.</li>
             </ul>
-            <!-- புதிய வெப் பக்கத்திற்குச் செல்வதற்கான பட்டன் இங்கே இணைக்கப்பட்டுள்ளது -->
-            <div style="margin-top: 1.5rem;">
-              <a href="certificates.html" class="btn btn--primary" style="display: inline-block; padding: 0.6rem 1.5rem; text-decoration: none; color: #ffffff !important;">View Certificates →</a>
-            </div>
           </article>
         </div>
       </div>
@@ -232,7 +446,6 @@
               <li>
                 <a href="mailto:thajhrs@gmail.com" class="contact__link">
                   <div class="contact__link-container">
-                    <!-- Email SVG Icon -->
                     <svg class="contact-icon" viewBox="0 0 24 24">
                       <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                     </svg>
@@ -244,7 +457,6 @@
               <li>
                 <a href="https://wa.me/94774259549" class="contact__link" target="_blank" rel="noopener noreferrer">
                   <div class="contact__link-container">
-                    <!-- WhatsApp SVG Icon -->
                     <svg class="contact-icon" viewBox="0 0 24 24">
                       <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.6.95 3.488 1.451 5.414 1.452 5.352 0 9.709-4.357 9.711-9.71.002-2.595-1.005-5.035-2.837-6.87C17.103 2.187 14.661 1.93 12.01 1.93c-5.354 0-9.712 4.358-9.715 9.713-.001 1.97.513 3.894 1.492 5.594L2.78 21.2l4.133-1.083zm12.08-5.719c-.33-.165-1.952-.963-2.251-1.072-.3-.11-.518-.165-.736.165-.218.33-.846 1.072-1.037 1.29-.19.218-.38.245-.71.08-.33-.165-1.395-.515-2.657-1.64-1.012-.903-1.694-2.02-1.892-2.35-.198-.33-.021-.508.144-.672.148-.148.33-.385.495-.578.165-.192.22-.33.33-.55.11-.22.055-.413-.028-.578-.083-.165-.736-1.774-1.009-2.434-.266-.64-.538-.554-.736-.564-.19-.01-.408-.01-.626-.01-.218 0-.573.082-.872.413-.3.33-1.146 1.12-1.146 2.732 0 1.612 1.173 3.169 1.336 3.39 1.65 2.185 3.19 3.39 5.088 4.21 1.897.818 2.328.655 3.154.545.825-.109 1.952-.797 2.227-1.54.275-.743.275-1.378.193-1.51-.083-.133-.3-.217-.63-.382z"/>
                     </svg>
@@ -255,7 +467,6 @@
               </li>
               <li>
                 <div class="contact__link-container" style="color: var(--clr-text-muted);">
-                  <!-- Location SVG Icon -->
                   <svg class="contact-icon" viewBox="0 0 24 24" style="color: var(--clr-text);">
                     <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                   </svg>
@@ -282,6 +493,94 @@
     </div>
   </footer>
 
+  <!-- ==========================================================================
+       AI CHATBOT ASSISTANT INTERFACE CODE BLOCK
+       ========================================================================== -->
+  <button id="ai-chat-toggle" class="ai-chat-trigger" aria-label="Open AI Assistant">
+    <svg viewBox="0 0 24 24" class="ai-chat-icon">
+      <path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm1 14h-2v2h2v-2zm0-10h-2v8h2V6z"/>
+    </svg>
+    <span>Ask AI</span>
+  </button>
+
+  <div id="ai-chat-window" class="ai-window-container" style="display: none;">
+    <div class="ai-window-header">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <div class="ai-status-dot"></div>
+        <div>
+          <h4 style="margin: 0; font-size: 0.95rem; font-weight: 600;">THAJ AI Assistant</h4>
+          <p style="margin: 0; font-size: 0.75rem; opacity: 0.8;">Online · Automated</p>
+        </div>
+      </div>
+      <button id="ai-chat-close" class="ai-close-btn">&times;</button>
+    </div>
+
+    <div id="ai-chat-messages" class="ai-messages-body">
+      <div class="ai-msg ai-msg-bot">
+        Hello! I'm Thaj's automated assistant. Ask me anything about his skills, education, or background!
+      </div>
+    </div>
+
+    <div class="ai-window-footer">
+      <input type="text" id="ai-chat-input" placeholder="Type a question (e.g., skills)..." autocomplete="off">
+      <button id="ai-chat-send">Send</button>
+    </div>
+  </div>
+
   <script src="js/nav.js"></script>
+
+  <!-- Chatbot Logic Controller Script -->
+  <script>
+    const chatToggle = document.getElementById('ai-chat-toggle');
+    const chatWindow = document.getElementById('ai-chat-window');
+    const chatClose = document.getElementById('ai-chat-close');
+    const chatInput = document.getElementById('ai-chat-input');
+    const chatMessages = document.getElementById('ai-chat-messages');
+    const chatSend = document.getElementById('ai-chat-send');
+
+    chatToggle.addEventListener('click', () => {
+      chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
+    });
+    chatClose.addEventListener('click', () => { chatWindow.style.display = 'none'; });
+
+    const brain = {
+      skills: "Thaj specializes in Financial Bookkeeping, Advanced Excel, PowerPoint, matrum technical concepts viz MySQL, Python, HTML5, and CSS3.",
+      education: "Thaj has successfully completed AAT Level 2 in 2026 and is currently pursuing his G.C.E. Advanced Level (A/L) studies in the Commerce stream.",
+      about: "Thajudeen (Thaj HRS) is an ambitious Commerce & Tech Enthusiast from Deltota, Sri Lanka, bridging corporate accounting systems with advanced computing fields.",
+      contact: "You can reach Thaj via email at thajhrs@gmail.com or securely on WhatsApp at +94 77 425 9549.",
+      location: "Thaj is situated at 266/c, Pallegama, Deltota, Kandy, Sri Lanka."
+    };
+
+    function handleResponse() {
+      const text = chatInput.value.trim().toLowerCase();
+      if (!text) return;
+
+      appendMessage(chatInput.value, 'user');
+      chatInput.value = '';
+
+      setTimeout(() => {
+        let reply = "I'm sorry, I couldn't fully catch that. Try asking about his 'skills', 'education', 'about', or 'contact' details!";
+        
+        if (text.includes('skill') || text.includes('work') || text.includes('tech')) reply = brain.skills;
+        else if (text.includes('education') || text.includes('study') || text.includes('aat') || text.includes('school')) reply = brain.education;
+        else if (text.includes('about') || text.includes('who is') || text.includes('thaj')) reply = brain.about;
+        else if (text.includes('contact') || text.includes('email') || text.includes('phone') || text.includes('whatsapp')) reply = brain.contact;
+        else if (text.includes('location') || text.includes('live') || text.includes('where')) reply = brain.location;
+
+        appendMessage(reply, 'bot');
+      }, 600);
+    }
+
+    function appendMessage(text, sender) {
+      const msg = document.createElement('div');
+      msg.classList.add('ai-msg', `ai-msg-${sender}`);
+      msg.innerText = text;
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    chatSend.addEventListener('click', handleResponse);
+    chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleResponse(); });
+  </script>
 </body>
 </html>
