@@ -66,7 +66,7 @@
       letter-spacing: 0.5px;
       padding: 0.6rem 1.2rem;
       border: none;
-      border-radius: 8px; /* Maththa buttons kku matching-ana curves outline */
+      border-radius: 8px;
       position: relative;
       cursor: pointer;
       display: inline-flex;
@@ -85,7 +85,7 @@
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
       border-radius: 8px;
-      padding: 2px; /* Border thickness details */
+      padding: 2px;
       background: linear-gradient(45deg, #00f2fe, #4facfe, #0000ff);
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
@@ -105,7 +105,7 @@
       transition: transform 0.5s ease;
     }
 
-    /* Hover States - Maththa normal green buttons vida unique ah minungum */
+    /* Hover States */
     .nav-premium-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 15px rgba(79, 172, 254, 0.5);
@@ -120,7 +120,7 @@
     }
 
     /* ==========================================================================
-       AI CHATBOT CORE DESIGN STYLES
+       AI CHATBOT DESIGN STYLES WITH GLOW EFFECT
        ========================================================================== */
     .ai-chat-trigger {
       position: fixed;
@@ -279,15 +279,12 @@
         <span class="nav__toggle-bar"></span>
       </button>
 
-      <!-- UNGA TOP MENU LIST WITH PREMIUM BUTTON -->
       <ul class="nav__menu" id="nav-menu">
         <li><a href="#about" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">About</a></li>
         <li><a href="#skills" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Skills</a></li>
         <li><a href="#education" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Education</a></li>
         <li><a href="#certifications" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Certifications</a></li>
         <li><a href="#contact" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Contact</a></li>
-        
-        <!-- EXTRA VITIYASAMANA PREMIUM GLOW BUTTON MELA ADD SEYYAPATTULLATHU -->
         <li>
           <a href="certificates.html" class="nav-premium-btn">
             <span>View Certificates &rarr;</span>
@@ -494,7 +491,7 @@
   </footer>
 
   <!-- ==========================================================================
-       AUTOMATED SITE-SCRAPER CHATBOT ASSISTANT
+       AUTOMATED SITE-SCRAPER CHATBOT ASSISTANT WITH SPELLING CORRECTION
        ========================================================================== -->
   <button id="ai-chat-toggle" class="ai-chat-trigger" aria-label="Open AI Assistant">
     <svg viewBox="0 0 24 24" class="ai-chat-icon">
@@ -529,7 +526,7 @@
 
   <script src="js/nav.js"></script>
 
-  <!-- Automated Scraper AI Code Logic -->
+  <!-- Automated Scraper AI Code Logic with Auto-Spelling Correction -->
   <script>
     const chatToggle = document.getElementById('ai-chat-toggle');
     const chatWindow = document.getElementById('ai-chat-window');
@@ -543,11 +540,9 @@
     });
     chatClose.addEventListener('click', () => { chatWindow.style.display = 'none'; });
 
-    // FULL PAGE SCRAPER ENGINE: இங்கிருக்கும் குறியீடு பக்கத்தில் உள்ள அனைத்து எழுத்துக்களையும் சேகரிக்கும்.
+    // FULL PAGE SCRAPER ENGINE: பக்கத்தில் உள்ள அனைத்து எழுத்துக்களையும் சேகரிக்கும்.
     function getKnowledgeFromWebsite() {
       const dataPoints = [];
-      
-      // Scrape Articles, Cards, and Lists
       document.querySelectorAll('section, .card, .timeline__item, .about__list li, .tag-list li').forEach(el => {
         let text = el.innerText || el.textContent;
         text = text.replace(/\s+/g, ' ').trim();
@@ -558,6 +553,32 @@
       return dataPoints;
     }
 
+    // SPELLING CORRECTION ENGINE: எழுத்துப் பிழைகளைக் கண்டறியும் லெவன்ஸ்டைன் அல்காரிதம்
+    function fuzzyMatch(word1, word2) {
+      if (word1 === word2) return true;
+      if (word1.length < 3 || word2.length < 3) return word1.includes(word2) || word2.includes(word1);
+      
+      const track = Array(word2.length + 1).fill(null).map(() => Array(word1.length + 1).fill(null));
+      for (let i = 0; i <= word1.length; i += 1) track[0][i] = i;
+      for (let j = 0; j <= word2.length; j += 1) track[j][0] = j;
+      
+      for (let j = 1; j <= word2.length; j += 1) {
+        for (let i = 1; i <= word1.length; i += 1) {
+          const indicator = word1[i - 1] === word2[j - 1] ? 0 : 1;
+          track[j][i] = Math.min(
+            track[j - 1][i] + 1,
+            track[j][i - 1] + 1,
+            track[j - 1][i - 1] + indicator
+          );
+        }
+      }
+      
+      const distance = track[word2.length][word1.length];
+      const maxLength = Math.max(word1.length, word2.length);
+      // 75% எழுத்துக்கள் ஒத்துப் போனால் அது ஸ்பெல்லிங் மிஸ்டேக் என உணர்ந்து சரி செய்யும்
+      return (maxLength - distance) / maxLength > 0.75; 
+    }
+
     function handleResponse() {
       const query = chatInput.value.trim();
       if (!query) return;
@@ -566,24 +587,37 @@
       chatInput.value = '';
 
       setTimeout(() => {
-        const keywords = query.toLowerCase().split(' ').filter(w => w.length > 2);
+        const queryWords = query.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(' ').filter(w => w.length > 2);
         const sourceData = getKnowledgeFromWebsite();
         let bestMatch = "";
         let highestScore = 0;
 
-        // Scanned Content Ranking logic based on search relevance
         sourceData.forEach(textBlock => {
           let score = 0;
-          const lowerBlock = textBlock.toLowerCase();
+          const blockWords = textBlock.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(' ');
           
-          keywords.forEach(word => {
-            if (lowerBlock.includes(word)) {
-              score++;
-              // Give higher score for primary headings or key data identifiers
-              if (query.toLowerCase().includes('skill') && lowerBlock.includes('skill')) score += 2;
-              if (query.toLowerCase().includes('aat') && lowerBlock.includes('aat')) score += 2;
-              if (query.toLowerCase().includes('contact') && lowerBlock.includes('email')) score += 2;
+          queryWords.forEach(qWord => {
+            // 1. நேடியாக வார்த்தை பொருந்துகிறதா என்று பார்க்கும்
+            if (textBlock.toLowerCase().includes(qWord)) {
+              score += 3;
+            } else {
+              // 2. ஸ்பெல்லிங் மிஸ்டேக் இருந்தால் இந்த லூப் வேலை செய்யும்
+              for (let bWord of blockWords) {
+                if (fuzzyMatch(qWord, bWord)) {
+                  score += 2;
+                  break;
+                }
+              }
             }
+          });
+
+          // முக்கிய தலைப்புகளுக்கு கூடுதல் முக்கியத்துவம் (Priority Scoring)
+          const lowerBlock = textBlock.toLowerCase();
+          queryWords.forEach(qw => {
+            if ((fuzzyMatch(qw, 'skill') || fuzzyMatch(qw, 'skils')) && lowerBlock.includes('skill')) score += 1;
+            if ((fuzzyMatch(qw, 'education') || fuzzyMatch(qw, 'edukation')) && lowerBlock.includes('education')) score += 1;
+            if ((fuzzyMatch(qw, 'contact') || fuzzyMatch(qw, 'contack')) && lowerBlock.includes('email')) score += 1;
+            if (qw === 'aat' && lowerBlock.includes('aat')) score += 2;
           });
 
           if (score > highestScore) {
@@ -592,9 +626,8 @@
           }
         });
 
-        // Response formatting decision loop
         let reply = "I searched through the page but couldn't find a specific detail for that. Please try asking about Thaj's skills, AAT education, or contact details!";
-        if (highestScore > 0 && bestMatch) {
+        if (highestScore > 1 && bestMatch) {
           reply = `Based on Thaj's website: "${bestMatch}"`;
         }
 
