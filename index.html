@@ -105,7 +105,7 @@
       fill: #00f2fe;
     }
     
-    /* வெள்ளை பின்னணியிலும் தெளிவாக தெரியக்கூடிய டெக்ஸ்ட் ஸ்டைல் */
+    /* வெள்ளை பின்னணியிலும் தெளிவாக தெரியக்கூடிய டெக்สต์ ஸ்டைல் */
     .ai-chat-label-below {
       font-family: system-ui, -apple-system, sans-serif;
       font-size: 0.72rem;
@@ -461,6 +461,9 @@
     </div>
   </footer>
 
+  <!-- ==========================================================================
+       AUTOMATED SITE-SCRAPER CHATBOT ASSISTANT WITH SMART FILTERS
+       ========================================================================== -->
   <div class="ai-chat-wrapper">
     <button id="ai-chat-toggle" class="ai-chat-trigger" aria-label="Open AI Assistant">
       <svg viewBox="0 0 24 24" class="ai-chat-icon">
@@ -497,6 +500,7 @@
 
   <script src="js/nav.js"></script>
 
+  <!-- Scraper AI Scripting -->
   <script>
     const chatToggle = document.getElementById('ai-chat-toggle');
     const chatWindow = document.getElementById('ai-chat-window');
@@ -558,16 +562,31 @@
       chatInput.value = '';
 
       setTimeout(() => {
-        const cleanQuery = query.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-        const queryWords = cleanQuery.split(' ').filter(w => w.length > 1);
+        const cleanQuery = query.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").trim();
+        const queryWords = cleanQuery.split(' ').filter(w => w.length > 0);
 
         // ==========================================================================
-        // NEW USER-FRIENDLY SMALL TALK DICTIONARY (Hi, Hello, Nallama Responses)
+        // 1. SMART FILTER: PREVENT SCRAPING ON NORMAL INTERACTIONS (Ok, Yes, Cool)
+        // ==========================================================================
+        const acknowledgments = ['ok', 'okk', 'okay', 'yes', 'yeah', 'sure', 'cool', 'nice', 'great', 'super', 'thanks', 'thank you', 'nandri'];
+        
+        // பயனர் சாதாரணமாக ஒரு வார்த்தையில் "ok" அல்லது "thanks" என அனுப்பினால் பக்கம் முழுக்க ஸ்கேன் செய்யாது
+        if (queryWords.length <= 2 && queryWords.some(qw => acknowledgments.includes(qw))) {
+          if (cleanQuery.includes('thank') || cleanQuery === 'nandri') {
+            appendHtmlMessage(`😊 <strong>You are very welcome!</strong> Let me know if you need to know anything else about Thaj's profile.`, 'bot');
+          } else {
+            appendHtmlMessage(`👍 Awesome! Feel free to ask me any specific question about Thaj's skills, qualifications, or contact links whenever you are ready.`, 'bot');
+          }
+          return; // இங்கேயே நிறுத்திவிடும், ஸ்கேன் செய்யாது!
+        }
+
+        // ==========================================================================
+        // 2. GREETINGS & SMALL TALK DICTIONARY
         // ==========================================================================
         const greetings = ['hi', 'hello', 'hey', 'helloo', 'hii', 'vanakkam', 'வணக்கம்'];
         const statusQueries = ['how are you', 'how r u', 'nallama', 'nalama', 'sugama', 'soogama', 'fine', 'how do you do'];
         
-        let isGreeting = queryWords.some(qw => greetings.some(g => fuzzyMatch(qw, g))) || greetings.includes(cleanQuery.trim());
+        let isGreeting = queryWords.some(qw => greetings.some(g => fuzzyMatch(qw, g))) || greetings.includes(cleanQuery);
         let isStatus = statusQueries.some(sq => cleanQuery.includes(sq)) || statusQueries.some(sq => queryWords.some(qw => fuzzyMatch(qw, sq)));
 
         if (isGreeting) {
@@ -579,8 +598,10 @@
           appendHtmlMessage(`😊 <strong>I am doing fantastic, thank you for asking!</strong> I am ready to help you discover everything about Thaj. What would you like to check out first?`, 'bot');
           return;
         }
-        // ==========================================================================
 
+        // ==========================================================================
+        // 3. INTENT FILTERS (Skills, Education, etc.)
+        // ==========================================================================
         const intents = {
           skills: ['skill', 'skils', 'skills', 'know', 'language', 'program', 'excel', 'python', 'mysql'],
           education: ['education', 'edukation', 'school', 'aat', 'level', 'commerce', 'study', 'studying', 'exam', 'al', 'ol'],
@@ -621,6 +642,9 @@
           return;
         }
 
+        // ==========================================================================
+        // 4. ACTUAL NEEDED SCANNING LOGIC (தேவைப்படும் போது மட்டும் பக்கத்தை அலசும்)
+        // ==========================================================================
         let bestMatch = "";
         let highestScore = 0;
         
