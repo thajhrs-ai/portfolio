@@ -66,7 +66,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
     .ai-chat-trigger {
       position: relative;
@@ -104,19 +104,23 @@
       height: 18px;
       fill: #00f2fe;
     }
+    
+    /* இப்போ இந்த டெக்ஸ்ட் வெள்ளை பேக்கிரவுண்டிலும் மிகத் தெளிவாகத் தெரியும் */
     .ai-chat-label-below {
       font-family: system-ui, -apple-system, sans-serif;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.8px;
-      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: 1.2px; /* எழுத்துக்களுக்கு இடையே உள்ள இடைவெளி */
+      color: #16161a;        /* வெள்ளை நிறத்திற்கு பதிலாக நல்ல அடர் கறுப்பு நிறம் */
       text-transform: uppercase;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
       user-select: none;
+      margin-top: 2px;
+      opacity: 0.85;
     }
+
     .ai-window-container {
       position: fixed;
-      bottom: 110px;
+      bottom: 115px; /* டெக்ஸ்ட் இடைவெளிக்காக லேசாக உயர்த்தப்பட்டுள்ளது */
       right: 25px;
       width: 340px;
       max-width: 90vw;
@@ -458,7 +462,7 @@
   </footer>
 
   <!-- ==========================================================================
-       AUTOMATED SITE-SCRAPER CHATBOT ASSISTANT WITH UNDER-LABELLING TEXT
+       AUTOMATED SITE-SCRAPER CHATBOT ASSISTANT WITH HIGH CONTRAST LABELLING
        ========================================================================== -->
   <div class="ai-chat-wrapper">
     <button id="ai-chat-toggle" class="ai-chat-trigger" aria-label="Open AI Assistant">
@@ -467,7 +471,7 @@
       </svg>
       <span>Ask AI</span>
     </button>
-    <!-- பட்டனுக்குக் கீழே இருக்கும் சாதாரண உரை வடிவம் -->
+    <!-- வெள்ளை மற்றும் எவ்வித பின்னணியிலும் பளிச்சென்று தெரியக்கூடிய புதிய டெக்ஸ்ட் ஸ்டைல் -->
     <span class="ai-chat-label-below">THAJ'S AI ASSISTANT</span>
   </div>
 
