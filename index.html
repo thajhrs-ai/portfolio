@@ -56,7 +56,7 @@
     }
 
     /* ==========================================================================
-       AI CHATBOT DESIGN STYLES WITH GLOW EFFECT
+       AI CHATBOT DESIGN STYLES WITH GLOW EFFECT & ANIMATION
        ========================================================================= */
     .ai-chat-wrapper {
       position: fixed;
@@ -105,7 +105,6 @@
       fill: #00f2fe;
     }
     
-    /* வெள்ளை பின்னணியிலும் தெளிவாக தெரியக்கூடிய டெக்ஸ்ட் ஸ்டைல் */
     .ai-chat-label-below {
       font-family: system-ui, -apple-system, sans-serif;
       font-size: 0.72rem;
@@ -116,6 +115,18 @@
       user-select: none;
       margin-top: 2px;
       opacity: 0.85;
+    }
+
+    /* Smooth fade-in and slide-up animation for auto-open */
+    @keyframes slideUpFade {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .ai-window-container {
@@ -134,6 +145,7 @@
       overflow: hidden;
       border: 1px solid rgba(255,255,255,0.08);
       font-family: system-ui, -apple-system, sans-serif;
+      animation: slideUpFade 0.4s ease-out;
     }
     .ai-window-header {
       background: #0f0f11;
@@ -282,6 +294,7 @@
       </div>
     </section>
 
+    <!-- AUTOMATIC TRIGGER TARGET SECTION (ABOUT) -->
     <section id="about" class="section" aria-labelledby="about-heading">
       <div class="container">
         <h2 id="about-heading" class="section__title">About Me</h2>
@@ -461,6 +474,9 @@
     </div>
   </footer>
 
+  <!-- ==========================================================================
+       AUTOMATED SITE-SCRAPER CHATBOT ASSISTANT
+       ========================================================================== -->
   <div class="ai-chat-wrapper">
     <button id="ai-chat-toggle" class="ai-chat-trigger" aria-label="Open AI Assistant">
       <svg viewBox="0 0 24 24" class="ai-chat-icon">
@@ -497,6 +513,7 @@
 
   <script src="js/nav.js"></script>
 
+  <!-- Scraper AI Scripting + Phone Auto-Trigger Logic -->
   <script>
     const chatToggle = document.getElementById('ai-chat-toggle');
     const chatWindow = document.getElementById('ai-chat-window');
@@ -505,11 +522,47 @@
     const chatMessages = document.getElementById('ai-chat-messages');
     const chatSend = document.getElementById('ai-chat-send');
 
+    // Manual Open/Close Controls
     chatToggle.addEventListener('click', () => {
       chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
     });
     chatClose.addEventListener('click', () => { chatWindow.style.display = 'none'; });
 
+    // ==========================================================================
+    // NEW LOGIC: MOBILE ONLY AUTO-OPEN WHEN SCROLLING PAST "ABOUT ME"
+    // ==========================================================================
+    let hasAutoOpened = false; 
+
+    // போன் ஸ்கிரீனா என்று சரிபார்க்கிறது (Width 768px அல்லது அதற்கும் குறைவு)
+    if (window.innerWidth <= 768) {
+      const aboutSection = document.getElementById('about');
+
+      if (aboutSection) {
+        const observerOptions = {
+          root: null, 
+          threshold: 0, // செக்ஷன் ஸ்கிரீனுக்குள் வரும் போது / தாண்டும் போது ட்ரிக்கர் ஆகும்
+          rootMargin: "0px 0px -150px 0px" // பயனர் செக்ஷனை கொஞ்சம் தாண்டியவுடன் இயங்கும்
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            // பயனர் "About Me" பகுதியை கடந்து கீழே செல்லும் போது (isIntersecting false ஆகும்போது அல்லது மேல் நோக்கி வரும்போது)
+            // இங்கு entry.boundingClientRect.top < 0 என்பது செக்ஷன் ஸ்கிரீனை தாண்டி மேலே போய்விட்டது என்று அர்த்தம்.
+            if (!entry.isIntersecting && entry.boundingClientRect.top < 0 && !hasAutoOpened) {
+              chatWindow.style.display = 'flex'; // Chatbox ஓபன் ஆகும்
+              hasAutoOpened = true; // ஒருமுறை ஓபன் ஆன பிறகு மீண்டும் தொந்தரவு செய்யாது
+              observer.disconnect(); // அப்சர்வரை நிறுத்திவிடும்
+            }
+          });
+        }, observerOptions);
+
+        observer.observe(aboutSection);
+      }
+    }
+
+    // ==========================================================================
+    // FUZZY MATCH & NATURAL CHAT RESPONSES
+    // ==========================================================================
     function fuzzyMatch(word1, word2) {
       if (word1 === word2) return true;
       if (word1.length < 3 || word2.length < 3) return word1.includes(word2) || word2.includes(word1);
@@ -558,13 +611,10 @@
       chatInput.value = '';
 
       setTimeout(() => {
-        // Space-ஐ மட்டும் நீக்காமல் சீரான வார்த்தைகளாக மாற்றுகிறது
         const cleanQuery = query.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").trim();
         const queryWords = cleanQuery.split(' ').filter(w => w.length > 0);
 
-        // ==========================================================================
-        // 1. SMART FILTER: ACKNOWLEDGMENTS (Ok, Yes, Cool)
-        // ==========================================================================
+        // 1. SMART FILTER: ACKNOWLEDGMENTS
         const acknowledgments = ['ok', 'okk', 'okay', 'yes', 'yeah', 'sure', 'cool', 'nice', 'great', 'super', 'thanks', 'thank you', 'nandri'];
         if (queryWords.length <= 2 && queryWords.some(qw => acknowledgments.includes(qw))) {
           if (cleanQuery.includes('thank') || cleanQuery === 'nandri') {
@@ -575,9 +625,7 @@
           return;
         }
 
-        // ==========================================================================
-        // 2. GREETINGS & SMALL TALK DICTIONARY
-        // ==========================================================================
+        // 2. GREETINGS
         const greetings = ['hi', 'hello', 'hey', 'helloo', 'hii', 'vanakkam', 'வணக்கம்'];
         const statusQueries = ['how are you', 'how r u', 'nallama', 'nalama', 'sugama', 'soogama', 'fine', 'how do you do'];
         
@@ -588,32 +636,26 @@
           appendHtmlMessage(`👋 <strong>Hello there!</strong> Welcome to Thaj's portfolio. I am his AI assistant. How can I help you today? You can ask about his skills, education, or contact details!`, 'bot');
           return;
         }
-
         if (isStatus) {
           appendHtmlMessage(`😊 <strong>I am doing fantastic, thank you for asking!</strong> I am ready to help you discover everything about Thaj. What would you like to check out first?`, 'bot');
           return;
         }
 
-        // ==========================================================================
-        // 3. ADVANCED CONTACT SHORT-FORM LOGIC (contact no, contect num, phn no, watsap)
-        // ==========================================================================
+        // 3. CONTACT SHORT-FORMS
         const phoneKeywords = ['phone', 'mobile', 'number', 'numbar', 'num', 'no', 'whatsapp', 'watsap', 'call', 'phn', 'mobil'];
         const emailKeywords = ['email', 'mail', 'emil', 'gmal', 'gmail'];
         
-        // RegEx Check (பயனர் எங்கு மொபைல்/காண்டாக்ட் குறியீடுகளை ஒட்டினாற்போல் எழுதினாலும் கண்டறியும்)
         const contactPattern = /(contact|contect|phone|phn|mobile|whatsapp|watsap|call|num|no)/i;
         const emailPattern = /(email|mail|gmail)/i;
 
         let isPhone = contactPattern.test(cleanQuery);
         let isEmail = emailPattern.test(cleanQuery);
 
-        // வார்த்தை வாரியாக Fuzzy மேட்ச் சோதித்தல் (Spelling Mistake இருந்தாலும் பிடிக்கும்)
         queryWords.forEach(w => {
           phoneKeywords.forEach(kw => { if(fuzzyMatch(w, kw)) isPhone = true; });
           emailKeywords.forEach(kw => { if(fuzzyMatch(w, kw)) isEmail = true; });
         });
 
-        // ஒருவேளை இரண்டுமே ட்ரிக்கர் ஆனால், போன் நம்பருக்கு முன்னுரிமை (Priority) தரப்படும்
         if (isPhone && !cleanQuery.includes('email') && !cleanQuery.includes('mail')) {
           appendHtmlMessage(`📞 <strong>Contact Number:</strong> +94 77 425 9549<br><br>👉 Direct Link: <a href="https://wa.me/94774259549" target="_blank" rel="noopener noreferrer">Open WhatsApp Chat</a>`, 'bot');
           return;
@@ -623,9 +665,7 @@
           return;
         }
 
-        // ==========================================================================
-        // 4. OTHER INTENTS FILTERS (Skills, Education, etc.)
-        // ==========================================================================
+        // 4. OTHER INTENTS
         const intents = {
           skills: ['skill', 'skils', 'skills', 'know', 'language', 'program', 'excel', 'python', 'mysql'],
           education: ['education', 'edukation', 'school', 'aat', 'level', 'commerce', 'study', 'studying', 'exam', 'al', 'ol'],
@@ -646,9 +686,7 @@
           return;
         }
 
-        // ==========================================================================
-        // 5. NATURAL SCANNING LOGIC (தேவைப்படும் போது மட்டும் பக்கத்தை அலசும்)
-        // ==========================================================================
+        // 5. NATURAL SCANNING LOGIC
         let bestMatch = "";
         let highestScore = 0;
         
