@@ -105,7 +105,7 @@
       fill: #00f2fe;
     }
     
-    /* வெள்ளை பின்னணியிலும் தெளிவாக தெரியக்கூடிய டெக்สต์ ஸ்டைல் */
+    /* வெள்ளை பின்னணியிலும் தெளிவாக தெரியக்கூடிய டெக்ஸ்ட் ஸ்டைல் */
     .ai-chat-label-below {
       font-family: system-ui, -apple-system, sans-serif;
       font-size: 0.72rem;
@@ -461,9 +461,6 @@
     </div>
   </footer>
 
-  <!-- ==========================================================================
-       AUTOMATED SITE-SCRAPER CHATBOT ASSISTANT WITH SMART FILTERS
-       ========================================================================== -->
   <div class="ai-chat-wrapper">
     <button id="ai-chat-toggle" class="ai-chat-trigger" aria-label="Open AI Assistant">
       <svg viewBox="0 0 24 24" class="ai-chat-icon">
@@ -500,7 +497,6 @@
 
   <script src="js/nav.js"></script>
 
-  <!-- Scraper AI Scripting -->
   <script>
     const chatToggle = document.getElementById('ai-chat-toggle');
     const chatWindow = document.getElementById('ai-chat-window');
@@ -562,22 +558,21 @@
       chatInput.value = '';
 
       setTimeout(() => {
+        // Space-ஐ மட்டும் நீக்காமல் சீரான வார்த்தைகளாக மாற்றுகிறது
         const cleanQuery = query.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").trim();
         const queryWords = cleanQuery.split(' ').filter(w => w.length > 0);
 
         // ==========================================================================
-        // 1. SMART FILTER: PREVENT SCRAPING ON NORMAL INTERACTIONS (Ok, Yes, Cool)
+        // 1. SMART FILTER: ACKNOWLEDGMENTS (Ok, Yes, Cool)
         // ==========================================================================
         const acknowledgments = ['ok', 'okk', 'okay', 'yes', 'yeah', 'sure', 'cool', 'nice', 'great', 'super', 'thanks', 'thank you', 'nandri'];
-        
-        // பயனர் சாதாரணமாக ஒரு வார்த்தையில் "ok" அல்லது "thanks" என அனுப்பினால் பக்கம் முழுக்க ஸ்கேன் செய்யாது
         if (queryWords.length <= 2 && queryWords.some(qw => acknowledgments.includes(qw))) {
           if (cleanQuery.includes('thank') || cleanQuery === 'nandri') {
             appendHtmlMessage(`😊 <strong>You are very welcome!</strong> Let me know if you need to know anything else about Thaj's profile.`, 'bot');
           } else {
             appendHtmlMessage(`👍 Awesome! Feel free to ask me any specific question about Thaj's skills, qualifications, or contact links whenever you are ready.`, 'bot');
           }
-          return; // இங்கேயே நிறுத்திவிடும், ஸ்கேன் செய்யாது!
+          return;
         }
 
         // ==========================================================================
@@ -600,7 +595,36 @@
         }
 
         // ==========================================================================
-        // 3. INTENT FILTERS (Skills, Education, etc.)
+        // 3. ADVANCED CONTACT SHORT-FORM LOGIC (contact no, contect num, phn no, watsap)
+        // ==========================================================================
+        const phoneKeywords = ['phone', 'mobile', 'number', 'numbar', 'num', 'no', 'whatsapp', 'watsap', 'call', 'phn', 'mobil'];
+        const emailKeywords = ['email', 'mail', 'emil', 'gmal', 'gmail'];
+        
+        // RegEx Check (பயனர் எங்கு மொபைல்/காண்டாக்ட் குறியீடுகளை ஒட்டினாற்போல் எழுதினாலும் கண்டறியும்)
+        const contactPattern = /(contact|contect|phone|phn|mobile|whatsapp|watsap|call|num|no)/i;
+        const emailPattern = /(email|mail|gmail)/i;
+
+        let isPhone = contactPattern.test(cleanQuery);
+        let isEmail = emailPattern.test(cleanQuery);
+
+        // வார்த்தை வாரியாக Fuzzy மேட்ச் சோதித்தல் (Spelling Mistake இருந்தாலும் பிடிக்கும்)
+        queryWords.forEach(w => {
+          phoneKeywords.forEach(kw => { if(fuzzyMatch(w, kw)) isPhone = true; });
+          emailKeywords.forEach(kw => { if(fuzzyMatch(w, kw)) isEmail = true; });
+        });
+
+        // ஒருவேளை இரண்டுமே ட்ரிக்கர் ஆனால், போன் நம்பருக்கு முன்னுரிமை (Priority) தரப்படும்
+        if (isPhone && !cleanQuery.includes('email') && !cleanQuery.includes('mail')) {
+          appendHtmlMessage(`📞 <strong>Contact Number:</strong> +94 77 425 9549<br><br>👉 Direct Link: <a href="https://wa.me/94774259549" target="_blank" rel="noopener noreferrer">Open WhatsApp Chat</a>`, 'bot');
+          return;
+        }
+        if (isEmail) {
+          appendHtmlMessage(`✉️ <strong>Email Address:</strong> thajhrs@gmail.com<br><br>👉 Direct Link: <a href="mailto:thajhrs@gmail.com">Send Email Now</a>`, 'bot');
+          return;
+        }
+
+        // ==========================================================================
+        // 4. OTHER INTENTS FILTERS (Skills, Education, etc.)
         // ==========================================================================
         const intents = {
           skills: ['skill', 'skils', 'skills', 'know', 'language', 'program', 'excel', 'python', 'mysql'],
@@ -616,26 +640,6 @@
           });
         }
 
-        const phoneKeywords = ['phone', 'mobile', 'number', 'numbar', 'whatsapp', 'watsap', 'call', 'phn'];
-        const emailKeywords = ['email', 'mail', 'emil', 'gmal', 'gmail'];
-        let isPhone = false, isEmail = false;
-
-        queryWords.forEach(w => {
-          phoneKeywords.forEach(kw => { if(fuzzyMatch(w, kw)) isPhone = true; });
-          emailKeywords.forEach(kw => { if(fuzzyMatch(w, kw)) isEmail = true; });
-        });
-
-        if (cleanQuery.includes('number') || cleanQuery.includes('numbar') || cleanQuery.includes('whatsapp')) { isPhone = true; isEmail = false; }
-
-        if (isPhone) {
-          appendHtmlMessage(`📞 <strong>Contact Number:</strong> +94 77 425 9549<br><br>👉 Direct Link: <a href="https://wa.me/94774259549" target="_blank" rel="noopener noreferrer">Open WhatsApp Chat</a>`, 'bot');
-          return;
-        }
-        if (isEmail) {
-          appendHtmlMessage(`✉️ <strong>Email Address:</strong> thajhrs@gmail.com<br><br>👉 Direct Link: <a href="mailto:thajhrs@gmail.com">Send Email Now</a>`, 'bot');
-          return;
-        }
-
         if (detectedIntent) {
           const htmlOutput = generateSmartResponse(detectedIntent, cleanQuery);
           appendHtmlMessage(htmlOutput, 'bot');
@@ -643,7 +647,7 @@
         }
 
         // ==========================================================================
-        // 4. ACTUAL NEEDED SCANNING LOGIC (தேவைப்படும் போது மட்டும் பக்கத்தை அலசும்)
+        // 5. NATURAL SCANNING LOGIC (தேவைப்படும் போது மட்டும் பக்கத்தை அலசும்)
         // ==========================================================================
         let bestMatch = "";
         let highestScore = 0;
