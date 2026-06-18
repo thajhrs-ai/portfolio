@@ -57,12 +57,19 @@
 
     /* ==========================================================================
        AI CHATBOT DESIGN STYLES WITH GLOW EFFECT
-       ========================================================================== */
-    .ai-chat-trigger {
+       ========================================================================= */
+    .ai-chat-wrapper {
       position: fixed;
       bottom: 25px;
       right: 25px;
       z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .ai-chat-trigger {
+      position: relative;
       background: #0f0f11;
       color: #ffffff;
       border: none;
@@ -97,9 +104,19 @@
       height: 18px;
       fill: #00f2fe;
     }
+    .ai-chat-label-below {
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: rgba(255, 255, 255, 0.7);
+      text-transform: uppercase;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      user-select: none;
+    }
     .ai-window-container {
       position: fixed;
-      bottom: 85px;
+      bottom: 110px;
       right: 25px;
       width: 340px;
       max-width: 90vw;
@@ -440,12 +457,19 @@
     </div>
   </footer>
 
-  <button id="ai-chat-toggle" class="ai-chat-trigger" aria-label="Open AI Assistant">
-    <svg viewBox="0 0 24 24" class="ai-chat-icon">
-      <path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm1 14h-2v2h2v-2zm0-10h-2v8h2V6z"/>
-    </svg>
-    <span>Ask AI</span>
-  </button>
+  <!-- ==========================================================================
+       AUTOMATED SITE-SCRAPER CHATBOT ASSISTANT WITH UNDER-LABELLING TEXT
+       ========================================================================== -->
+  <div class="ai-chat-wrapper">
+    <button id="ai-chat-toggle" class="ai-chat-trigger" aria-label="Open AI Assistant">
+      <svg viewBox="0 0 24 24" class="ai-chat-icon">
+        <path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm1 14h-2v2h2v-2zm0-10h-2v8h2V6z"/>
+      </svg>
+      <span>Ask AI</span>
+    </button>
+    <!-- பட்டனுக்குக் கீழே இருக்கும் சாதாரண உரை வடிவம் -->
+    <span class="ai-chat-label-below">THAJ'S AI ASSISTANT</span>
+  </div>
 
   <div id="ai-chat-window" class="ai-window-container" style="display: none;">
     <div class="ai-window-header">
@@ -473,6 +497,7 @@
 
   <script src="js/nav.js"></script>
 
+  <!-- Scraper AI Scripting -->
   <script>
     const chatToggle = document.getElementById('ai-chat-toggle');
     const chatWindow = document.getElementById('ai-chat-window');
@@ -486,7 +511,6 @@
     });
     chatClose.addEventListener('click', () => { chatWindow.style.display = 'none'; });
 
-    // Spelling Mistake Checker (Fuzzy Match Algorithm)
     function fuzzyMatch(word1, word2) {
       if (word1 === word2) return true;
       if (word1.length < 3 || word2.length < 3) return word1.includes(word2) || word2.includes(word1);
@@ -507,13 +531,11 @@
       }
       const distance = track[word2.length][word1.length];
       const maxLength = Math.max(word1.length, word2.length);
-      return (maxLength - distance) / maxLength > 0.68; // 68% Match threshold
+      return (maxLength - distance) / maxLength > 0.68;
     }
 
-    // Dynamic Context Summaries & Links Generator
     function generateSmartResponse(intent, cleanQuery) {
       let responseHtml = "";
-      
       if (intent === 'skills') {
         responseHtml = `🎯 <strong>Skills Summary:</strong> Thaj specializes in Financial Bookkeeping, Advanced Excel, Python programming, MySQL databases, and Web Development.<br><a href="#skills" class="ai-section-btn" onclick="document.getElementById('ai-chat-window').style.display='none';">Go to Skills Section →</a>`;
       } 
@@ -526,7 +548,6 @@
       else if (intent === 'about') {
         responseHtml = `👤 <strong>About Thaj:</strong> A motivated Commerce & Tech enthusiast based in Deltota, Sri Lanka, looking for Trainee Finance or Data Analyst roles.<br><a href="#about" class="ai-section-btn" onclick="document.getElementById('ai-chat-window').style.display='none';">Go to About Section →</a>`;
       }
-      
       return responseHtml;
     }
 
@@ -541,7 +562,6 @@
         const cleanQuery = query.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
         const queryWords = cleanQuery.split(' ').filter(w => w.length > 1);
         
-        // Intent dictionaries with spelling tolerances
         const intents = {
           skills: ['skill', 'skils', 'skills', 'know', 'language', 'program', 'excel', 'python', 'mysql'],
           education: ['education', 'edukation', 'school', 'aat', 'level', 'commerce', 'study', 'studying', 'exam', 'al', 'ol'],
@@ -550,17 +570,12 @@
         };
 
         let detectedIntent = "";
-        
-        // Check for specific section intent first
         for (let [key, words] of Object.entries(intents)) {
           queryWords.forEach(qWord => {
-            words.forEach(w => {
-              if (fuzzyMatch(qWord, w)) { detectedIntent = key; }
-            });
+            words.forEach(w => { if (fuzzyMatch(qWord, w)) { detectedIntent = key; } });
           });
         }
 
-        // Direct Contact validation
         const phoneKeywords = ['phone', 'mobile', 'number', 'numbar', 'whatsapp', 'watsap', 'call', 'phn'];
         const emailKeywords = ['email', 'mail', 'emil', 'gmal', 'gmail'];
         let isPhone = false, isEmail = false;
@@ -572,7 +587,6 @@
 
         if (cleanQuery.includes('number') || cleanQuery.includes('numbar') || cleanQuery.includes('whatsapp')) { isPhone = true; isEmail = false; }
 
-        // Router logic for answers
         if (isPhone) {
           appendHtmlMessage(`📞 <strong>Contact Number:</strong> +94 77 425 9549<br><br>👉 Direct Link: <a href="https://wa.me/94774259549" target="_blank" rel="noopener noreferrer">Open WhatsApp Chat</a>`, 'bot');
           return;
@@ -582,14 +596,12 @@
           return;
         }
 
-        // If a specific section intent is caught, give a smart brief answer with an anchor button
         if (detectedIntent) {
           const htmlOutput = generateSmartResponse(detectedIntent, cleanQuery);
           appendHtmlMessage(htmlOutput, 'bot');
           return;
         }
 
-        // Fallback: Default page scanner for unstructured questions
         let bestMatch = "";
         let highestScore = 0;
         
@@ -612,7 +624,6 @@
         } else {
           appendHtmlMessage(`I scanned the page but couldn't find precise info. Try asking about Thaj's <strong>Skills</strong>, <strong>AAT Education</strong>, <strong>Certifications</strong>, or <strong>Contact</strong> info!`, 'bot');
         }
-
       }, 450);
     }
 
@@ -631,9 +642,6 @@
       chatMessages.appendChild(msg);
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
-
-    chatSend.addEventListener('click', handleResponse);
-    chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleResponse(); });
   </script>
 </body>
 </html>
