@@ -494,7 +494,7 @@
   </footer>
 
   <!-- ==========================================================================
-       AI CHATBOT ASSISTANT INTERFACE CODE BLOCK
+       AUTOMATED SITE-SCRAPER CHATBOT ASSISTANT
        ========================================================================== -->
   <button id="ai-chat-toggle" class="ai-chat-trigger" aria-label="Open AI Assistant">
     <svg viewBox="0 0 24 24" class="ai-chat-icon">
@@ -509,27 +509,27 @@
         <div class="ai-status-dot"></div>
         <div>
           <h4 style="margin: 0; font-size: 0.95rem; font-weight: 600;">THAJ AI Assistant</h4>
-          <p style="margin: 0; font-size: 0.75rem; opacity: 0.8;">Online · Automated</p>
+          <p style="margin: 0; font-size: 0.75rem; opacity: 0.8;">Live Page Reader</p>
         </div>
       </div>
       <button id="ai-chat-close" class="ai-close-btn">&times;</button>
     </div>
 
     <div id="ai-chat-messages" class="ai-messages-body">
-      <div class="ai-msg ai-msg-bot">
-        Hello! I'm Thaj's automated assistant. Ask me anything about his skills, education, or background!
+      <div class="ai-msg class-ai-msg-bot ai-msg-bot">
+        Hello! I can automatically scan this entire portfolio page. Ask me any question about Thaj's details!
       </div>
     </div>
 
     <div class="ai-window-footer">
-      <input type="text" id="ai-chat-input" placeholder="Type a question (e.g., skills)..." autocomplete="off">
+      <input type="text" id="ai-chat-input" placeholder="Ask anything about this page..." autocomplete="off">
       <button id="ai-chat-send">Send</button>
     </div>
   </div>
 
   <script src="js/nav.js"></script>
 
-  <!-- Chatbot Logic Controller Script -->
+  <!-- Automated Scraper AI Code Logic -->
   <script>
     const chatToggle = document.getElementById('ai-chat-toggle');
     const chatWindow = document.getElementById('ai-chat-window');
@@ -543,32 +543,63 @@
     });
     chatClose.addEventListener('click', () => { chatWindow.style.display = 'none'; });
 
-    const brain = {
-      skills: "Thaj specializes in Financial Bookkeeping, Advanced Excel, PowerPoint, matrum technical concepts viz MySQL, Python, HTML5, and CSS3.",
-      education: "Thaj has successfully completed AAT Level 2 in 2026 and is currently pursuing his G.C.E. Advanced Level (A/L) studies in the Commerce stream.",
-      about: "Thajudeen (Thaj HRS) is an ambitious Commerce & Tech Enthusiast from Deltota, Sri Lanka, bridging corporate accounting systems with advanced computing fields.",
-      contact: "You can reach Thaj via email at thajhrs@gmail.com or securely on WhatsApp at +94 77 425 9549.",
-      location: "Thaj is situated at 266/c, Pallegama, Deltota, Kandy, Sri Lanka."
-    };
+    // FULL PAGE SCRAPER ENGINE: இங்கிருக்கும் குறியீடு பக்கத்தில் உள்ள அனைத்து எழுத்துக்களையும் சேகரிக்கும்.
+    function getKnowledgeFromWebsite() {
+      const dataPoints = [];
+      
+      // Scrape Articles, Cards, and Lists
+      document.querySelectorAll('section, .card, .timeline__item, .about__list li, .tag-list li').forEach(el => {
+        let text = el.innerText || el.textContent;
+        text = text.replace(/\s+/g, ' ').trim();
+        if (text.length > 10 && !text.includes('Hello! I can automatically')) {
+          dataPoints.push(text);
+        }
+      });
+      return dataPoints;
+    }
 
     function handleResponse() {
-      const text = chatInput.value.trim().toLowerCase();
-      if (!text) return;
+      const query = chatInput.value.trim();
+      if (!query) return;
 
-      appendMessage(chatInput.value, 'user');
+      appendMessage(query, 'user');
       chatInput.value = '';
 
       setTimeout(() => {
-        let reply = "I'm sorry, I couldn't fully catch that. Try asking about his 'skills', 'education', 'about', or 'contact' details!";
-        
-        if (text.includes('skill') || text.includes('work') || text.includes('tech')) reply = brain.skills;
-        else if (text.includes('education') || text.includes('study') || text.includes('aat') || text.includes('school')) reply = brain.education;
-        else if (text.includes('about') || text.includes('who is') || text.includes('thaj')) reply = brain.about;
-        else if (text.includes('contact') || text.includes('email') || text.includes('phone') || text.includes('whatsapp')) reply = brain.contact;
-        else if (text.includes('location') || text.includes('live') || text.includes('where')) reply = brain.location;
+        const keywords = query.toLowerCase().split(' ').filter(w => w.length > 2);
+        const sourceData = getKnowledgeFromWebsite();
+        let bestMatch = "";
+        let highestScore = 0;
+
+        // Scanned Content Ranking logic based on search relevance
+        sourceData.forEach(textBlock => {
+          let score = 0;
+          const lowerBlock = textBlock.toLowerCase();
+          
+          keywords.forEach(word => {
+            if (lowerBlock.includes(word)) {
+              score++;
+              // Give higher score for primary headings or key data identifiers
+              if (query.toLowerCase().includes('skill') && lowerBlock.includes('skill')) score += 2;
+              if (query.toLowerCase().includes('aat') && lowerBlock.includes('aat')) score += 2;
+              if (query.toLowerCase().includes('contact') && lowerBlock.includes('email')) score += 2;
+            }
+          });
+
+          if (score > highestScore) {
+            highestScore = score;
+            bestMatch = textBlock;
+          }
+        });
+
+        // Response formatting decision loop
+        let reply = "I searched through the page but couldn't find a specific detail for that. Please try asking about Thaj's skills, AAT education, or contact details!";
+        if (highestScore > 0 && bestMatch) {
+          reply = `Based on Thaj's website: "${bestMatch}"`;
+        }
 
         appendMessage(reply, 'bot');
-      }, 600);
+      }, 550);
     }
 
     function appendMessage(text, sender) {
