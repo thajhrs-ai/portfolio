@@ -56,70 +56,6 @@
     }
 
     /* ==========================================================================
-       MELA MENU-IL VALATHU PAKKAM VARUM VITIYASAMANA PREMIUM BUTTON STYLE
-       ========================================================================== */
-    .nav-premium-btn {
-      background: #0f0f11;
-      color: #ffffff !important;
-      font-size: 0.9rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      padding: 0.6rem 1.2rem;
-      border: none;
-      border-radius: 8px;
-      position: relative;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      text-decoration: none;
-      white-space: nowrap;
-      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Magic Glow Border Line */
-    .nav-premium-btn::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      border-radius: 8px;
-      padding: 2px;
-      background: linear-gradient(45deg, #00f2fe, #4facfe, #0000ff);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      transition: all 0.4s ease;
-    }
-
-    /* Light hover background backdrop */
-    .nav-premium-btn::after {
-      content: '';
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 130%; height: 130%;
-      background: linear-gradient(45deg, rgba(0,242,254,0.25), rgba(79,172,254,0.25));
-      transform: translate(-50%, -50%) scale(0);
-      border-radius: 50%;
-      transition: transform 0.5s ease;
-    }
-
-    /* Hover States */
-    .nav-premium-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(79, 172, 254, 0.5);
-    }
-
-    .nav-premium-btn:hover::after {
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    .nav-premium-btn:active {
-      transform: translateY(0);
-    }
-
-    /* ==========================================================================
        AI CHATBOT DESIGN STYLES WITH GLOW EFFECT
        ========================================================================== */
     .ai-chat-trigger {
@@ -279,17 +215,13 @@
         <span class="nav__toggle-bar"></span>
       </button>
 
+      <!-- UNGA PAZHAYA NORMAL MENU LIST -->
       <ul class="nav__menu" id="nav-menu">
         <li><a href="#about" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">About</a></li>
         <li><a href="#skills" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Skills</a></li>
         <li><a href="#education" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Education</a></li>
         <li><a href="#certifications" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Certifications</a></li>
         <li><a href="#contact" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Contact</a></li>
-        <li>
-          <a href="certificates.html" class="nav-premium-btn">
-            <span>View Certificates &rarr;</span>
-          </a>
-        </li>
       </ul>
     </nav>
   </header>
@@ -597,7 +529,7 @@
           const blockWords = textBlock.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(' ');
           
           queryWords.forEach(qWord => {
-            // 1. நேடியாக வார்த்தை பொருந்துகிறதா என்று பார்க்கும்
+            // 1. நேரடியாக வார்த்தை பொருந்துகிறதா என்று பார்க்கும்
             if (textBlock.toLowerCase().includes(qWord)) {
               score += 3;
             } else {
