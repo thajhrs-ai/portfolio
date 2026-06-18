@@ -54,67 +54,6 @@
       fill: currentColor;
       flex-shrink: 0;
     }
-
-    /* உங்களது புதிய பிரத்யேக பிரீமியம் பட்டனுக்கான (Premium Glow Button) ஸ்டைல்கள் */
-    .unique-last-btn {
-      background: #0f0f11;
-      color: #ffffff !important;
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 0.8px;
-      padding: 12px 30px;
-      border: none;
-      border-radius: 30px;
-      position: relative;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      text-decoration: none;
-      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    /* உங்களது பட்டனைச் சுற்றி ஒளிரும் வண்ண பார்டர் (Inner Gradient Border) உருவாக்கம் */
-    .unique-last-btn::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      border-radius: 30px;
-      padding: 2px; 
-      background: linear-gradient(45deg, #00f2fe, #4facfe, #0000ff);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      transition: all 0.4s ease;
-    }
-
-    /* மவுஸை வைக்கும்போது (Hover) பின்புறம் மென்மையாக ஒளிரும் அனிமேஷன் எஃபெக்ட் */
-    .unique-last-btn::after {
-      content: '';
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 130%; height: 130%;
-      background: linear-gradient(45deg, rgba(0,242,254,0.2), rgba(79,172,254,0.2));
-      transform: translate(-50%, -50%) scale(0);
-      border-radius: 50%;
-      transition: transform 0.5s ease;
-    }
-
-    /* பட்டன் அனிமேஷன் தூண்டல்கள் (Triggers) */
-    .unique-last-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
-    }
-
-    .unique-last-btn:hover::after {
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    .unique-last-btn:active {
-      transform: translateY(0);
-    }
   </style>
 </head>
 <body>
@@ -268,18 +207,14 @@
           <article class="card education-card">
             <h3 class="education-card__degree">Certification in Web Development &amp; Programming</h3>
             <p class="education-card__meta">Specialized Dual-Course Training</p>
-            <ul class="timeline__bullets" style="padding-left: 1.25rem; color: var(--clr-text-muted); list-style-type: disc;">
+            <ul class="timeline__bullets" style="padding-left: 1.25rem; color: var(--clr-text-muted); list-style-type: disc; margin-bottom: 1.5rem;">
               <li>Completed 2 comprehensive specialized courses covering HTML, CSS, Python, and MySQL database foundations.</li>
               <li>Trained in building clean, responsive web layouts and utilizing Python &amp; SQL for robust data handling logic.</li>
             </ul>
-            
-            <!-- இதோ உங்களுடைய அந்த அழகான பிரத்தியேக பிரீமியம் பட்டன் இணைக்கப்பட்டுள்ளது -->
-            <div style="margin-top: 2rem; display: flex; justify-content: flex-start;">
-              <a href="certificates.html" class="unique-last-btn">
-                <span>View Certificates &rarr;</span>
-              </a>
+            <!-- புதிய வெப் பக்கத்திற்குச் செல்வதற்கான பட்டன் இங்கே இணைக்கப்பட்டுள்ளது -->
+            <div style="margin-top: 1.5rem;">
+              <a href="certificates.html" class="btn btn--primary" style="display: inline-block; padding: 0.6rem 1.5rem; text-decoration: none; color: #ffffff !important;">View Certificates →</a>
             </div>
-
           </article>
         </div>
       </div>
