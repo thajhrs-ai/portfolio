@@ -66,7 +66,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
     .ai-chat-trigger {
       position: relative;
@@ -115,6 +115,7 @@
       user-select: none;
       margin-top: 2px;
       opacity: 0.85;
+      text-align: center;
     }
 
     /* Smooth fade-in and slide-up animation for auto-open */
@@ -147,6 +148,37 @@
       font-family: system-ui, -apple-system, sans-serif;
       animation: slideUpFade 0.4s ease-out;
     }
+
+    /* --------------------------------------------------------------------------
+       MOBILE SPECIFIC RESPONSIVE FIXES (போனில் கச்சிதமாக தெரிய மாடிஃபிகேஷன்)
+       -------------------------------------------------------------------------- */
+    @media (max-width: 768px) {
+      .ai-chat-wrapper {
+        bottom: 15px; /* Margin-ஐ கொஞ்சம் குறைத்து ஓரத்தில் ஒதுக்கியாச்சு */
+        right: 15px;
+        gap: 4px;
+      }
+      .ai-chat-trigger {
+        padding: 10px 16px; /* பட்டன் சைஸ் போனுக்கு ஏத்த மாதிரி சுருங்கியுள்ளது */
+        font-size: 0.82rem;
+        gap: 6px;
+      }
+      .ai-chat-icon {
+        width: 15px;
+        height: 15px;
+      }
+      .ai-chat-label-below {
+        font-size: 0.6rem; /* கீழ் உள்ள டெக்ஸ்ட் ஓவர்லாப் ஆகாமல் சிறியதாக்கப்பட்டுள்ளது */
+        letter-spacing: 0.8px;
+      }
+      .ai-window-container {
+        bottom: 85px; /* சாளரம் ஓபன் ஆகும் போது பட்டனுக்கு மேல் சரியாக அமையும் */
+        right: 15px;
+        width: 310px;
+        height: 400px;
+      }
+    }
+
     .ai-window-header {
       background: #0f0f11;
       color: #fff;
@@ -294,7 +326,6 @@
       </div>
     </section>
 
-    <!-- AUTOMATIC TRIGGER TARGET SECTION (ABOUT) -->
     <section id="about" class="section" aria-labelledby="about-heading">
       <div class="container">
         <h2 id="about-heading" class="section__title">About Me</h2>
@@ -474,9 +505,6 @@
     </div>
   </footer>
 
-  <!-- ==========================================================================
-       AUTOMATED SITE-SCRAPER CHATBOT ASSISTANT
-       ========================================================================== -->
   <div class="ai-chat-wrapper">
     <button id="ai-chat-toggle" class="ai-chat-trigger" aria-label="Open AI Assistant">
       <svg viewBox="0 0 24 24" class="ai-chat-icon">
@@ -513,7 +541,6 @@
 
   <script src="js/nav.js"></script>
 
-  <!-- Scraper AI Scripting + Phone Auto-Trigger Logic -->
   <script>
     const chatToggle = document.getElementById('ai-chat-toggle');
     const chatWindow = document.getElementById('ai-chat-window');
@@ -529,29 +556,26 @@
     chatClose.addEventListener('click', () => { chatWindow.style.display = 'none'; });
 
     // ==========================================================================
-    // NEW LOGIC: MOBILE ONLY AUTO-OPEN WHEN SCROLLING PAST "ABOUT ME"
+    // MOBILE ONLY AUTO-OPEN WHEN SCROLLING PAST "ABOUT ME"
     // ==========================================================================
     let hasAutoOpened = false; 
 
-    // போன் ஸ்கிரீனா என்று சரிபார்க்கிறது (Width 768px அல்லது அதற்கும் குறைவு)
     if (window.innerWidth <= 768) {
       const aboutSection = document.getElementById('about');
 
       if (aboutSection) {
         const observerOptions = {
           root: null, 
-          threshold: 0, // செக்ஷன் ஸ்கிரீனுக்குள் வரும் போது / தாண்டும் போது ட்ரிக்கர் ஆகும்
-          rootMargin: "0px 0px -150px 0px" // பயனர் செக்ஷனை கொஞ்சம் தாண்டியவுடன் இயங்கும்
+          threshold: 0, 
+          rootMargin: "0px 0px -150px 0px" 
         };
 
         const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
-            // பயனர் "About Me" பகுதியை கடந்து கீழே செல்லும் போது (isIntersecting false ஆகும்போது அல்லது மேல் நோக்கி வரும்போது)
-            // இங்கு entry.boundingClientRect.top < 0 என்பது செக்ஷன் ஸ்கிரீனை தாண்டி மேலே போய்விட்டது என்று அர்த்தம்.
             if (!entry.isIntersecting && entry.boundingClientRect.top < 0 && !hasAutoOpened) {
-              chatWindow.style.display = 'flex'; // Chatbox ஓபன் ஆகும்
-              hasAutoOpened = true; // ஒருமுறை ஓபன் ஆன பிறகு மீண்டும் தொந்தரவு செய்யாது
-              observer.disconnect(); // அப்சர்வரை நிறுத்திவிடும்
+              chatWindow.style.display = 'flex'; 
+              hasAutoOpened = true; 
+              observer.disconnect(); 
             }
           });
         }, observerOptions);
