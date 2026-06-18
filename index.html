@@ -215,7 +215,6 @@
         <span class="nav__toggle-bar"></span>
       </button>
 
-      <!-- PERFECT PAZHAYA MENU LIST (Extra buttons removed) -->
       <ul class="nav__menu" id="nav-menu">
         <li><a href="#about" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">About</a></li>
         <li><a href="#skills" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Skills</a></li>
@@ -347,7 +346,7 @@
       </div>
     </section>
 
-    <!-- PERFECT RE-ORDERED CERTIFICATIONS SECTION -->
+    <!-- CERTIFICATIONS SECTION WITH THE CORRECT "VIEW CERTIFICATE" BUTTON -->
     <section id="certifications" class="section section--alt" aria-labelledby="certifications-heading">
       <div class="container">
         <h2 id="certifications-heading" class="section__title">Courses &amp; Certifications</h2>
@@ -355,10 +354,20 @@
           <article class="card education-card">
             <h3 class="education-card__degree">Certification in Web Development &amp; Programming</h3>
             <p class="education-card__meta">Specialized Dual-Course Training</p>
-            <ul class="timeline__bullets" style="padding-left: 1.25rem; color: var(--clr-text-muted); list-style-type: disc;">
+            <ul class="timeline__bullets" style="padding-left: 1.25rem; color: var(--clr-text-muted); list-style-type: disc; margin-bottom: 1.5rem;">
               <li>Completed 2 comprehensive specialized courses covering HTML, CSS, Python, and MySQL database foundations.</li>
               <li>Trained in building clean, responsive web layouts and utilizing Python &amp; SQL for robust data handling logic.</li>
             </ul>
+            
+            <!-- இங்கு உங்களுடைய சான்றிதழ் பட்டன் சேர்க்கப்பட்டுள்ளது -->
+            <div style="margin-top: 1rem;">
+              <a href="assets/certificate.pdf" target="_blank" class="btn btn--primary" style="padding: 0.6rem 1.2rem; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink: 0;">
+                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                </svg>
+                View Certificate
+              </a>
+            </div>
           </article>
         </div>
       </div>
