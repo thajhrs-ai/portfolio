@@ -7,7 +7,8 @@
   <title>THAJ HRS | Portfolio</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* Desktop menu structure layouts */
+    /* கணினியில் (Desktop) மெனு பட்டன்கள் அழகாக வரிசையாக இருக்கவும், 
+       போனில் (Mobile) அந்த 3 கோடுகளுக்குள் மறைந்திருக்கவும் இந்த சிறிய பிரத்யேக ஸ்டைல் உதவுகிறது */
     @media (min-width: 769px) {
       .nav__menu {
         display: flex !important;
@@ -33,12 +34,15 @@
         display: block !important;
         width: 100% !important;
       }
+
+      /* போனில் பார்க்கும்போது மட்டும் கறுப்பு பார்டர் மெலிதாகவும், இடைவெளி குறையவும் இது உதவும் */
       .hero__image-wrap {
         border: 1.5px solid #000000 !important; 
         padding: 4px !important;              
       }
     }
 
+    /* லோகோக்கள் மற்றும் எழுத்துக்கள் நேராக சீரமைக்கப்பட (Alignment) இந்த ஸ்டைல் உதவுகிறது */
     .contact__link-container {
       display: inline-flex;
       align-items: center;
@@ -49,70 +53,6 @@
       height: 18px;
       fill: currentColor;
       flex-shrink: 0;
-    }
-
-    /* ==========================================================================
-       MELA MENU-IL VALATHU PAKKAM VARUM VITIYASAMANA PREMIUM BUTTON STYLE
-       ========================================================================== */
-    .nav-premium-btn {
-      background: #0f0f11;
-      color: #ffffff !important;
-      font-size: 0.9rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      padding: 0.6rem 1.2rem;
-      border: none;
-      border-radius: 8px; /* Maththa buttons kku matching-ana curves outline */
-      position: relative;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      text-decoration: none;
-      white-space: nowrap;
-      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Magic Glow Border Line */
-    .nav-premium-btn::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      border-radius: 8px;
-      padding: 2px; /* Border thickness details */
-      background: linear-gradient(45deg, #00f2fe, #4facfe, #0000ff);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      transition: all 0.4s ease;
-    }
-
-    /* Light hover background backdrop */
-    .nav-premium-btn::after {
-      content: '';
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 130%; height: 130%;
-      background: linear-gradient(45deg, rgba(0,242,254,0.25), rgba(79,172,254,0.25));
-      transform: translate(-50%, -50%) scale(0);
-      border-radius: 50%;
-      transition: transform 0.5s ease;
-    }
-
-    /* Hover States - Maththa normal green buttons vida unique ah minungum */
-    .nav-premium-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(79, 172, 254, 0.5);
-    }
-
-    .nav-premium-btn:hover::after {
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    .nav-premium-btn:active {
-      transform: translateY(0);
     }
   </style>
 </head>
@@ -129,20 +69,12 @@
         <span class="nav__toggle-bar"></span>
       </button>
 
-      <!-- UNGA TOP MENU LIST -->
       <ul class="nav__menu" id="nav-menu">
         <li><a href="#about" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">About</a></li>
         <li><a href="#skills" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Skills</a></li>
         <li><a href="#education" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Education</a></li>
         <li><a href="#certifications" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Certifications</a></li>
         <li><a href="#contact" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Contact</a></li>
-        
-        <!-- IDHO NEENGA KETTA EXTRA VITIYASAMANA PREMIUM GLOW BUTTON MELA ADD SEYYAPATTULLATHU -->
-        <li>
-          <a href="certificates.html" class="nav-premium-btn">
-            <span>View Certificates &rarr;</span>
-          </a>
-        </li>
       </ul>
     </nav>
   </header>
@@ -275,10 +207,14 @@
           <article class="card education-card">
             <h3 class="education-card__degree">Certification in Web Development &amp; Programming</h3>
             <p class="education-card__meta">Specialized Dual-Course Training</p>
-            <ul class="timeline__bullets" style="padding-left: 1.25rem; color: var(--clr-text-muted); list-style-type: disc;">
+            <ul class="timeline__bullets" style="padding-left: 1.25rem; color: var(--clr-text-muted); list-style-type: disc; margin-bottom: 1.5rem;">
               <li>Completed 2 comprehensive specialized courses covering HTML, CSS, Python, and MySQL database foundations.</li>
               <li>Trained in building clean, responsive web layouts and utilizing Python &amp; SQL for robust data handling logic.</li>
             </ul>
+            <!-- புதிய வெப் பக்கத்திற்குச் செல்வதற்கான பட்டன் இங்கே இணைக்கப்பட்டுள்ளது -->
+            <div style="margin-top: 1.5rem;">
+              <a href="certificates.html" class="btn btn--primary" style="display: inline-block; padding: 0.6rem 1.5rem; text-decoration: none; color: #ffffff !important;">View Certificates →</a>
+            </div>
           </article>
         </div>
       </div>
@@ -296,6 +232,7 @@
               <li>
                 <a href="mailto:thajhrs@gmail.com" class="contact__link">
                   <div class="contact__link-container">
+                    <!-- Email SVG Icon -->
                     <svg class="contact-icon" viewBox="0 0 24 24">
                       <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                     </svg>
@@ -307,6 +244,7 @@
               <li>
                 <a href="https://wa.me/94774259549" class="contact__link" target="_blank" rel="noopener noreferrer">
                   <div class="contact__link-container">
+                    <!-- WhatsApp SVG Icon -->
                     <svg class="contact-icon" viewBox="0 0 24 24">
                       <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.6.95 3.488 1.451 5.414 1.452 5.352 0 9.709-4.357 9.711-9.71.002-2.595-1.005-5.035-2.837-6.87C17.103 2.187 14.661 1.93 12.01 1.93c-5.354 0-9.712 4.358-9.715 9.713-.001 1.97.513 3.894 1.492 5.594L2.78 21.2l4.133-1.083zm12.08-5.719c-.33-.165-1.952-.963-2.251-1.072-.3-.11-.518-.165-.736.165-.218.33-.846 1.072-1.037 1.29-.19.218-.38.245-.71.08-.33-.165-1.395-.515-2.657-1.64-1.012-.903-1.694-2.02-1.892-2.35-.198-.33-.021-.508.144-.672.148-.148.33-.385.495-.578.165-.192.22-.33.33-.55.11-.22.055-.413-.028-.578-.083-.165-.736-1.774-1.009-2.434-.266-.64-.538-.554-.736-.564-.19-.01-.408-.01-.626-.01-.218 0-.573.082-.872.413-.3.33-1.146 1.12-1.146 2.732 0 1.612 1.173 3.169 1.336 3.39 1.65 2.185 3.19 3.39 5.088 4.21 1.897.818 2.328.655 3.154.545.825-.109 1.952-.797 2.227-1.54.275-.743.275-1.378.193-1.51-.083-.133-.3-.217-.63-.382z"/>
                     </svg>
@@ -317,6 +255,7 @@
               </li>
               <li>
                 <div class="contact__link-container" style="color: var(--clr-text-muted);">
+                  <!-- Location SVG Icon -->
                   <svg class="contact-icon" viewBox="0 0 24 24" style="color: var(--clr-text);">
                     <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                   </svg>
