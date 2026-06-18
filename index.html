@@ -3,83 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="THAJ HRS — Portfolio and CV">
   <title>THAJ HRS | Portfolio</title>
   <style>
-    /* Basic Reset & Base Styles */
+    /* Reset & Base */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: #333; background: #fff; }
-    .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-    .btn { display: inline-block; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: 600; }
-    .btn--primary { background: #00f2fe; color: #000; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6; color: #2d3436; background: #ffffff; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
 
-    /* Header & Hero */
-    .site-header { padding: 20px 0; border-bottom: 1px solid #eee; }
-    .hero { padding: 60px 0; text-align: center; }
-    .hero__name { font-size: 2.5rem; margin: 10px 0; }
-    .hero__image-wrap { margin-top: 20px; border: 3px solid #000; padding: 5px; border-radius: 50%; }
+    /* Header */
+    .site-header { padding: 20px 0; border-bottom: 1px solid #f0f0f0; }
+    .nav__logo { font-weight: 800; font-size: 1.2rem; letter-spacing: 1px; }
+
+    /* Hero Section - Desktop Layout */
+    .hero { padding: 80px 0; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+    .hero__content { flex: 1; }
+    .hero__name { font-size: 3rem; margin: 10px 0; color: #000; }
+    .hero__image-wrap { width: 280px; height: 280px; border-radius: 50%; border: 4px solid #00f2fe; padding: 5px; }
+    .hero__image { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
+    /* Mobile Responsive Logic */
+    @media (max-width: 768px) {
+      .hero { flex-direction: column-reverse; text-align: center; padding: 40px 0; }
+      .hero__name { font-size: 2.2rem; }
+    }
 
     /* AI Chatbot Styles */
     .ai-chat-wrapper { position: fixed; bottom: 25px; right: 25px; z-index: 9999; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-    .ai-chat-trigger { background: #0f0f11; color: #fff; border: none; border-radius: 50px; padding: 12px 24px; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-    .ai-chat-label-below { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #16161a; opacity: 0.8; }
-    
-    .ai-window-container { position: fixed; bottom: 115px; right: 25px; width: 340px; height: 450px; background: #16161a; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.4); z-index: 9999; display: flex; flex-direction: column; overflow: hidden; }
-    .ai-window-header { background: #0f0f11; color: #fff; padding: 14px; display: flex; justify-content: space-between; }
-    .ai-messages-body { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
-    .ai-msg { max-width: 85%; padding: 10px 14px; border-radius: 12px; font-size: 0.85rem; }
-    .ai-msg-bot { background: #1f1f24; color: #e1e1e6; align-self: flex-start; }
-    .ai-msg-user { background: #00f2fe; color: #000; align-self: flex-end; }
-    .ai-window-footer { padding: 12px; background: #0f0f11; display: flex; gap: 8px; }
-    .ai-window-footer input { flex: 1; padding: 8px; border-radius: 8px; border: none; outline: none; }
-    .ai-window-footer button { padding: 8px 16px; border-radius: 8px; border: none; background: #00f2fe; cursor: pointer; }
-
-    /* Mobile Responsive Fixes */
-    @media (max-width: 768px) {
-      .ai-chat-wrapper { bottom: 15px; right: 15px; }
-      .ai-window-container { bottom: 85px; right: 15px; width: 310px; }
-    }
+    .ai-chat-trigger { background: #0f0f11; color: #fff; border: none; border-radius: 50px; padding: 12px 24px; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+    .ai-window-container { position: fixed; bottom: 110px; right: 25px; width: 320px; height: 400px; background: #16161a; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: none; flex-direction: column; overflow: hidden; }
+    .ai-messages-body { flex: 1; padding: 15px; overflow-y: auto; color: #fff; font-size: 0.9rem; }
+    .ai-msg { margin-bottom: 10px; padding: 8px 12px; border-radius: 10px; }
+    .ai-msg-bot { background: #2f2f35; align-self: flex-start; }
+    .ai-window-footer { padding: 10px; background: #0f0f11; display: flex; gap: 5px; }
+    .ai-window-footer input { flex: 1; padding: 8px; border-radius: 6px; border: none; }
+    .ai-window-footer button { padding: 8px 15px; background: #00f2fe; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
   </style>
 </head>
 <body>
 
   <header class="site-header">
-    <nav class="container">
-      <div class="nav__logo">THAJ HRS</div>
-    </nav>
+    <div class="container nav__logo">THAJ HRS</div>
   </header>
 
-  <main>
+  <main class="container">
     <section class="hero">
-      <div class="container">
+      <div class="hero__content">
         <h1>Hello, I'm</h1>
         <h1 class="hero__name">THAJ HRS</h1>
         <p>Commerce & Tech Enthusiast</p>
-        <div class="hero__image-wrap" style="display: inline-block;">
-          <img src="assets/thaj%20profile.jpeg" alt="THAJ HRS" width="200" height="200" style="border-radius: 50%;">
-        </div>
+        <p style="margin-top: 15px; max-width: 500px;">An ambitious Commerce student combining solid financial literacy with technical database, programming, and advanced office automation skills.</p>
+      </div>
+      <div class="hero__image-wrap">
+        <img class="hero__image" src="assets/thaj%20profile.jpeg" alt="THAJ HRS">
       </div>
     </section>
   </main>
 
-  <!-- AI Chatbot UI -->
   <div class="ai-chat-wrapper">
-    <button id="ai-chat-toggle" class="ai-chat-trigger">
-      <span>Ask AI</span>
-    </button>
-    <span class="ai-chat-label-below">THAJ'S AI ASSISTANT</span>
+    <button id="ai-chat-toggle" class="ai-chat-trigger">Ask AI</button>
+    <span style="font-size: 0.65rem; font-weight: bold; opacity: 0.7;">THAJ'S AI ASSISTANT</span>
   </div>
 
-  <div id="ai-chat-window" class="ai-window-container" style="display: none;">
-    <div class="ai-window-header">
-      <h4>THAJ AI Assistant</h4>
-      <button id="ai-chat-close" style="background:none; border:none; color:#fff; cursor:pointer;">&times;</button>
+  <div id="ai-chat-window" class="ai-window-container">
+    <div style="padding: 15px; background: #0f0f11; color: white; display: flex; justify-content: space-between;">
+      <span>AI Assistant</span>
+      <button id="ai-chat-close" style="background:none; border:none; color:white; cursor:pointer;">&times;</button>
     </div>
     <div id="ai-chat-messages" class="ai-messages-body">
-      <div class="ai-msg ai-msg-bot">Hello! How can I assist you with Thaj's professional details today?</div>
+      <div class="ai-msg ai-msg-bot">Hello! Ask me about Thaj's professional skills or experience.</div>
     </div>
     <div class="ai-window-footer">
-      <input type="text" id="ai-chat-input" placeholder="Ask about skills or commerce...">
+      <input type="text" id="ai-chat-input" placeholder="Ask anything...">
       <button id="ai-chat-send">Send</button>
     </div>
   </div>
@@ -92,25 +86,18 @@
     const chatMessages = document.getElementById('ai-chat-messages');
     const chatSend = document.getElementById('ai-chat-send');
 
-    chatToggle.addEventListener('click', () => {
-      chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
-    });
+    chatToggle.addEventListener('click', () => { chatWindow.style.display = 'flex'; });
     chatClose.addEventListener('click', () => { chatWindow.style.display = 'none'; });
 
-    // Allowed professional topics
-    const allowedTopics = ['commerce', 'finance', 'accounting', 'bookkeeping', 'tech', 'technology', 'database', 'mysql', 'python', 'programming', 'business', 'web', 'skills', 'education', 'certifications'];
+    const allowedTopics = ['commerce', 'finance', 'accounting', 'bookkeeping', 'tech', 'technology', 'database', 'mysql', 'python', 'web', 'skills'];
 
-    function isProfessionalTopic(query) {
-      const lowerQuery = query.toLowerCase();
-      return allowedTopics.some(topic => lowerQuery.includes(topic));
-    }
-
-    async function handleResponse() {
+    chatSend.addEventListener('click', () => {
       const query = chatInput.value.trim();
       if (!query) return;
 
       const userMsg = document.createElement('div');
-      userMsg.classList.add('ai-msg', 'ai-msg-user');
+      userMsg.classList.add('ai-msg');
+      userMsg.style.background = '#00f2fe';
       userMsg.innerText = query;
       chatMessages.appendChild(userMsg);
       chatInput.value = '';
@@ -118,20 +105,15 @@
       setTimeout(() => {
         const botMsg = document.createElement('div');
         botMsg.classList.add('ai-msg', 'ai-msg-bot');
-
-        if (!isProfessionalTopic(query)) {
-          botMsg.innerHTML = `<strong>Notice:</strong><br>I am Thaj's AI assistant designed specifically for professional queries related to his <em>Commerce and Technical expertise</em>. Please feel free to ask about his accounting skills, technical knowledge, or projects. I am unable to process requests outside of this professional scope.`;
-        } else {
-          botMsg.innerHTML = `Searching for professional details on: <em>${query}</em>... (API integration pending)`;
-        }
         
+        if (allowedTopics.some(topic => query.toLowerCase().includes(topic))) {
+          botMsg.innerHTML = `This is a professional topic. I am currently indexing Thaj's data to answer you accurately.`;
+        } else {
+          botMsg.innerHTML = `<strong>Notice:</strong> I am designed for professional queries related to Thaj's <em>Commerce and Technical expertise</em>. Please ask about his skills or professional background.`;
+        }
         chatMessages.appendChild(botMsg);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-      }, 450);
-    }
-
-    chatSend.addEventListener('click', handleResponse);
-    chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleResponse(); });
+      }, 500);
+    });
   </script>
 </body>
 </html>
