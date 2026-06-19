@@ -5,94 +5,744 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="THAJ HRS — Portfolio and CV">
   <title>THAJ HRS | Portfolio</title>
-  <!-- Favicon added here -->
-  <link rel="icon" type="image/jpeg" href="assets/123123123.jfif">
   <link rel="stylesheet" href="css/style.css">
   <style>
+    /* கணினியில் (Desktop) மெனு பட்டன்கள் அழகாக வரிசையாக இருக்கவும், 
+       போனில் (Mobile) அந்த 3 கோடுகளுக்குள் மறைந்திருக்கவும் இந்த சிறிய பிரத்யேக ஸ்டைல் உதவுகிறது */
     @media (min-width: 769px) {
-      .nav__menu { display: flex !important; gap: 12px !important; list-style: none !important; padding: 0 !important; margin: 0 !important; align-items: center !important; }
+      .nav__menu {
+        display: flex !important;
+        gap: 12px !important;
+        list-style: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        align-items: center !important;
+      }
     }
     @media (max-width: 768px) {
-      .nav__menu { list-style: none !important; padding: 0 !important; margin: 0 !important; }
-      .nav__menu li { width: 100% !important; text-align: center !important; margin-bottom: 8px !important; }
-      .nav__menu a { display: block !important; width: 100% !important; }
-      .hero__image-wrap { border: 1.5px solid #000000 !important; padding: 4px !important; }
+      .nav__menu {
+        list-style: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .nav__menu li {
+        width: 100% !important;
+        text-align: center !important;
+        margin-bottom: 8px !important;
+      }
+      .nav__menu a {
+        display: block !important;
+        width: 100% !important;
+      }
+
+      /* போனில் பார்க்கும்போது மட்டும் கறுப்பு பார்டர் மெலிதாகவும், இடைவெளி குறையவும் இது உதவும் */
+      .hero__image-wrap {
+        border: 1.5px solid #000000 !important; 
+        padding: 4px !important;              
+      }
     }
-    .contact__link-container { display: inline-flex; align-items: center; gap: 8px; }
-    .contact-icon { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
+
+    /* லோகோக்கள் மற்றும் எழுத்துக்கள் நேராக சீரமைக்கப்பட (Alignment) இந்த ஸ்டைல் உதவுகிறது */
+    .contact__link-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .contact-icon {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       AI CHATBOT DESIGN STYLES WITH GLOW EFFECT & ANIMATION
+       ========================================================================= */
+    .ai-chat-wrapper {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .ai-chat-trigger {
+      position: relative;
+      background: #0f0f11;
+      color: #ffffff;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 24px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+      transition: all 0.3s ease;
+    }
+    .ai-chat-trigger::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: 50px;
+      padding: 2px;
+      background: linear-gradient(45deg, #00f2fe, #4facfe, #0000ff);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+    .ai-chat-trigger:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(79, 172, 254, 0.5);
+    }
+    .ai-chat-icon {
+      width: 18px;
+      height: 18px;
+      fill: #00f2fe;
+    }
     
-    /* AI Chat Styles */
-    .ai-chat-wrapper { position: fixed; bottom: 25px; right: 25px; z-index: 9999; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-    .ai-chat-trigger { position: relative; background: #0f0f11; color: #ffffff; border: none; border-radius: 50px; padding: 12px 24px; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3); transition: all 0.3s ease; }
-    .ai-chat-trigger::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 50px; padding: 2px; background: linear-gradient(45deg, #00f2fe, #4facfe, #0000ff); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
-    .ai-chat-trigger:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(79, 172, 254, 0.5); }
-    .ai-chat-icon { width: 18px; height: 18px; fill: #00f2fe; }
-    .ai-chat-label-below { font-family: system-ui, -apple-system, sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px; color: #16161a; text-transform: uppercase; margin-top: 2px; opacity: 0.85; text-align: center; }
-    @keyframes slideUpFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .ai-window-container { position: fixed; bottom: 115px; right: 25px; width: 340px; max-width: 90vw; height: 450px; background: #16161a; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.4); z-index: 9999; display: flex; flex-direction: column; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); font-family: system-ui, -apple-system, sans-serif; animation: slideUpFade 0.4s ease-out; }
-    .ai-window-header { background: #0f0f11; color: #fff; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
-    .ai-status-dot { width: 8px; height: 8px; background: #00ff88; border-radius: 50%; box-shadow: 0 0 8px #00ff88; }
-    .ai-close-btn { background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; opacity: 0.7; transition: 0.2s; }
+    .ai-chat-label-below {
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: #16161a;
+      text-transform: uppercase;
+      user-select: none;
+      margin-top: 2px;
+      opacity: 0.85;
+      text-align: center;
+    }
+
+    /* Smooth fade-in and slide-up animation for auto-open */
+    @keyframes slideUpFade {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .ai-window-container {
+      position: fixed;
+      bottom: 115px;
+      right: 25px;
+      width: 340px;
+      max-width: 90vw;
+      height: 450px;
+      background: #16161a;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      font-family: system-ui, -apple-system, sans-serif;
+      animation: slideUpFade 0.4s ease-out;
+    }
+
+    /* --------------------------------------------------------------------------
+       MOBILE SPECIFIC RESPONSIVE FIXES (போனில் கச்சிதமாக தெரிய மாடிஃபிகேஷன்)
+       -------------------------------------------------------------------------- */
+    @media (max-width: 768px) {
+      .ai-chat-wrapper {
+        bottom: 15px; /* Margin-ஐ கொஞ்சம் குறைத்து ஓரத்தில் ஒதுக்கியாச்சு */
+        right: 15px;
+        gap: 4px;
+      }
+      .ai-chat-trigger {
+        padding: 10px 16px; /* பட்டன் சைஸ் போனுக்கு ஏத்த மாதிரி சுருங்கியுள்ளது */
+        font-size: 0.82rem;
+        gap: 6px;
+      }
+      .ai-chat-icon {
+        width: 15px;
+        height: 15px;
+      }
+      .ai-chat-label-below {
+        font-size: 0.6rem; /* கீழ் உள்ள டெக்ஸ்ட் ஓவர்லாப் ஆகாமல் சிறியதாக்கப்பட்டுள்ளது */
+        letter-spacing: 0.8px;
+      }
+      .ai-window-container {
+        bottom: 85px; /* சாளரம் ஓபன் ஆகும் போது பட்டனுக்கு மேல் சரியாக அமையும் */
+        right: 15px;
+        width: 310px;
+        height: 400px;
+      }
+    }
+
+    .ai-window-header {
+      background: #0f0f11;
+      color: #fff;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .ai-status-dot {
+      width: 8px;
+      height: 8px;
+      background: #00ff88;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #00ff88;
+    }
+    .ai-close-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: 0.2s;
+    }
     .ai-close-btn:hover { opacity: 1; }
-    .ai-messages-body { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: #121214; }
-    .ai-msg { max-width: 85%; padding: 10px 14px; border-radius: 12px; font-size: 0.85rem; line-height: 1.4; }
-    .ai-msg-bot { background: #1f1f24; color: #e1e1e6; align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid rgba(255,255,255,0.03); }
-    .ai-msg-bot a { color: #00f2fe; text-decoration: underline; font-weight: 600; }
-    .ai-section-btn { display: inline-block; margin-top: 8px; background: linear-gradient(135deg, #4facfe, #00f2fe); color: #000 !important; padding: 6px 12px; border-radius: 6px; text-decoration: none !important; font-size: 0.8rem; font-weight: 600; }
-    .ai-msg-user { background: linear-gradient(135deg, #00f2fe, #4facfe); color: #000; font-weight: 500; align-self: flex-end; border-bottom-right-radius: 4px; }
-    .ai-window-footer { padding: 12px; background: #0f0f11; display: flex; gap: 8px; border-top: 1px solid rgba(255,255,255,0.05); }
-    .ai-window-footer input { flex: 1; background: #1c1c21; border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; outline: none; }
-    .ai-window-footer button { background: #4facfe; color: #000; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+    .ai-messages-body {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: #121214;
+    }
+    .ai-msg {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+    .ai-msg-bot {
+      background: #1f1f24;
+      color: #e1e1e6;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    .ai-msg-bot a {
+      color: #00f2fe;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+    .ai-msg-bot .ai-section-btn {
+      display: inline-block;
+      margin-top: 8px;
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      color: #000 !important;
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-decoration: none !important;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .ai-msg-user {
+      background: linear-gradient(135deg, #00f2fe, #4facfe);
+      color: #000;
+      font-weight: 500;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .ai-window-footer {
+      padding: 12px;
+      background: #0f0f11;
+      display: flex;
+      gap: 8px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .ai-window-footer input {
+      flex: 1;
+      background: #1c1c21;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      outline: none;
+    }
+    .ai-window-footer input:focus { border-color: #4facfe; }
+    .ai-window-footer button {
+      background: #4facfe;
+      color: #000;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .ai-window-footer button:hover { background: #00f2fe; }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <header class="site-header">
     <nav class="nav" aria-label="Main navigation">
       <a class="nav__logo" href="#">THAJ HRS</a>
+
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle menu">
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+      </button>
+
       <ul class="nav__menu" id="nav-menu">
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">About</a></li>
+        <li><a href="#skills" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Skills</a></li>
+        <li><a href="#education" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Education</a></li>
+        <li><a href="#certifications" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Certifications</a></li>
+        <li><a href="#contact" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Contact</a></li>
       </ul>
     </nav>
   </header>
 
   <main id="main">
-    <!-- Rest of your section content goes here -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <p class="hero__greeting">Hello, I'm</p>
+          <h1 id="hero-heading" class="hero__name">THAJ HRS</h1>
+          <p class="hero__title">Commerce &amp; Tech Enthusiast</p>
+          <p class="hero__tagline">An ambitious Commerce student combining solid financial literacy with technical database, programming, and advanced office automation skills.</p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#skills">View Skills</a>
+            <a class="btn btn--secondary" href="#contact">Contact me</a>
+          </div>
+        </div>
+        
+        <div class="hero__image-wrap" style="display: inline-block; border-radius: 50%; padding: 8px; border: 3px solid #000000; background-color: #ffffff; box-sizing: border-box;">
+          <img class="hero__image" src="assets/thaj%20profile.jpeg" alt="THAJ HRS profile photo" width="280" height="280" style="border-radius: 50%; display: block; object-fit: cover;">
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section" aria-labelledby="about-heading">
+      <div class="container">
+        <h2 id="about-heading" class="section__title">About Me</h2>
+        <div class="about__grid">
+          <div class="about__text">
+            <p>
+              Highly motivated to leverage a unique blend of accounting knowledge and tech skills in an entry-level Finance, Data Analyst Trainee, or Tech-driven Accounts Assistant role.
+            </p>
+            <p>
+              I bring hands-on familiarity with relational databases, programming scripts, and professional corporate presentation tools, enabling comprehensive analytical problem-solving.
+            </p>
+          </div>
+          <div class="about__highlights card">
+            <h3 class="about__highlights-title">Quick facts</h3>
+            <ul class="about__list">
+              <li><strong>Location:</strong> Deltota, Kandy, Sri Lanka</li>
+              <li><strong>Nationality:</strong> Sri Lankan</li>
+              <li><strong>Availability:</strong> Open to opportunities</li>
+              <li><strong>Languages:</strong> English, Tamil, Sinhala</li>
+              <li><strong>Interests:</strong> Accounting, Tech, Data Analysis</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section section--alt" aria-labelledby="skills-heading">
+      <div class="container">
+        <h2 id="skills-heading" class="section__title">Skills</h2>
+        <div class="skills__grid">
+          <div class="card skill-group">
+            <h3 class="skill-group__title">Financial &amp; Productivity</h3>
+            <ul class="tag-list">
+              <li class="tag">Bookkeeping</li>
+              <li class="tag">Double-Entry Mechanics</li>
+              <li class="tag">Financial Statements</li>
+              <li class="tag">Advanced Excel</li>
+              <li class="tag">PowerPoint</li>
+              <li class="tag">MS Word</li>
+            </ul>
+          </div>
+          <div class="card skill-group">
+            <h3 class="skill-group__title">Technical &amp; Web</h3>
+            <ul class="tag-list">
+              <li class="tag">MySQL</li>
+              <li class="tag">Python</li>
+              <li class="tag">HTML5</li>
+              <li class="tag">CSS3</li>
+              <li class="tag">Joomla CMS</li>
+              <li class="tag">Responsive Design</li>
+            </ul>
+          </div>
+          <div class="card skill-group">
+            <h3 class="skill-group__title">Soft Skills</h3>
+            <ul class="tag-list">
+              <li class="tag">Analytical Thinking</li>
+              <li class="tag">Logical Reasoning</li>
+              <li class="tag">Clear Communication</li>
+              <li class="tag">Quick Learner</li>
+              <li class="tag">Tech-Savvy</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="section" aria-labelledby="education-heading">
+      <div class="container">
+        <h2 id="education-heading" class="section__title">Education</h2>
+        <div class="timeline">
+          <article class="timeline__item card">
+            <div class="timeline__header">
+              <h3 class="timeline__role">Association of Accounting Technicians (AAT) Sri Lanka</h3>
+              <p class="timeline__meta">AAT Level 2 (Completed) · 2026</p>
+            </div>
+            <ul class="timeline__bullets">
+              <li>Gained comprehensive knowledge in Financial Accounting, Business Mathematics, and Ledger Management.</li>
+            </ul>
+          </article>
+          <article class="timeline__item card">
+            <div class="timeline__header">
+              <h3 class="timeline__role">G.C.E. Advanced Level (A/L) Sri Lanka</h3>
+              <p class="timeline__meta">Stream: Commerce · Ongoing</p>
+            </div>
+            <ul class="timeline__bullets">
+              <li>Currently pursuing advanced functional studies in Accounting, Business Studies, and ICT.</li>
+            </ul>
+          </article>
+          <article class="timeline__item card">
+            <div class="timeline__header">
+              <h3 class="timeline__role">G.C.E. Ordinary Level (O/L) Sri Lanka</h3>
+              <p class="timeline__meta">Academic Performance · Passed</p>
+            </div>
+            <ul class="timeline__bullets">
+              <li>Academic Performance Results: 1A, 2B, 4C, 2S.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="certifications" class="section section--alt" aria-labelledby="certifications-heading">
+      <div class="container">
+        <h2 id="certifications-heading" class="section__title">Courses &amp; Certifications</h2>
+        <div class="timeline">
+          <article class="card education-card">
+            <h3 class="education-card__degree">Certification in Web Development &amp; Programming</h3>
+            <p class="education-card__meta">Specialized Dual-Course Training</p>
+            <ul class="timeline__bullets" style="padding-left: 1.25rem; color: var(--clr-text-muted); list-style-type: disc; margin-bottom: 1.5rem;">
+              <li>Completed 2 comprehensive specialized courses covering HTML, CSS, Python, and MySQL database foundations.</li>
+              <li>Trained in building clean, responsive web layouts and utilizing Python &amp; SQL for robust data handling logic.</li>
+            </ul>
+            <div style="margin-top: 1.5rem;">
+              <a href="certificates.html" class="btn btn--primary" style="display: inline-block; padding: 0.6rem 1.5rem; text-decoration: none; color: #ffffff !important;">View Certificates →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section" aria-labelledby="contact-heading">
+      <div class="container">
+        <h2 id="contact-heading" class="section__title">Contact</h2>
+        <div class="contact__grid">
+          <div class="contact__intro">
+            <p>
+              I'm open to new opportunities and interesting projects. Feel free to connect with me directly through any of the channels below.
+            </p>
+            <ul class="contact__links">
+              <li>
+                <a href="mailto:thajhrs@gmail.com" class="contact__link">
+                  <div class="contact__link-container">
+                    <svg class="contact-icon" viewBox="0 0 24 24">
+                      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    <span class="contact__link-label">Email:</span>
+                    thajhrs@gmail.com
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="https://wa.me/94774259549" class="contact__link" target="_blank" rel="noopener noreferrer">
+                  <div class="contact__link-container">
+                    <svg class="contact-icon" viewBox="0 0 24 24">
+                      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.6.95 3.488 1.451 5.414 1.452 5.352 0 9.709-4.357 9.711-9.71.002-2.595-1.005-5.035-2.837-6.87C17.103 2.187 14.661 1.93 12.01 1.93c-5.354 0-9.712 4.358-9.715 9.713-.001 1.97.513 3.894 1.492 5.594L2.78 21.2l4.133-1.083zm12.08-5.719c-.33-.165-1.952-.963-2.251-1.072-.3-.11-.518-.165-.736.165-.218.33-.846 1.072-1.037 1.29-.19.218-.38.245-.71.08-.33-.165-1.395-.515-2.657-1.64-1.012-.903-1.694-2.02-1.892-2.35-.198-.33-.021-.508.144-.672.148-.148.33-.385.495-.578.165-.192.22-.33.33-.55.11-.22.055-.413-.028-.578-.083-.165-.736-1.774-1.009-2.434-.266-.64-.538-.554-.736-.564-.19-.01-.408-.01-.626-.01-.218 0-.573.082-.872.413-.3.33-1.146 1.12-1.146 2.732 0 1.612 1.173 3.169 1.336 3.39 1.65 2.185 3.19 3.39 5.088 4.21 1.897.818 2.328.655 3.154.545.825-.109 1.952-.797 2.227-1.54.275-.743.275-1.378.193-1.51-.083-.133-.3-.217-.63-.382z"/>
+                    </svg>
+                    <span class="contact__link-label">WhatsApp:</span>
+                    +94 77 425 9549
+                  </div>
+                </a>
+              </li>
+              <li>
+                <div class="contact__link-container" style="color: var(--clr-text-muted);">
+                  <svg class="contact-icon" viewBox="0 0 24 24" style="color: var(--clr-text);">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  </svg>
+                  <span class="contact__link-label" style="font-weight: var(--fw-bold); color: var(--clr-text);">Location:</span>
+                  266/c, Pallegama, Deltota, Kandy, Sri Lanka
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="card contact__cta">
+            <h3 class="contact__cta-title">Let's work together</h3>
+            <p class="contact__cta-text">Send me a message and I'll get back to you as soon as possible.</p>
+            <a class="btn btn--primary btn--block" href="mailto:thajhrs@gmail.com">Send email</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__text">&copy; 2026 THAJ HRS. All rights reserved.</p>
+      <a class="footer__top" href="#">Back to top</a>
+    </div>
+  </footer>
+
   <div class="ai-chat-wrapper">
-    <button id="ai-chat-toggle" class="ai-chat-trigger">Ask AI</button>
+    <button id="ai-chat-toggle" class="ai-chat-trigger" aria-label="Open AI Assistant">
+      <svg viewBox="0 0 24 24" class="ai-chat-icon">
+        <path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm1 14h-2v2h2v-2zm0-10h-2v8h2V6z"/>
+      </svg>
+      <span>Ask AI</span>
+    </button>
+    <span class="ai-chat-label-below">THAJ'S AI ASSISTANT</span>
   </div>
 
   <div id="ai-chat-window" class="ai-window-container" style="display: none;">
     <div class="ai-window-header">
       <div style="display: flex; align-items: center; gap: 8px;">
         <div class="ai-status-dot"></div>
-        <div><h4>THAJ AI Assistant</h4></div>
+        <div>
+          <h4 style="margin: 0; font-size: 0.95rem; font-weight: 600;">THAJ AI Assistant</h4>
+          <p style="margin: 0; font-size: 0.75rem; opacity: 0.8;">Live Page Reader</p>
+        </div>
       </div>
       <button id="ai-chat-close" class="ai-close-btn">&times;</button>
     </div>
+
     <div id="ai-chat-messages" class="ai-messages-body">
-      <div class="ai-msg ai-msg-bot">Hello! I can scan this page. Ask me about Thaj!</div>
+      <div class="ai-msg ai-msg-bot">
+        Hello! I can automatically scan this entire portfolio page. Ask me any question about Thaj's details!
+      </div>
     </div>
+
     <div class="ai-window-footer">
-      <input type="text" id="ai-chat-input" placeholder="Ask anything...">
+      <input type="text" id="ai-chat-input" placeholder="Ask anything about this page..." autocomplete="off">
       <button id="ai-chat-send">Send</button>
     </div>
   </div>
+
+  <script src="js/nav.js"></script>
 
   <script>
     const chatToggle = document.getElementById('ai-chat-toggle');
     const chatWindow = document.getElementById('ai-chat-window');
     const chatClose = document.getElementById('ai-chat-close');
     const chatInput = document.getElementById('ai-chat-input');
-    const chatSend = document.getElementById('ai-chat-send');
     const chatMessages = document.getElementById('ai-chat-messages');
+    const chatSend = document.getElementById('ai-chat-send');
 
-    chatToggle.addEventListener('click', () => { chatWindow.style.display = 'flex'; });
+    // Manual Open/Close Controls
+    chatToggle.addEventListener('click', () => {
+      chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
+    });
     chatClose.addEventListener('click', () => { chatWindow.style.display = 'none'; });
+
+    // ==========================================================================
+    // MOBILE ONLY AUTO-OPEN WHEN SCROLLING PAST "ABOUT ME"
+    // ==========================================================================
+    let hasAutoOpened = false; 
+
+    if (window.innerWidth <= 768) {
+      const aboutSection = document.getElementById('about');
+
+      if (aboutSection) {
+        const observerOptions = {
+          root: null, 
+          threshold: 0, 
+          rootMargin: "0px 0px -150px 0px" 
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting && entry.boundingClientRect.top < 0 && !hasAutoOpened) {
+              chatWindow.style.display = 'flex'; 
+              hasAutoOpened = true; 
+              observer.disconnect(); 
+            }
+          });
+        }, observerOptions);
+
+        observer.observe(aboutSection);
+      }
+    }
+
+    // ==========================================================================
+    // FUZZY MATCH & NATURAL CHAT RESPONSES
+    // ==========================================================================
+    function fuzzyMatch(word1, word2) {
+      if (word1 === word2) return true;
+      if (word1.length < 3 || word2.length < 3) return word1.includes(word2) || word2.includes(word1);
+      
+      const track = Array(word2.length + 1).fill(null).map(() => Array(word1.length + 1).fill(null));
+      for (let i = 0; i <= word1.length; i += 1) track[0][i] = i;
+      for (let j = 0; j <= word2.length; j += 1) track[j][0] = j;
+      
+      for (let j = 1; j <= word2.length; j += 1) {
+        for (let i = 1; i <= word1.length; i += 1) {
+          const indicator = word1[i - 1] === word2[j - 1] ? 0 : 1;
+          track[j][i] = Math.min(
+            track[j - 1][i] + 1,
+            track[j][i - 1] + 1,
+            track[j - 1][i - 1] + indicator
+          );
+        }
+      }
+      const distance = track[word2.length][word1.length];
+      const maxLength = Math.max(word1.length, word2.length);
+      return (maxLength - distance) / maxLength > 0.68;
+    }
+
+    function generateSmartResponse(intent, cleanQuery) {
+      let responseHtml = "";
+      if (intent === 'skills') {
+        responseHtml = `🎯 <strong>Skills Summary:</strong> Thaj specializes in Financial Bookkeeping, Advanced Excel, Python programming, MySQL databases, and Web Development.<br><a href="#skills" class="ai-section-btn" onclick="document.getElementById('ai-chat-window').style.display='none';">Go to Skills Section →</a>`;
+      } 
+      else if (intent === 'education') {
+        responseHtml = `🎓 <strong>Education Summary:</strong> Thaj completed AAT Level 2 (2026), is currently pursuing G.C.E. Advanced Level in the Commerce stream, and successfully passed Ordinary Levels.<br><a href="#education" class="ai-section-btn" onclick="document.getElementById('ai-chat-window').style.display='none';">Go to Education Section →</a>`;
+      } 
+      else if (intent === 'certifications') {
+        responseHtml = `📜 <strong>Certifications:</strong> Thaj holds a Dual-Course Certification in Web Development & Programming (HTML, CSS, Python, MySQL).<br><a href="#certifications" class="ai-section-btn" onclick="document.getElementById('ai-chat-window').style.display='none';">Go to Certifications Section →</a>`;
+      } 
+      else if (intent === 'about') {
+        responseHtml = `👤 <strong>About Thaj:</strong> A motivated Commerce & Tech enthusiast based in Deltota, Sri Lanka, looking for Trainee Finance or Data Analyst roles.<br><a href="#about" class="ai-section-btn" onclick="document.getElementById('ai-chat-window').style.display='none';">Go to About Section →</a>`;
+      }
+      return responseHtml;
+    }
+
+    function handleResponse() {
+      const query = chatInput.value.trim();
+      if (!query) return;
+
+      appendMessage(query, 'user');
+      chatInput.value = '';
+
+      setTimeout(() => {
+        const cleanQuery = query.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").trim();
+        const queryWords = cleanQuery.split(' ').filter(w => w.length > 0);
+
+        // 1. SMART FILTER: ACKNOWLEDGMENTS
+        const acknowledgments = ['ok', 'okk', 'okay', 'yes', 'yeah', 'sure', 'cool', 'nice', 'great', 'super', 'thanks', 'thank you', 'nandri'];
+        if (queryWords.length <= 2 && queryWords.some(qw => acknowledgments.includes(qw))) {
+          if (cleanQuery.includes('thank') || cleanQuery === 'nandri') {
+            appendHtmlMessage(`😊 <strong>You are very welcome!</strong> Let me know if you need to know anything else about Thaj's profile.`, 'bot');
+          } else {
+            appendHtmlMessage(`👍 Awesome! Feel free to ask me any specific question about Thaj's skills, qualifications, or contact links whenever you are ready.`, 'bot');
+          }
+          return;
+        }
+
+        // 2. GREETINGS
+        const greetings = ['hi', 'hello', 'hey', 'helloo', 'hii', 'vanakkam', 'வணக்கம்'];
+        const statusQueries = ['how are you', 'how r u', 'nallama', 'nalama', 'sugama', 'soogama', 'fine', 'how do you do'];
+        
+        let isGreeting = queryWords.some(qw => greetings.some(g => fuzzyMatch(qw, g))) || greetings.includes(cleanQuery);
+        let isStatus = statusQueries.some(sq => cleanQuery.includes(sq)) || statusQueries.some(sq => queryWords.some(qw => fuzzyMatch(qw, sq)));
+
+        if (isGreeting) {
+          appendHtmlMessage(`👋 <strong>Hello there!</strong> Welcome to Thaj's portfolio. I am his AI assistant. How can I help you today? You can ask about his skills, education, or contact details!`, 'bot');
+          return;
+        }
+        if (isStatus) {
+          appendHtmlMessage(`😊 <strong>I am doing fantastic, thank you for asking!</strong> I am ready to help you discover everything about Thaj. What would you like to check out first?`, 'bot');
+          return;
+        }
+
+        // 3. CONTACT SHORT-FORMS
+        const phoneKeywords = ['phone', 'mobile', 'number', 'numbar', 'num', 'no', 'whatsapp', 'watsap', 'call', 'phn', 'mobil'];
+        const emailKeywords = ['email', 'mail', 'emil', 'gmal', 'gmail'];
+        
+        const contactPattern = /(contact|contect|phone|phn|mobile|whatsapp|watsap|call|num|no)/i;
+        const emailPattern = /(email|mail|gmail)/i;
+
+        let isPhone = contactPattern.test(cleanQuery);
+        let isEmail = emailPattern.test(cleanQuery);
+
+        queryWords.forEach(w => {
+          phoneKeywords.forEach(kw => { if(fuzzyMatch(w, kw)) isPhone = true; });
+          emailKeywords.forEach(kw => { if(fuzzyMatch(w, kw)) isEmail = true; });
+        });
+
+        if (isPhone && !cleanQuery.includes('email') && !cleanQuery.includes('mail')) {
+          appendHtmlMessage(`📞 <strong>Contact Number:</strong> +94 77 425 9549<br><br>👉 Direct Link: <a href="https://wa.me/94774259549" target="_blank" rel="noopener noreferrer">Open WhatsApp Chat</a>`, 'bot');
+          return;
+        }
+        if (isEmail) {
+          appendHtmlMessage(`✉️ <strong>Email Address:</strong> thajhrs@gmail.com<br><br>👉 Direct Link: <a href="mailto:thajhrs@gmail.com">Send Email Now</a>`, 'bot');
+          return;
+        }
+
+        // 4. OTHER INTENTS
+        const intents = {
+          skills: ['skill', 'skils', 'skills', 'know', 'language', 'program', 'excel', 'python', 'mysql'],
+          education: ['education', 'edukation', 'school', 'aat', 'level', 'commerce', 'study', 'studying', 'exam', 'al', 'ol'],
+          certifications: ['certification', 'certifications', 'course', 'courses', 'chertification', 'certificate'],
+          about: ['about', 'abaut', 'who', 'thaj', 'details', 'location', 'place', 'live', 'sri lanka']
+        };
+
+        let detectedIntent = "";
+        for (let [key, words] of Object.entries(intents)) {
+          queryWords.forEach(qWord => {
+            words.forEach(w => { if (fuzzyMatch(qWord, w)) { detectedIntent = key; } });
+          });
+        }
+
+        if (detectedIntent) {
+          const htmlOutput = generateSmartResponse(detectedIntent, cleanQuery);
+          appendHtmlMessage(htmlOutput, 'bot');
+          return;
+        }
+
+        // 5. NATURAL SCANNING LOGIC
+        let bestMatch = "";
+        let highestScore = 0;
+        
+        document.querySelectorAll('section, .card, .timeline__item, .about__list li, .tag-list li').forEach(el => {
+          let text = el.innerText || el.textContent;
+          text = text.replace(/\s+/g, ' ').trim();
+          if (text.length > 10 && !text.includes('Hello! I can automatically')) {
+            let score = 0;
+            const blockWords = text.toLowerCase().split(' ');
+            queryWords.forEach(qw => {
+              if (text.toLowerCase().includes(qw)) score += 3;
+              blockWords.forEach(bw => { if(fuzzyMatch(qw, bw)) score += 2; });
+            });
+            if (score > highestScore) { highestScore = score; bestMatch = text; }
+          }
+        });
+
+        if (highestScore > 1 && bestMatch) {
+          appendHtmlMessage(`Based on Thaj's profile:<br><br>"${bestMatch}"`, 'bot');
+        } else {
+          appendHtmlMessage(`I scanned the page but couldn't find precise info. Try asking about Thaj's <strong>Skills</strong>, <strong>AAT Education</strong>, <strong>Certifications</strong>, or <strong>Contact</strong> info!`, 'bot');
+        }
+      }, 450);
+    }
+
+    function appendMessage(text, sender) {
+      const msg = document.createElement('div');
+      msg.classList.add('ai-msg', `ai-msg-${sender}`);
+      msg.innerText = text;
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
 
     function appendHtmlMessage(html, sender) {
       const msg = document.createElement('div');
@@ -102,21 +752,8 @@
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
-    function handleResponse() {
-      const query = chatInput.value.trim();
-      if (!query) return;
-      // Basic logic to append user query
-      const userMsg = document.createElement('div');
-      userMsg.classList.add('ai-msg', 'ai-msg-user');
-      userMsg.innerText = query;
-      chatMessages.appendChild(userMsg);
-      chatInput.value = '';
-      // Placeholder for your smart response logic
-      appendHtmlMessage("I'm ready to help you with Thaj's details!", 'bot');
-    }
-
-    chatSend.addEventListener('click', handleResponse);
     chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleResponse(); });
+    chatSend.addEventListener('click', handleResponse);
   </script>
 </body>
 </html>
