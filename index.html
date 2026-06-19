@@ -266,6 +266,25 @@
       transition: 0.2s;
     }
     .ai-window-footer button:hover { background: #00f2fe; }
+
+    .ai-typing-dots {
+      display: inline-flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .ai-typing-dots span {
+      width: 6px;
+      height: 6px;
+      background: #4facfe;
+      border-radius: 50%;
+      animation: dotBounce 1.2s infinite;
+    }
+    .ai-typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .ai-typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes dotBounce {
+      0%, 80%, 100% { transform: scale(0.7); opacity: 0.5; }
+      40% { transform: scale(1); opacity: 1; }
+    }
   </style>
 </head>
 <body>
@@ -508,7 +527,7 @@
         <div class="ai-status-dot"></div>
         <div>
           <h4 style="margin: 0; font-size: 0.95rem; font-weight: 600;">THAJ AI Assistant</h4>
-          <p style="margin: 0; font-size: 0.75rem; opacity: 0.8;">Live Page Reader</p>
+          <p style="margin: 0; font-size: 0.75rem; opacity: 0.8;">Powered by Claude AI</p>
         </div>
       </div>
       <button id="ai-chat-close" class="ai-close-btn">&times;</button>
@@ -516,12 +535,12 @@
 
     <div id="ai-chat-messages" class="ai-messages-body">
       <div class="ai-msg ai-msg-bot">
-        Hello! I can automatically scan this entire portfolio page. Ask me any question about Thaj's details!
+        Hello! I'm Thaj's AI assistant. Ask me anything about his skills, education, certifications, or contact details — I can also explain topics like bookkeeping, MySQL, and more!
       </div>
     </div>
 
     <div class="ai-window-footer">
-      <input type="text" id="ai-chat-input" placeholder="Ask anything about this page..." autocomplete="off">
+      <input type="text" id="ai-chat-input" placeholder="Ask anything..." autocomplete="off">
       <button id="ai-chat-send">Send</button>
     </div>
   </div>
@@ -529,19 +548,20 @@
   <script src="js/nav.js"></script>
 
   <script>
-    const chatToggle = document.getElementById('ai-chat-toggle');
-    const chatWindow = document.getElementById('ai-chat-window');
-    const chatClose  = document.getElementById('ai-chat-close');
-    const chatInput  = document.getElementById('ai-chat-input');
+    const chatToggle   = document.getElementById('ai-chat-toggle');
+    const chatWindow   = document.getElementById('ai-chat-window');
+    const chatClose    = document.getElementById('ai-chat-close');
+    const chatInput    = document.getElementById('ai-chat-input');
     const chatMessages = document.getElementById('ai-chat-messages');
-    const chatSend   = document.getElementById('ai-chat-send');
+    const chatSend     = document.getElementById('ai-chat-send');
 
+    /* ── Toggle open/close ── */
     chatToggle.addEventListener('click', () => {
       chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
     });
     chatClose.addEventListener('click', () => { chatWindow.style.display = 'none'; });
 
-    // Mobile-only auto-open when scrolling past About section
+    /* ── Mobile auto-open after scrolling past About ── */
     let hasAutoOpened = false;
     if (window.innerWidth <= 768) {
       const aboutSection = document.getElementById('about');
@@ -559,151 +579,122 @@
       }
     }
 
-    // Fuzzy match helper
-    function fuzzyMatch(word1, word2) {
-      if (word1 === word2) return true;
-      if (word1.length < 3 || word2.length < 3) return word1.includes(word2) || word2.includes(word1);
-      const track = Array(word2.length + 1).fill(null).map(() => Array(word1.length + 1).fill(null));
-      for (let i = 0; i <= word1.length; i++) track[0][i] = i;
-      for (let j = 0; j <= word2.length; j++) track[j][0] = j;
-      for (let j = 1; j <= word2.length; j++) {
-        for (let i = 1; i <= word1.length; i++) {
-          const indicator = word1[i - 1] === word2[j - 1] ? 0 : 1;
-          track[j][i] = Math.min(track[j-1][i]+1, track[j][i-1]+1, track[j-1][i-1]+indicator);
+    /* ── Collect page content as context ── */
+    function getPageContext() {
+      const ids = ['about', 'skills', 'education', 'certifications', 'contact'];
+      let ctx = "=== THAJ HRS PORTFOLIO CONTENT ===\n\n";
+      ctx += "Name: THAJ HRS\n";
+      ctx += "Title: Commerce & Tech Enthusiast\n";
+      ctx += "Email: thajhrs@gmail.com\n";
+      ctx += "WhatsApp: +94 77 425 9549\n";
+      ctx += "Location: 266/c, Pallegama, Deltota, Kandy, Sri Lanka\n\n";
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          const text = el.innerText.replace(/\s+/g, ' ').trim();
+          ctx += `[${id.toUpperCase()} SECTION]\n${text}\n\n`;
         }
-      }
-      const distance = track[word2.length][word1.length];
-      const maxLen = Math.max(word1.length, word2.length);
-      return (maxLen - distance) / maxLen > 0.68;
+      });
+      return ctx;
     }
 
-    function generateSmartResponse(intent) {
-      if (intent === 'skills') {
-        return `🎯 <strong>Skills Summary:</strong> Thaj specializes in Financial Bookkeeping, Advanced Excel, Python programming, MySQL databases, and Web Development.<br><a href="#skills" class="ai-section-btn" onclick="document.getElementById('ai-chat-window').style.display='none';">Go to Skills Section →</a>`;
-      }
-      if (intent === 'education') {
-        return `🎓 <strong>Education Summary:</strong> Thaj completed AAT Level 2 (2026), is currently pursuing G.C.E. Advanced Level in the Commerce stream, and successfully passed Ordinary Levels.<br><a href="#education" class="ai-section-btn" onclick="document.getElementById('ai-chat-window').style.display='none';">Go to Education Section →</a>`;
-      }
-      if (intent === 'certifications') {
-        return `📜 <strong>Certifications:</strong> Thaj holds a Dual-Course Certification in Web Development & Programming (HTML, CSS, Python, MySQL).<br><a href="#certifications" class="ai-section-btn" onclick="document.getElementById('ai-chat-window').style.display='none';">Go to Certifications Section →</a>`;
-      }
-      if (intent === 'about') {
-        return `👤 <strong>About Thaj:</strong> A motivated Commerce & Tech enthusiast based in Deltota, Sri Lanka, looking for Trainee Finance or Data Analyst roles.<br><a href="#about" class="ai-section-btn" onclick="document.getElementById('ai-chat-window').style.display='none';">Go to About Section →</a>`;
-      }
-      return "";
+    /* ── Determine if question is about Thaj or a related topic ── */
+    function isAboutThaj(query) {
+      const thajKeywords = [
+        'thaj', 'he', 'his', 'your', 'you', 'profile', 'portfolio',
+        'contact', 'email', 'whatsapp', 'phone', 'location', 'address',
+        'skill', 'education', 'certification', 'course', 'aat', 'al', 'ol',
+        'excel', 'python', 'mysql', 'html', 'css', 'joomla',
+        'accounting', 'bookkeeping', 'finance', 'kandy', 'deltota',
+        'language', 'sri lanka', 'experience', 'work', 'job', 'hire',
+        'availability', 'nationality', 'interest'
+      ];
+      const q = query.toLowerCase();
+      return thajKeywords.some(w => q.includes(w));
     }
 
-    function handleResponse() {
+    /* ── Append a plain text message ── */
+    function appendMsg(text, sender) {
+      const div = document.createElement('div');
+      div.className = `ai-msg ai-msg-${sender === 'user' ? 'user' : 'bot'}`;
+      div.innerText = text;
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    /* ── Show animated typing indicator ── */
+    function showTyping() {
+      const div = document.createElement('div');
+      div.className = 'ai-msg ai-msg-bot';
+      div.id = 'ai-typing';
+      div.innerHTML = '<div class="ai-typing-dots"><span></span><span></span><span></span></div>';
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function removeTyping() {
+      const t = document.getElementById('ai-typing');
+      if (t) t.remove();
+    }
+
+    /* ── Main send handler ── */
+    async function handleResponse() {
       const query = chatInput.value.trim();
       if (!query) return;
-      appendMessage(query, 'user');
+
+      appendMsg(query, 'user');
       chatInput.value = '';
+      chatSend.disabled = true;
+      showTyping();
 
-      setTimeout(() => {
-        const cleanQuery = query.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").trim();
-        const queryWords = cleanQuery.split(' ').filter(w => w.length > 0);
+      try {
+        const pageCtx = getPageContext();
+        const aboutThaj = isAboutThaj(query);
 
-        // Acknowledgments
-        const acknowledgments = ['ok','okk','okay','yes','yeah','sure','cool','nice','great','super','thanks','thank you','nandri'];
-        if (queryWords.length <= 2 && queryWords.some(qw => acknowledgments.includes(qw))) {
-          if (cleanQuery.includes('thank') || cleanQuery === 'nandri') {
-            appendHtmlMessage(`😊 <strong>You are very welcome!</strong> Let me know if you need to know anything else about Thaj's profile.`, 'bot');
-          } else {
-            appendHtmlMessage(`👍 Awesome! Feel free to ask me any specific question about Thaj's skills, qualifications, or contact links whenever you are ready.`, 'bot');
-          }
-          return;
-        }
+        const systemPrompt = aboutThaj
+          ? `You are the AI assistant embedded on THAJ HRS's personal portfolio website.
+Your job is to answer questions about Thaj using only the portfolio information provided below.
+Be concise, friendly, and professional. If exact information is not in the portfolio, say so honestly.
+Do not invent or assume any details not present in the portfolio.
+Keep answers under 100 words unless the user asks for more detail.
 
-        // Greetings
-        const greetings = ['hi','hello','hey','helloo','hii','vanakkam','வணக்கம்'];
-        const statusQueries = ['how are you','how r u','nallama','nalama','sugama','soogama','fine','how do you do'];
-        const isGreeting = queryWords.some(qw => greetings.some(g => fuzzyMatch(qw, g))) || greetings.includes(cleanQuery);
-        const isStatus = statusQueries.some(sq => cleanQuery.includes(sq));
+${pageCtx}`
+          : `You are the AI assistant on THAJ HRS's personal portfolio website.
+The user has asked a general knowledge question related to a topic from Thaj's skill set (e.g. bookkeeping, Python, MySQL, HTML).
+Answer the question clearly and professionally in 3 to 5 sentences.
+At the end of your answer, always add one sentence connecting the topic to Thaj's skills or background.
+Keep your total answer under 120 words.
 
-        if (isGreeting) {
-          appendHtmlMessage(`👋 <strong>Hello there!</strong> Welcome to Thaj's portfolio. I am his AI assistant. How can I help you today? You can ask about his skills, education, or contact details!`, 'bot');
-          return;
-        }
-        if (isStatus) {
-          appendHtmlMessage(`😊 <strong>I am doing fantastic, thank you for asking!</strong> I am ready to help you discover everything about Thaj. What would you like to check out first?`, 'bot');
-          return;
-        }
+Portfolio context for reference:
+${pageCtx}`;
 
-        // Contact queries
-        const phoneKeywords = ['phone','mobile','number','numbar','num','no','whatsapp','watsap','call','phn','mobil'];
-        const emailKeywords = ['email','mail','emil','gmal','gmail'];
-        let isPhone = /contact|contect|phone|phn|mobile|whatsapp|watsap|call|num/i.test(cleanQuery);
-        let isEmail = /email|mail|gmail/i.test(cleanQuery);
-        queryWords.forEach(w => {
-          phoneKeywords.forEach(kw => { if (fuzzyMatch(w, kw)) isPhone = true; });
-          emailKeywords.forEach(kw => { if (fuzzyMatch(w, kw)) isEmail = true; });
+        const response = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: 'claude-sonnet-4-6',
+            max_tokens: 1000,
+            system: systemPrompt,
+            messages: [{ role: 'user', content: query }]
+          })
         });
 
-        if (isPhone && !cleanQuery.includes('email') && !cleanQuery.includes('mail')) {
-          appendHtmlMessage(`📞 <strong>Contact Number:</strong> +94 77 425 9549<br><br>👉 Direct Link: <a href="https://wa.me/94774259549" target="_blank" rel="noopener noreferrer">Open WhatsApp Chat</a>`, 'bot');
-          return;
-        }
-        if (isEmail) {
-          appendHtmlMessage(`✉️ <strong>Email Address:</strong> thajhrs@gmail.com<br><br>👉 Direct Link: <a href="mailto:thajhrs@gmail.com">Send Email Now</a>`, 'bot');
-          return;
-        }
+        const data = await response.json();
+        removeTyping();
 
-        // Intent matching
-        const intents = {
-          skills: ['skill','skils','skills','know','language','program','excel','python','mysql'],
-          education: ['education','edukation','school','aat','level','commerce','study','studying','exam','al','ol'],
-          certifications: ['certification','certifications','course','courses','chertification','certificate'],
-          about: ['about','abaut','who','thaj','details','location','place','live','sri lanka']
-        };
-        let detectedIntent = "";
-        for (let [key, words] of Object.entries(intents)) {
-          queryWords.forEach(qw => {
-            words.forEach(w => { if (fuzzyMatch(qw, w)) detectedIntent = key; });
-          });
-        }
-        if (detectedIntent) {
-          appendHtmlMessage(generateSmartResponse(detectedIntent), 'bot');
-          return;
-        }
-
-        // Page scan fallback
-        let bestMatch = "";
-        let highestScore = 0;
-        document.querySelectorAll('section, .card, .timeline__item, .about__list li, .tag-list li').forEach(el => {
-          let text = (el.innerText || el.textContent).replace(/\s+/g, ' ').trim();
-          if (text.length > 10 && !text.includes('Hello! I can automatically')) {
-            let score = 0;
-            const blockWords = text.toLowerCase().split(' ');
-            queryWords.forEach(qw => {
-              if (text.toLowerCase().includes(qw)) score += 3;
-              blockWords.forEach(bw => { if (fuzzyMatch(qw, bw)) score += 2; });
-            });
-            if (score > highestScore) { highestScore = score; bestMatch = text; }
-          }
-        });
-
-        if (highestScore > 1 && bestMatch) {
-          appendHtmlMessage(`Based on Thaj's profile:<br><br>"${bestMatch}"`, 'bot');
+        if (data && data.content && data.content[0] && data.content[0].text) {
+          appendMsg(data.content[0].text, 'bot');
         } else {
-          appendHtmlMessage(`I scanned the page but couldn't find precise info. Try asking about Thaj's <strong>Skills</strong>, <strong>AAT Education</strong>, <strong>Certifications</strong>, or <strong>Contact</strong> info!`, 'bot');
+          appendMsg('Sorry, I could not retrieve a response. Please try again.', 'bot');
         }
-      }, 450);
-    }
 
-    function appendMessage(text, sender) {
-      const msg = document.createElement('div');
-      msg.classList.add('ai-msg', `ai-msg-${sender}`);
-      msg.innerText = text;
-      chatMessages.appendChild(msg);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
+      } catch (err) {
+        removeTyping();
+        appendMsg('Connection error. Please check your internet connection and try again.', 'bot');
+      }
 
-    function appendHtmlMessage(html, sender) {
-      const msg = document.createElement('div');
-      msg.classList.add('ai-msg', `ai-msg-${sender === 'bot' ? 'bot' : 'user'}`);
-      msg.innerHTML = html;
-      chatMessages.appendChild(msg);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
+      chatSend.disabled = false;
+      chatInput.focus();
     }
 
     chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleResponse(); });
