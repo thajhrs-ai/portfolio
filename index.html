@@ -51,6 +51,48 @@
       flex-shrink: 0;
     }
 
+    /* ── DARK MODE ── */
+    body.dark-mode {
+      background-color: #000000 !important;
+      filter: invert(1) hue-rotate(180deg);
+    }
+    /* keep images/videos looking normal */
+    body.dark-mode img,
+    body.dark-mode video,
+    body.dark-mode iframe,
+    body.dark-mode .ai-window-container,
+    body.dark-mode .ai-chat-trigger,
+    body.dark-mode .ai-chat-label-below {
+      filter: invert(1) hue-rotate(180deg);
+    }
+
+    /* ── TOGGLE BUTTON ── */
+    #theme-toggle {
+      position: fixed;
+      top: 16px;
+      right: 20px;
+      z-index: 10000;
+      background: #111111;
+      color: #ffffff;
+      border: none;
+      border-radius: 50px;
+      padding: 8px 18px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+      transition: background 0.2s;
+    }
+    #theme-toggle:hover {
+      background: #333333;
+    }
+    body.dark-mode #theme-toggle {
+      filter: invert(1) hue-rotate(180deg);
+    }
+
     /* ==========================================================================
        AI CHATBOT STYLES
        ========================================================================= */
@@ -138,30 +180,12 @@
     }
 
     @media (max-width: 768px) {
-      .ai-chat-wrapper {
-        bottom: 15px;
-        right: 15px;
-        gap: 4px;
-      }
-      .ai-chat-trigger {
-        padding: 10px 16px;
-        font-size: 0.82rem;
-        gap: 6px;
-      }
-      .ai-chat-icon {
-        width: 15px;
-        height: 15px;
-      }
-      .ai-chat-label-below {
-        font-size: 0.6rem;
-        letter-spacing: 0.8px;
-      }
-      .ai-window-container {
-        bottom: 85px;
-        right: 15px;
-        width: 310px;
-        height: 400px;
-      }
+      .ai-chat-wrapper { bottom: 15px; right: 15px; gap: 4px; }
+      .ai-chat-trigger { padding: 10px 16px; font-size: 0.82rem; gap: 6px; }
+      .ai-chat-icon { width: 15px; height: 15px; }
+      .ai-chat-label-below { font-size: 0.6rem; letter-spacing: 0.8px; }
+      .ai-window-container { bottom: 85px; right: 15px; width: 310px; height: 400px; }
+      #theme-toggle { top: 12px; right: 12px; padding: 6px 12px; font-size: 0.75rem; }
     }
 
     .ai-window-header {
@@ -174,29 +198,21 @@
       border-bottom: 1px solid rgba(255,255,255,0.05);
     }
     .ai-status-dot {
-      width: 8px;
-      height: 8px;
+      width: 8px; height: 8px;
       background: #00ff88;
       border-radius: 50%;
       box-shadow: 0 0 8px #00ff88;
     }
     .ai-close-btn {
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 24px;
-      cursor: pointer;
-      opacity: 0.7;
-      transition: 0.2s;
+      background: none; border: none;
+      color: #fff; font-size: 24px;
+      cursor: pointer; opacity: 0.7; transition: 0.2s;
     }
     .ai-close-btn:hover { opacity: 1; }
     .ai-messages-body {
-      flex: 1;
-      padding: 16px;
+      flex: 1; padding: 16px;
       overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      display: flex; flex-direction: column; gap: 12px;
       background: #121214;
     }
     .ai-msg {
@@ -207,69 +223,53 @@
       line-height: 1.4;
     }
     .ai-msg-bot {
-      background: #1f1f24;
-      color: #e1e1e6;
+      background: #1f1f24; color: #e1e1e6;
       align-self: flex-start;
       border-bottom-left-radius: 4px;
       border: 1px solid rgba(255,255,255,0.03);
     }
-    .ai-msg-bot a {
-      color: #00f2fe;
-      text-decoration: underline;
-      font-weight: 600;
-    }
+    .ai-msg-bot a { color: #00f2fe; text-decoration: underline; font-weight: 600; }
     .ai-msg-bot .ai-section-btn {
-      display: inline-block;
-      margin-top: 8px;
+      display: inline-block; margin-top: 8px;
       background: linear-gradient(135deg, #4facfe, #00f2fe);
-      color: #000 !important;
-      padding: 6px 12px;
-      border-radius: 6px;
-      text-decoration: none !important;
-      font-size: 0.8rem;
-      font-weight: 600;
+      color: #000 !important; padding: 6px 12px;
+      border-radius: 6px; text-decoration: none !important;
+      font-size: 0.8rem; font-weight: 600;
     }
     .ai-msg-user {
       background: linear-gradient(135deg, #00f2fe, #4facfe);
-      color: #000;
-      font-weight: 500;
-      align-self: flex-end;
-      border-bottom-right-radius: 4px;
+      color: #000; font-weight: 500;
+      align-self: flex-end; border-bottom-right-radius: 4px;
     }
     .ai-window-footer {
-      padding: 12px;
-      background: #0f0f11;
-      display: flex;
-      gap: 8px;
+      padding: 12px; background: #0f0f11;
+      display: flex; gap: 8px;
       border-top: 1px solid rgba(255,255,255,0.05);
     }
     .ai-window-footer input {
-      flex: 1;
-      background: #1c1c21;
+      flex: 1; background: #1c1c21;
       border: 1px solid rgba(255,255,255,0.1);
-      color: #fff;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      outline: none;
+      color: #fff; padding: 8px 12px;
+      border-radius: 8px; font-size: 0.85rem; outline: none;
     }
     .ai-window-footer input:focus { border-color: #4facfe; }
     .ai-window-footer button {
-      background: #4facfe;
-      color: #000;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: 0.2s;
+      background: #4facfe; color: #000;
+      border: none; padding: 8px 16px;
+      border-radius: 8px; font-weight: 600;
+      font-size: 0.85rem; cursor: pointer; transition: 0.2s;
     }
     .ai-window-footer button:hover { background: #00f2fe; }
   </style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Theme Toggle Button -->
+  <button id="theme-toggle" aria-label="Toggle dark mode">
+    <span id="toggle-icon">🌙</span>
+    <span id="toggle-label">Dark Mode</span>
+  </button>
 
   <header class="site-header">
     <nav class="nav" aria-label="Main navigation">
@@ -316,12 +316,8 @@
         <h2 id="about-heading" class="section__title">About Me</h2>
         <div class="about__grid">
           <div class="about__text">
-            <p>
-              Highly motivated to leverage a unique blend of accounting knowledge and tech skills in an entry-level Finance, Data Analyst Trainee, or Tech-driven Accounts Assistant role.
-            </p>
-            <p>
-              I bring hands-on familiarity with relational databases, programming scripts, and professional corporate presentation tools, enabling comprehensive analytical problem-solving.
-            </p>
+            <p>Highly motivated to leverage a unique blend of accounting knowledge and tech skills in an entry-level Finance, Data Analyst Trainee, or Tech-driven Accounts Assistant role.</p>
+            <p>I bring hands-on familiarity with relational databases, programming scripts, and professional corporate presentation tools, enabling comprehensive analytical problem-solving.</p>
           </div>
           <div class="about__highlights card">
             <h3 class="about__highlights-title">Quick facts</h3>
@@ -436,9 +432,7 @@
         <h2 id="contact-heading" class="section__title">Contact</h2>
         <div class="contact__grid">
           <div class="contact__intro">
-            <p>
-              I'm open to new opportunities and interesting projects. Feel free to connect with me directly through any of the channels below.
-            </p>
+            <p>I'm open to new opportunities and interesting projects. Feel free to connect with me directly through any of the channels below.</p>
             <ul class="contact__links">
               <li>
                 <a href="mailto:thajhrs@gmail.com" class="contact__link">
@@ -513,13 +507,11 @@
       </div>
       <button id="ai-chat-close" class="ai-close-btn">&times;</button>
     </div>
-
     <div id="ai-chat-messages" class="ai-messages-body">
       <div class="ai-msg ai-msg-bot">
         Hello! I can automatically scan this entire portfolio page. Ask me any question about Thaj's details!
       </div>
     </div>
-
     <div class="ai-window-footer">
       <input type="text" id="ai-chat-input" placeholder="Ask anything about this page..." autocomplete="off">
       <button id="ai-chat-send">Send</button>
@@ -529,19 +521,39 @@
   <script src="js/nav.js"></script>
 
   <script>
-    const chatToggle = document.getElementById('ai-chat-toggle');
-    const chatWindow = document.getElementById('ai-chat-window');
-    const chatClose  = document.getElementById('ai-chat-close');
-    const chatInput  = document.getElementById('ai-chat-input');
+    /* ── THEME TOGGLE ── */
+    const body        = document.body;
+    const toggleBtn   = document.getElementById('theme-toggle');
+    const toggleIcon  = document.getElementById('toggle-icon');
+    const toggleLabel = document.getElementById('toggle-label');
+
+    const saved = localStorage.getItem('thaj-theme');
+    if (saved === 'dark') {
+      body.classList.add('dark-mode');
+      toggleIcon.textContent  = '☀️';
+      toggleLabel.textContent = 'Light Mode';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      const isDark = body.classList.toggle('dark-mode');
+      toggleIcon.textContent  = isDark ? '☀️' : '🌙';
+      toggleLabel.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+      localStorage.setItem('thaj-theme', isDark ? 'dark' : 'light');
+    });
+
+    /* ── AI CHATBOT ── */
+    const chatToggle   = document.getElementById('ai-chat-toggle');
+    const chatWindow   = document.getElementById('ai-chat-window');
+    const chatClose    = document.getElementById('ai-chat-close');
+    const chatInput    = document.getElementById('ai-chat-input');
     const chatMessages = document.getElementById('ai-chat-messages');
-    const chatSend   = document.getElementById('ai-chat-send');
+    const chatSend     = document.getElementById('ai-chat-send');
 
     chatToggle.addEventListener('click', () => {
       chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
     });
     chatClose.addEventListener('click', () => { chatWindow.style.display = 'none'; });
 
-    // Mobile-only auto-open when scrolling past About section
     let hasAutoOpened = false;
     if (window.innerWidth <= 768) {
       const aboutSection = document.getElementById('about');
@@ -559,7 +571,6 @@
       }
     }
 
-    // Fuzzy match helper
     function fuzzyMatch(word1, word2) {
       if (word1 === word2) return true;
       if (word1.length < 3 || word2.length < 3) return word1.includes(word2) || word2.includes(word1);
@@ -578,18 +589,14 @@
     }
 
     function generateSmartResponse(intent) {
-      if (intent === 'skills') {
+      if (intent === 'skills')
         return `🎯 <strong>Skills Summary:</strong> Thaj specializes in Financial Bookkeeping, Advanced Excel, Python programming, MySQL databases, and Web Development.<br><a href="#skills" class="ai-section-btn" onclick="document.getElementById('ai-chat-window').style.display='none';">Go to Skills Section →</a>`;
-      }
-      if (intent === 'education') {
+      if (intent === 'education')
         return `🎓 <strong>Education Summary:</strong> Thaj completed AAT Level 2 (2026), is currently pursuing G.C.E. Advanced Level in the Commerce stream, and successfully passed Ordinary Levels.<br><a href="#education" class="ai-section-btn" onclick="document.getElementById('ai-chat-window').style.display='none';">Go to Education Section →</a>`;
-      }
-      if (intent === 'certifications') {
+      if (intent === 'certifications')
         return `📜 <strong>Certifications:</strong> Thaj holds a Dual-Course Certification in Web Development & Programming (HTML, CSS, Python, MySQL).<br><a href="#certifications" class="ai-section-btn" onclick="document.getElementById('ai-chat-window').style.display='none';">Go to Certifications Section →</a>`;
-      }
-      if (intent === 'about') {
+      if (intent === 'about')
         return `👤 <strong>About Thaj:</strong> A motivated Commerce & Tech enthusiast based in Deltota, Sri Lanka, looking for Trainee Finance or Data Analyst roles.<br><a href="#about" class="ai-section-btn" onclick="document.getElementById('ai-chat-window').style.display='none';">Go to About Section →</a>`;
-      }
       return "";
     }
 
@@ -603,7 +610,6 @@
         const cleanQuery = query.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").trim();
         const queryWords = cleanQuery.split(' ').filter(w => w.length > 0);
 
-        // Acknowledgments
         const acknowledgments = ['ok','okk','okay','yes','yeah','sure','cool','nice','great','super','thanks','thank you','nandri'];
         if (queryWords.length <= 2 && queryWords.some(qw => acknowledgments.includes(qw))) {
           if (cleanQuery.includes('thank') || cleanQuery === 'nandri') {
@@ -614,7 +620,6 @@
           return;
         }
 
-        // Greetings
         const greetings = ['hi','hello','hey','helloo','hii','vanakkam','வணக்கம்'];
         const statusQueries = ['how are you','how r u','nallama','nalama','sugama','soogama','fine','how do you do'];
         const isGreeting = queryWords.some(qw => greetings.some(g => fuzzyMatch(qw, g))) || greetings.includes(cleanQuery);
@@ -629,7 +634,6 @@
           return;
         }
 
-        // Contact queries
         const phoneKeywords = ['phone','mobile','number','numbar','num','no','whatsapp','watsap','call','phn','mobil'];
         const emailKeywords = ['email','mail','emil','gmal','gmail'];
         let isPhone = /contact|contect|phone|phn|mobile|whatsapp|watsap|call|num/i.test(cleanQuery);
@@ -648,7 +652,6 @@
           return;
         }
 
-        // Intent matching
         const intents = {
           skills: ['skill','skils','skills','know','language','program','excel','python','mysql'],
           education: ['education','edukation','school','aat','level','commerce','study','studying','exam','al','ol'],
@@ -666,7 +669,6 @@
           return;
         }
 
-        // Page scan fallback
         let bestMatch = "";
         let highestScore = 0;
         document.querySelectorAll('section, .card, .timeline__item, .about__list li, .tag-list li').forEach(el => {
@@ -700,7 +702,7 @@
 
     function appendHtmlMessage(html, sender) {
       const msg = document.createElement('div');
-      msg.classList.add('ai-msg', `ai-msg-${sender === 'bot' ? 'bot' : 'user'}`);
+      msg.classList.add('ai-msg', sender === 'bot' ? 'ai-msg-bot' : 'ai-msg-user');
       msg.innerHTML = html;
       chatMessages.appendChild(msg);
       chatMessages.scrollTop = chatMessages.scrollHeight;
