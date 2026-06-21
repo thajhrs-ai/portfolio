@@ -73,22 +73,37 @@
        DARK MODE — proper color overrides
     ══════════════════════════════════════════ */
 
-    /* ── ALL backgrounds → dark ── */
-    body.dark-mode {
+    /* ── page background fully dark ── */
+    body.dark-mode,
+    body.dark-mode .hero,
+    body.dark-mode .section,
+    body.dark-mode .section--alt,
+    body.dark-mode main,
+    body.dark-mode #main,
+    body.dark-mode .container,
+    body.dark-mode .hero__inner,
+    body.dark-mode .hero__content,
+    body.dark-mode .about__grid,
+    body.dark-mode .about__text,
+    body.dark-mode .skills__grid,
+    body.dark-mode .timeline,
+    body.dark-mode .contact__grid,
+    body.dark-mode .contact__intro {
       background-color: #0d0d0d !important;
     }
-    body.dark-mode *:not(.ai-chat-wrapper):not(.ai-chat-wrapper *):not(.ai-window-container):not(.ai-window-container *) {
-      background-color: transparent !important;
+    body.dark-mode .section--alt {
+      background-color: #111111 !important;
     }
-
-    /* ── restore needed backgrounds ── */
     body.dark-mode .site-header,
     body.dark-mode .nav {
       background-color: #0d0d0d !important;
+      border-bottom-color: #1f1f1f !important;
     }
     body.dark-mode .footer {
       background-color: #000000 !important;
     }
+
+    /* ── cards ── */
     body.dark-mode .card,
     body.dark-mode .about__highlights,
     body.dark-mode .skill-group,
@@ -98,28 +113,39 @@
       background-color: #161616 !important;
       border-color: #2a2a2a !important;
     }
-    body.dark-mode .btn--primary,
-    body.dark-mode .nav__menu .btn--primary {
-      background-color: #14532d !important;
-      border-color: #16a34a !important;
+
+    /* ── BUTTONS — filled like light mode ── */
+    body.dark-mode .btn--primary {
+      background-color: #15803d !important;
+      border-color: #15803d !important;
+      color: #ffffff !important;
+      box-shadow: 0 0 10px rgba(74,222,128,0.25) !important;
+    }
+    body.dark-mode .btn--primary:hover {
+      background-color: #16a34a !important;
+      box-shadow: 0 0 16px rgba(74,222,128,0.45) !important;
     }
     body.dark-mode .btn--secondary {
       background-color: transparent !important;
-      border-color: #ffffff !important;
+      border-color: #4ade80 !important;
+      color: #4ade80 !important;
     }
+    body.dark-mode .btn--secondary:hover {
+      background-color: rgba(74,222,128,0.1) !important;
+    }
+
+    /* ── skill tags ── */
     body.dark-mode .tag {
       background-color: #052e16 !important;
       border-color: #166534 !important;
-    }
-    body.dark-mode .hero__image-wrap {
-      background-color: #1a1a1a !important;
+      color: #4ade80 !important;
     }
 
-    /* ── section divider line — subtle ── */
-    body.dark-mode .section--alt {
-      background-color: #111111 !important;
-      border-top: 1px solid #1f1f1f !important;
-      border-bottom: 1px solid #1f1f1f !important;
+    /* ── hero image wrap ── */
+    body.dark-mode .hero__image-wrap {
+      background-color: #1a1a1a !important;
+      border-color: #4ade80 !important;
+      box-shadow: 0 0 20px rgba(74,222,128,0.3) !important;
     }
 
     /* ── text white ── */
@@ -129,8 +155,7 @@
     body.dark-mode .skill-group__title, body.dark-mode .timeline__role,
     body.dark-mode .education-card__degree, body.dark-mode .contact__cta-title,
     body.dark-mode .footer__text, body.dark-mode .footer__top,
-    body.dark-mode .contact__link, body.dark-mode .contact__link-label,
-    body.dark-mode .btn--primary, body.dark-mode .btn--secondary {
+    body.dark-mode .contact__link, body.dark-mode .contact__link-label {
       color: #ffffff !important;
     }
 
@@ -142,14 +167,13 @@
       color: #aaaaaa !important;
     }
 
-    /* ── green accent — light green with glow ── */
-    body.dark-mode .hero__title,
-    body.dark-mode .timeline__meta,
-    body.dark-mode .tag {
-      color: #4ade80 !important;
-    }
+    /* ── green accent with glow ── */
     body.dark-mode .hero__title {
-      text-shadow: 0 0 12px rgba(74, 222, 128, 0.4);
+      color: #4ade80 !important;
+      text-shadow: 0 0 14px rgba(74,222,128,0.45);
+    }
+    body.dark-mode .timeline__meta {
+      color: #4ade80 !important;
     }
 
     /* ── nav toggle bars ── */
@@ -157,13 +181,7 @@
       background-color: #ffffff !important;
     }
 
-    /* ── profile border — green glow ── */
-    body.dark-mode .hero__image-wrap {
-      border-color: #4ade80 !important;
-      box-shadow: 0 0 16px rgba(74, 222, 128, 0.35) !important;
-    }
-
-    /* ── timeline border — green glow ── */
+    /* ── timeline left border ── */
     body.dark-mode .timeline__item {
       border-left-color: #4ade80 !important;
     }
