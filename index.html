@@ -9,13 +9,31 @@
   <link rel="stylesheet" href="css/style.css">
   <style>
     @media (min-width: 769px) {
+      .nav {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 16px !important;
+      }
+      .nav__logo {
+        flex-shrink: 0 !important;
+        margin-right: auto !important;
+      }
       .nav__menu {
         display: flex !important;
-        gap: 12px !important;
+        gap: 10px !important;
         list-style: none !important;
         padding: 0 !important;
         margin: 0 !important;
         align-items: center !important;
+        flex-shrink: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+      }
+      .nav__menu .btn--primary {
+        padding: 0.45rem 0.9rem !important;
+        font-size: 0.85rem !important;
+        white-space: nowrap !important;
       }
     }
     @media (max-width: 768px) {
