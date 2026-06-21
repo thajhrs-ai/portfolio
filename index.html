@@ -69,33 +69,139 @@
       flex-shrink: 0;
     }
 
-    /* ── DARK MODE ── */
-    #page-wrap {
-      min-height: 100vh;
+    /* ══════════════════════════════════════════
+       DARK MODE — proper color overrides
+       (no filter trick — each color manually set)
+    ══════════════════════════════════════════ */
+
+    /* ── backgrounds ── */
+    body.dark-mode,
+    body.dark-mode #page-wrap,
+    body.dark-mode .hero,
+    body.dark-mode .section,
+    body.dark-mode main,
+    body.dark-mode #main {
+      background-color: #0d0d0d !important;
     }
-    body.dark-mode #page-wrap {
-      filter: invert(1) hue-rotate(180deg);
-      background-color: #000 !important;
+    body.dark-mode .section--alt {
+      background-color: #141414 !important;
     }
-    /* keep images/photos normal (double invert = original) */
-    body.dark-mode #page-wrap img,
-    body.dark-mode #page-wrap video,
-    body.dark-mode #page-wrap iframe {
-      filter: invert(1) hue-rotate(180deg);
+    body.dark-mode .site-header,
+    body.dark-mode .nav {
+      background-color: #111111 !important;
+      border-bottom-color: #222 !important;
     }
-    /* strip ALL background colors inside page-wrap so filter is uniform */
-    body.dark-mode #page-wrap *:not(img):not(video):not(iframe) {
+    body.dark-mode .footer {
+      background-color: #000000 !important;
+    }
+    body.dark-mode .card,
+    body.dark-mode .about__highlights {
+      background-color: #1a1a1a !important;
+      border-color: #2a2a2a !important;
+    }
+
+    /* ── text ── */
+    body.dark-mode,
+    body.dark-mode h1,
+    body.dark-mode h2,
+    body.dark-mode h3,
+    body.dark-mode h4,
+    body.dark-mode p,
+    body.dark-mode li,
+    body.dark-mode a,
+    body.dark-mode span,
+    body.dark-mode .hero__name,
+    body.dark-mode .hero__greeting,
+    body.dark-mode .hero__tagline,
+    body.dark-mode .section__title,
+    body.dark-mode .nav__logo,
+    body.dark-mode .about__highlights-title,
+    body.dark-mode .about__list li,
+    body.dark-mode .skill-group__title,
+    body.dark-mode .timeline__role,
+    body.dark-mode .timeline__bullets li,
+    body.dark-mode .education-card__degree,
+    body.dark-mode .education-card__meta,
+    body.dark-mode .contact__intro p,
+    body.dark-mode .contact__link,
+    body.dark-mode .contact__link-label,
+    body.dark-mode .contact__cta-title,
+    body.dark-mode .contact__cta-text,
+    body.dark-mode .footer__text,
+    body.dark-mode .footer__top {
+      color: #ffffff !important;
+    }
+
+    /* ── green accent text stays green (or goes blue) ── */
+    body.dark-mode .hero__title,
+    body.dark-mode .timeline__meta {
+      color: #22d3ee !important;
+    }
+
+    /* ── nav buttons ── */
+    body.dark-mode .nav__menu .btn--primary {
+      background-color: #1e3a5f !important;
+      color: #ffffff !important;
+      border-color: #1e3a5f !important;
+    }
+    body.dark-mode .nav__toggle-bar {
+      background-color: #ffffff !important;
+    }
+
+    /* ── hero buttons ── */
+    body.dark-mode .btn--primary {
+      background-color: #1e3a5f !important;
+      color: #ffffff !important;
+      border-color: #1e3a5f !important;
+    }
+    body.dark-mode .btn--secondary {
       background-color: transparent !important;
-      border-color: rgba(255,255,255,0.15) !important;
+      color: #ffffff !important;
+      border-color: #ffffff !important;
     }
-    /* restore specific UI backgrounds that need color */
-    body.dark-mode #page-wrap .nav,
-    body.dark-mode #page-wrap .site-header { background-color: #fff !important; }
-    body.dark-mode #page-wrap .btn--primary { background-color: #111 !important; }
-    body.dark-mode #page-wrap .btn--secondary { background-color: transparent !important; }
-    body.dark-mode #page-wrap .tag { background-color: #f0fdf4 !important; }
-    body.dark-mode #page-wrap .footer { background-color: #111 !important; }
-    /* AI chat stays outside page-wrap — untouched */
+
+    /* ── skill tags ── */
+    body.dark-mode .tag {
+      background-color: #052e16 !important;
+      color: #4ade80 !important;
+      border-color: #166534 !important;
+    }
+
+    /* ── profile image border ── */
+    body.dark-mode .hero__image-wrap {
+      border-color: #22d3ee !important;
+      background-color: #1a1a1a !important;
+    }
+
+    /* ── timeline left border ── */
+    body.dark-mode .timeline__item {
+      border-left-color: #22d3ee !important;
+    }
+
+    /* ── contact icons ── */
+    body.dark-mode .contact-icon {
+      fill: #ffffff !important;
+    }
+
+    /* ── svg fills ── */
+    body.dark-mode svg path {
+      fill: #ffffff;
+    }
+
+    /* ── section title underline (if any border) ── */
+    body.dark-mode .section__title {
+      border-color: #22d3ee !important;
+    }
+
+    /* ── muted text ── */
+    body.dark-mode .hero__greeting,
+    body.dark-mode .hero__tagline,
+    body.dark-mode .about__text p,
+    body.dark-mode .timeline__bullets li,
+    body.dark-mode .education-card__meta,
+    body.dark-mode .contact__cta-text {
+      color: #cccccc !important;
+    }
 
     /* ── TOGGLE BUTTON (mobile menu version) ── */
     #theme-toggle {
@@ -308,7 +414,6 @@
   </style>
 </head>
 <body>
-  <div id="page-wrap">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
@@ -538,9 +643,7 @@
     </div>
   </footer>
 
-  </div><!-- end #page-wrap -->
-
-  <!-- AI Chat — OUTSIDE page-wrap so dark mode filter doesn't affect position:fixed -->
+  <!-- AI Chat — OUTSIDE page content, position:fixed works correctly in all modes -->
   <div class="ai-chat-wrapper">
 
     <!-- Chat Window -->
