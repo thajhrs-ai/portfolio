@@ -73,124 +73,110 @@
        DARK MODE — proper color overrides
     ══════════════════════════════════════════ */
 
-    /* ── backgrounds ── */
+    /* ── ALL backgrounds → dark ── */
     body.dark-mode {
       background-color: #0d0d0d !important;
     }
-    body.dark-mode #page-wrap,
-    body.dark-mode .hero,
-    body.dark-mode .section,
-    body.dark-mode main,
-    body.dark-mode #main,
-    body.dark-mode .container,
-    body.dark-mode .hero__inner,
-    body.dark-mode .hero__content {
-      background-color: #0d0d0d !important;
+    body.dark-mode *:not(.ai-chat-wrapper):not(.ai-chat-wrapper *):not(.ai-window-container):not(.ai-window-container *) {
+      background-color: transparent !important;
     }
-    body.dark-mode .section--alt {
-      background-color: #111111 !important;
-    }
+
+    /* ── restore needed backgrounds ── */
     body.dark-mode .site-header,
     body.dark-mode .nav {
       background-color: #0d0d0d !important;
-      border-bottom-color: #222 !important;
     }
     body.dark-mode .footer {
       background-color: #000000 !important;
     }
     body.dark-mode .card,
-    body.dark-mode .about__highlights {
-      background-color: #1a1a1a !important;
+    body.dark-mode .about__highlights,
+    body.dark-mode .skill-group,
+    body.dark-mode .timeline__item,
+    body.dark-mode .education-card,
+    body.dark-mode .contact__cta {
+      background-color: #161616 !important;
       border-color: #2a2a2a !important;
     }
+    body.dark-mode .btn--primary,
+    body.dark-mode .nav__menu .btn--primary {
+      background-color: #14532d !important;
+      border-color: #16a34a !important;
+    }
+    body.dark-mode .btn--secondary {
+      background-color: transparent !important;
+      border-color: #ffffff !important;
+    }
+    body.dark-mode .tag {
+      background-color: #052e16 !important;
+      border-color: #166534 !important;
+    }
+    body.dark-mode .hero__image-wrap {
+      background-color: #1a1a1a !important;
+    }
 
-    /* ── text ── */
-    body.dark-mode h1,
-    body.dark-mode h2,
-    body.dark-mode h3,
-    body.dark-mode h4,
-    body.dark-mode .hero__name,
-    body.dark-mode .section__title,
-    body.dark-mode .nav__logo,
-    body.dark-mode .about__highlights-title,
-    body.dark-mode .skill-group__title,
-    body.dark-mode .timeline__role,
-    body.dark-mode .education-card__degree,
-    body.dark-mode .contact__cta-title,
-    body.dark-mode .footer__text,
-    body.dark-mode .footer__top,
-    body.dark-mode .contact__link,
-    body.dark-mode .contact__link-label {
+    /* ── section divider line — subtle ── */
+    body.dark-mode .section--alt {
+      background-color: #111111 !important;
+      border-top: 1px solid #1f1f1f !important;
+      border-bottom: 1px solid #1f1f1f !important;
+    }
+
+    /* ── text white ── */
+    body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4,
+    body.dark-mode .hero__name, body.dark-mode .section__title,
+    body.dark-mode .nav__logo, body.dark-mode .about__highlights-title,
+    body.dark-mode .skill-group__title, body.dark-mode .timeline__role,
+    body.dark-mode .education-card__degree, body.dark-mode .contact__cta-title,
+    body.dark-mode .footer__text, body.dark-mode .footer__top,
+    body.dark-mode .contact__link, body.dark-mode .contact__link-label,
+    body.dark-mode .btn--primary, body.dark-mode .btn--secondary {
       color: #ffffff !important;
     }
 
     /* ── muted text ── */
-    body.dark-mode .hero__greeting,
-    body.dark-mode .hero__tagline,
-    body.dark-mode .about__text p,
-    body.dark-mode .about__list li,
-    body.dark-mode .timeline__bullets li,
-    body.dark-mode .education-card__meta,
-    body.dark-mode .contact__intro p,
-    body.dark-mode .contact__cta-text {
-      color: #cccccc !important;
+    body.dark-mode .hero__greeting, body.dark-mode .hero__tagline,
+    body.dark-mode .about__text p, body.dark-mode .about__list li,
+    body.dark-mode .timeline__bullets li, body.dark-mode .education-card__meta,
+    body.dark-mode .contact__intro p, body.dark-mode .contact__cta-text {
+      color: #aaaaaa !important;
     }
 
-    /* ── green accent → dark green (NOT blue) ── */
+    /* ── green accent — light green with glow ── */
     body.dark-mode .hero__title,
-    body.dark-mode .timeline__meta {
-      color: #16a34a !important;
+    body.dark-mode .timeline__meta,
+    body.dark-mode .tag {
+      color: #4ade80 !important;
+    }
+    body.dark-mode .hero__title {
+      text-shadow: 0 0 12px rgba(74, 222, 128, 0.4);
     }
 
-    /* ── nav buttons — dark green ── */
-    body.dark-mode .nav__menu .btn--primary {
-      background-color: #14532d !important;
-      color: #ffffff !important;
-      border-color: #14532d !important;
-    }
+    /* ── nav toggle bars ── */
     body.dark-mode .nav__toggle-bar {
       background-color: #ffffff !important;
     }
 
-    /* ── hero buttons ── */
-    body.dark-mode .btn--primary {
-      background-color: #14532d !important;
-      color: #ffffff !important;
-      border-color: #14532d !important;
-    }
-    body.dark-mode .btn--secondary {
-      background-color: transparent !important;
-      color: #ffffff !important;
-      border-color: #ffffff !important;
-    }
-
-    /* ── skill tags — dark green ── */
-    body.dark-mode .tag {
-      background-color: #052e16 !important;
-      color: #4ade80 !important;
-      border-color: #166534 !important;
-    }
-
-    /* ── profile image border — dark green ── */
+    /* ── profile border — green glow ── */
     body.dark-mode .hero__image-wrap {
-      border-color: #16a34a !important;
-      background-color: #1a1a1a !important;
+      border-color: #4ade80 !important;
+      box-shadow: 0 0 16px rgba(74, 222, 128, 0.35) !important;
     }
 
-    /* ── timeline left border — dark green ── */
+    /* ── timeline border — green glow ── */
     body.dark-mode .timeline__item {
-      border-left-color: #16a34a !important;
+      border-left-color: #4ade80 !important;
+    }
+
+    /* ── section title underline ── */
+    body.dark-mode .section__title {
+      border-color: #4ade80 !important;
     }
 
     /* ── contact icons ── */
     body.dark-mode .contact-icon {
       fill: #ffffff !important;
       color: #ffffff !important;
-    }
-
-    /* ── section title underline ── */
-    body.dark-mode .section__title {
-      border-color: #16a34a !important;
     }
 
     /* ── TOGGLE BUTTON (mobile menu version) ── */
