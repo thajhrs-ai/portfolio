@@ -71,24 +71,28 @@
 
     /* ══════════════════════════════════════════
        DARK MODE — proper color overrides
-       (no filter trick — each color manually set)
     ══════════════════════════════════════════ */
 
     /* ── backgrounds ── */
-    body.dark-mode,
+    body.dark-mode {
+      background-color: #0d0d0d !important;
+    }
     body.dark-mode #page-wrap,
     body.dark-mode .hero,
     body.dark-mode .section,
     body.dark-mode main,
-    body.dark-mode #main {
+    body.dark-mode #main,
+    body.dark-mode .container,
+    body.dark-mode .hero__inner,
+    body.dark-mode .hero__content {
       background-color: #0d0d0d !important;
     }
     body.dark-mode .section--alt {
-      background-color: #141414 !important;
+      background-color: #111111 !important;
     }
     body.dark-mode .site-header,
     body.dark-mode .nav {
-      background-color: #111111 !important;
+      background-color: #0d0d0d !important;
       border-bottom-color: #222 !important;
     }
     body.dark-mode .footer {
@@ -101,48 +105,48 @@
     }
 
     /* ── text ── */
-    body.dark-mode,
     body.dark-mode h1,
     body.dark-mode h2,
     body.dark-mode h3,
     body.dark-mode h4,
-    body.dark-mode p,
-    body.dark-mode li,
-    body.dark-mode a,
-    body.dark-mode span,
     body.dark-mode .hero__name,
-    body.dark-mode .hero__greeting,
-    body.dark-mode .hero__tagline,
     body.dark-mode .section__title,
     body.dark-mode .nav__logo,
     body.dark-mode .about__highlights-title,
-    body.dark-mode .about__list li,
     body.dark-mode .skill-group__title,
     body.dark-mode .timeline__role,
-    body.dark-mode .timeline__bullets li,
     body.dark-mode .education-card__degree,
+    body.dark-mode .contact__cta-title,
+    body.dark-mode .footer__text,
+    body.dark-mode .footer__top,
+    body.dark-mode .contact__link,
+    body.dark-mode .contact__link-label {
+      color: #ffffff !important;
+    }
+
+    /* ── muted text ── */
+    body.dark-mode .hero__greeting,
+    body.dark-mode .hero__tagline,
+    body.dark-mode .about__text p,
+    body.dark-mode .about__list li,
+    body.dark-mode .timeline__bullets li,
     body.dark-mode .education-card__meta,
     body.dark-mode .contact__intro p,
-    body.dark-mode .contact__link,
-    body.dark-mode .contact__link-label,
-    body.dark-mode .contact__cta-title,
-    body.dark-mode .contact__cta-text,
-    body.dark-mode .footer__text,
-    body.dark-mode .footer__top {
-      color: #ffffff !important;
+    body.dark-mode .contact__cta-text {
+      color: #cccccc !important;
     }
 
-    /* ── green accent text stays green (or goes blue) ── */
+    /* ── green accent → dark green (NOT blue) ── */
     body.dark-mode .hero__title,
     body.dark-mode .timeline__meta {
-      color: #22d3ee !important;
+      color: #16a34a !important;
     }
 
-    /* ── nav buttons ── */
+    /* ── nav buttons — dark green ── */
     body.dark-mode .nav__menu .btn--primary {
-      background-color: #1e3a5f !important;
+      background-color: #14532d !important;
       color: #ffffff !important;
-      border-color: #1e3a5f !important;
+      border-color: #14532d !important;
     }
     body.dark-mode .nav__toggle-bar {
       background-color: #ffffff !important;
@@ -150,9 +154,9 @@
 
     /* ── hero buttons ── */
     body.dark-mode .btn--primary {
-      background-color: #1e3a5f !important;
+      background-color: #14532d !important;
       color: #ffffff !important;
-      border-color: #1e3a5f !important;
+      border-color: #14532d !important;
     }
     body.dark-mode .btn--secondary {
       background-color: transparent !important;
@@ -160,47 +164,33 @@
       border-color: #ffffff !important;
     }
 
-    /* ── skill tags ── */
+    /* ── skill tags — dark green ── */
     body.dark-mode .tag {
       background-color: #052e16 !important;
       color: #4ade80 !important;
       border-color: #166534 !important;
     }
 
-    /* ── profile image border ── */
+    /* ── profile image border — dark green ── */
     body.dark-mode .hero__image-wrap {
-      border-color: #22d3ee !important;
+      border-color: #16a34a !important;
       background-color: #1a1a1a !important;
     }
 
-    /* ── timeline left border ── */
+    /* ── timeline left border — dark green ── */
     body.dark-mode .timeline__item {
-      border-left-color: #22d3ee !important;
+      border-left-color: #16a34a !important;
     }
 
     /* ── contact icons ── */
     body.dark-mode .contact-icon {
       fill: #ffffff !important;
+      color: #ffffff !important;
     }
 
-    /* ── svg fills ── */
-    body.dark-mode svg path {
-      fill: #ffffff;
-    }
-
-    /* ── section title underline (if any border) ── */
+    /* ── section title underline ── */
     body.dark-mode .section__title {
-      border-color: #22d3ee !important;
-    }
-
-    /* ── muted text ── */
-    body.dark-mode .hero__greeting,
-    body.dark-mode .hero__tagline,
-    body.dark-mode .about__text p,
-    body.dark-mode .timeline__bullets li,
-    body.dark-mode .education-card__meta,
-    body.dark-mode .contact__cta-text {
-      color: #cccccc !important;
+      border-color: #16a34a !important;
     }
 
     /* ── TOGGLE BUTTON (mobile menu version) ── */
