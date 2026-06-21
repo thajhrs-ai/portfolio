@@ -70,29 +70,32 @@
     }
 
     /* ── DARK MODE ── */
-    /* Apply filter on wrapper div NOT body — fixes position:fixed elements */
     #page-wrap {
       min-height: 100vh;
     }
     body.dark-mode #page-wrap {
       filter: invert(1) hue-rotate(180deg);
-      background-color: #000000;
+      background-color: #000 !important;
     }
-    /* keep images normal */
+    /* keep images/photos normal (double invert = original) */
     body.dark-mode #page-wrap img,
     body.dark-mode #page-wrap video,
     body.dark-mode #page-wrap iframe {
       filter: invert(1) hue-rotate(180deg);
     }
-    /* force all section backgrounds to inherit so filter covers everything */
-    body.dark-mode #page-wrap .section,
-    body.dark-mode #page-wrap .section--alt,
-    body.dark-mode #page-wrap .hero,
-    body.dark-mode #page-wrap .site-header,
-    body.dark-mode #page-wrap .footer {
+    /* strip ALL background colors inside page-wrap so filter is uniform */
+    body.dark-mode #page-wrap *:not(img):not(video):not(iframe) {
       background-color: transparent !important;
+      border-color: rgba(255,255,255,0.15) !important;
     }
-    /* AI chat wrapper stays OUTSIDE page-wrap — no filter needed */
+    /* restore specific UI backgrounds that need color */
+    body.dark-mode #page-wrap .nav,
+    body.dark-mode #page-wrap .site-header { background-color: #fff !important; }
+    body.dark-mode #page-wrap .btn--primary { background-color: #111 !important; }
+    body.dark-mode #page-wrap .btn--secondary { background-color: transparent !important; }
+    body.dark-mode #page-wrap .tag { background-color: #f0fdf4 !important; }
+    body.dark-mode #page-wrap .footer { background-color: #111 !important; }
+    /* AI chat stays outside page-wrap — untouched */
 
     /* ── TOGGLE BUTTON (mobile menu version) ── */
     #theme-toggle {
