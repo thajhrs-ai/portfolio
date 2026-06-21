@@ -66,7 +66,7 @@
       filter: invert(1) hue-rotate(180deg);
     }
 
-    /* ── TOGGLE BUTTON ── */
+    /* ── TOGGLE BUTTON (mobile menu version) ── */
     #theme-toggle {
       width: 36px;
       height: 36px;
@@ -81,36 +81,31 @@
       justify-content: center;
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
       transition: background 0.2s, transform 0.2s;
-      flex-shrink: 0;
     }
-    #theme-toggle:hover {
-      background: #333333;
-      transform: scale(1.1);
-    }
-    body.dark-mode #theme-toggle {
-      filter: invert(1) hue-rotate(180deg);
-    }
+    #theme-toggle:hover { background: #333; transform: scale(1.1); }
+    body.dark-mode #theme-toggle  { filter: invert(1) hue-rotate(180deg); }
+    body.dark-mode #theme-toggle-desktop { filter: invert(1) hue-rotate(180deg); }
 
-    /* desktop: fixed top-right */
+    /* desktop: toggle sits inside nav, hide mobile-menu version */
     @media (min-width: 769px) {
-      #theme-toggle {
-        position: fixed;
-        top: 14px;
-        right: 20px;
-        z-index: 10000;
-      }
-    }
-
-    /* mobile: inside nav menu, centered */
-    @media (max-width: 768px) {
-      #theme-toggle {
-        position: static;
-        margin: 4px auto 8px auto;
+      #theme-toggle-desktop {
+        display: flex !important;
       }
       .nav__menu-toggle-wrap {
-        display: flex;
+        display: none !important;
+      }
+    }
+
+    /* mobile: toggle inside nav menu only, hide desktop version */
+    @media (max-width: 768px) {
+      #theme-toggle-desktop {
+        display: none !important;
+      }
+      .nav__menu-toggle-wrap {
+        display: flex !important;
         justify-content: center;
-        padding: 4px 0 2px 0;
+        padding: 4px 0 6px 0;
+        list-style: none !important;
       }
     }
 
@@ -206,7 +201,7 @@
       .ai-chat-icon { width: 15px; height: 15px; }
       .ai-chat-label-below { font-size: 0.6rem; letter-spacing: 0.8px; }
       .ai-window-container { bottom: 85px; right: 15px; width: 310px; height: 400px; }
-      #theme-toggle { display: none; } /* hidden on mobile — shown inside nav menu */
+
     }
 
     .ai-window-header {
@@ -286,9 +281,6 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- Theme Toggle — desktop fixed, mobile inside nav -->
-  <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
-
   <header class="site-header">
     <nav class="nav" aria-label="Main navigation">
       <a class="nav__logo" href="#">THAJ HRS</a>
@@ -300,14 +292,9 @@
       </button>
 
       <ul class="nav__menu" id="nav-menu">
-        <!-- Dark mode toggle shown only inside mobile menu -->
-        <li class="nav__menu-toggle-wrap" style="list-style:none;">
-          <button id="theme-toggle-mobile" aria-label="Toggle dark mode" style="
-            width:38px;height:38px;border-radius:50%;background:#111;color:#fff;
-            border:none;font-size:1.1rem;cursor:pointer;display:flex;
-            align-items:center;justify-content:center;
-            box-shadow:0 2px 8px rgba(0,0,0,0.3);transition:background 0.2s,transform 0.2s;
-          ">🌙</button>
+        <!-- Dark mode toggle — first item in mobile menu, hidden on desktop via CSS -->
+        <li class="nav__menu-toggle-wrap">
+          <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
         </li>
         <li><a href="#about" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">About</a></li>
         <li><a href="#skills" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Skills</a></li>
@@ -315,6 +302,16 @@
         <li><a href="#certifications" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Certifications</a></li>
         <li><a href="#contact" class="btn btn--primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; white-space: nowrap; color: #ffffff !important;">Contact</a></li>
       </ul>
+
+      <!-- Desktop only toggle — sits inside nav bar on the right -->
+      <button id="theme-toggle-desktop" aria-label="Toggle dark mode" style="
+        width:36px;height:36px;border-radius:50%;background:#111;color:#fff;
+        border:none;font-size:1.1rem;cursor:pointer;
+        display:flex;align-items:center;justify-content:center;
+        box-shadow:0 2px 8px rgba(0,0,0,0.25);
+        transition:background 0.2s,transform 0.2s;
+        flex-shrink:0;
+      ">🌙</button>
     </nav>
   </header>
 
@@ -549,24 +546,28 @@
 
   <script>
     /* ── THEME TOGGLE ── */
-    const body        = document.body;
-    const toggleBtn   = document.getElementById('theme-toggle');
-    const toggleIcon  = document.getElementById('toggle-icon');
-    const toggleLabel = document.getElementById('toggle-label');
+    const body            = document.body;
+    const btnMobile       = document.getElementById('theme-toggle');
+    const btnDesktop      = document.getElementById('theme-toggle-desktop');
 
-    const saved = localStorage.getItem('thaj-theme');
-    if (saved === 'dark') {
-      body.classList.add('dark-mode');
-      toggleIcon.textContent  = '☀️';
-      toggleLabel.textContent = 'Light Mode';
+    function applyTheme(isDark) {
+      if (isDark) {
+        body.classList.add('dark-mode');
+        if (btnMobile)  btnMobile.textContent  = '☀️';
+        if (btnDesktop) btnDesktop.textContent = '☀️';
+      } else {
+        body.classList.remove('dark-mode');
+        if (btnMobile)  btnMobile.textContent  = '🌙';
+        if (btnDesktop) btnDesktop.textContent = '🌙';
+      }
+      localStorage.setItem('thaj-theme', isDark ? 'dark' : 'light');
     }
 
-    toggleBtn.addEventListener('click', () => {
-      const isDark = body.classList.toggle('dark-mode');
-      toggleIcon.textContent  = isDark ? '☀️' : '🌙';
-      toggleLabel.textContent = isDark ? 'Light Mode' : 'Dark Mode';
-      localStorage.setItem('thaj-theme', isDark ? 'dark' : 'light');
-    });
+    applyTheme(localStorage.getItem('thaj-theme') === 'dark');
+
+    function handleToggle() { applyTheme(!body.classList.contains('dark-mode')); }
+    if (btnMobile)  btnMobile.addEventListener('click',  handleToggle);
+    if (btnDesktop) btnDesktop.addEventListener('click', handleToggle);
 
     /* ── AI CHATBOT ── */
     const chatToggle   = document.getElementById('ai-chat-toggle');
