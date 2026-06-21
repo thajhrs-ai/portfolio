@@ -77,12 +77,10 @@
     /* keep images/videos looking normal */
     body.dark-mode img,
     body.dark-mode video,
-    body.dark-mode iframe,
-    body.dark-mode .ai-window-container,
-    body.dark-mode .ai-chat-trigger,
-    body.dark-mode .ai-chat-label-below {
+    body.dark-mode iframe {
       filter: invert(1) hue-rotate(180deg);
     }
+    /* AI chat — always looks same in both modes, counter-invert handled in chat section below */
 
     /* ── TOGGLE BUTTON (mobile menu version) ── */
     #theme-toggle {
@@ -139,6 +137,12 @@
       flex-direction: column;
       align-items: center;
       gap: 6px;
+      /* isolate from body filter in dark mode */
+      isolation: isolate;
+    }
+    /* in dark mode, counter-invert so it looks normal */
+    body.dark-mode .ai-chat-wrapper {
+      filter: invert(1) hue-rotate(180deg);
     }
     .ai-chat-trigger {
       position: relative;
@@ -204,7 +208,7 @@
       background: #16161a;
       border-radius: 16px;
       box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-      z-index: 9999;
+      z-index: 9998;
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -526,8 +530,33 @@
     </div>
   </footer>
 
-  <!-- AI Chat Button -->
+  <!-- AI Chat — wrapper holds both button + window so one filter fix works for both -->
   <div class="ai-chat-wrapper">
+
+    <!-- Chat Window (inside wrapper) -->
+    <div id="ai-chat-window" class="ai-window-container" style="display: none;">
+      <div class="ai-window-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div class="ai-status-dot"></div>
+          <div>
+            <h4 style="margin: 0; font-size: 0.95rem; font-weight: 600;">THAJ AI Assistant</h4>
+            <p style="margin: 0; font-size: 0.75rem; opacity: 0.8;">Live Page Reader</p>
+          </div>
+        </div>
+        <button id="ai-chat-close" class="ai-close-btn">&times;</button>
+      </div>
+      <div id="ai-chat-messages" class="ai-messages-body">
+        <div class="ai-msg ai-msg-bot">
+          Hello! I can automatically scan this entire portfolio page. Ask me any question about Thaj's details!
+        </div>
+      </div>
+      <div class="ai-window-footer">
+        <input type="text" id="ai-chat-input" placeholder="Ask anything about this page..." autocomplete="off">
+        <button id="ai-chat-send">Send</button>
+      </div>
+    </div>
+
+    <!-- Chat Toggle Button -->
     <button id="ai-chat-toggle" class="ai-chat-trigger" aria-label="Open AI Assistant">
       <svg viewBox="0 0 24 24" class="ai-chat-icon">
         <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
@@ -535,29 +564,7 @@
       <span>Ask AI</span>
     </button>
     <span class="ai-chat-label-below">THAJ'S AI ASSISTANT</span>
-  </div>
 
-  <!-- AI Chat Window -->
-  <div id="ai-chat-window" class="ai-window-container" style="display: none;">
-    <div class="ai-window-header">
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <div class="ai-status-dot"></div>
-        <div>
-          <h4 style="margin: 0; font-size: 0.95rem; font-weight: 600;">THAJ AI Assistant</h4>
-          <p style="margin: 0; font-size: 0.75rem; opacity: 0.8;">Live Page Reader</p>
-        </div>
-      </div>
-      <button id="ai-chat-close" class="ai-close-btn">&times;</button>
-    </div>
-    <div id="ai-chat-messages" class="ai-messages-body">
-      <div class="ai-msg ai-msg-bot">
-        Hello! I can automatically scan this entire portfolio page. Ask me any question about Thaj's details!
-      </div>
-    </div>
-    <div class="ai-window-footer">
-      <input type="text" id="ai-chat-input" placeholder="Ask anything about this page..." autocomplete="off">
-      <button id="ai-chat-send">Send</button>
-    </div>
   </div>
 
   <script src="js/nav.js"></script>
