@@ -772,7 +772,13 @@ body.dark-mode .contact__link:hover .contact__link-label{
       localStorage.setItem('thaj-theme', isDark ? 'dark' : 'light');
     }
 
-    applyTheme(localStorage.getItem('thaj-theme') === 'dark');
+    const savedTheme = localStorage.getItem('thaj-theme');
+
+if (savedTheme === null) {
+    applyTheme(true);   // First time = Dark Mode
+} else {
+    applyTheme(savedTheme === 'dark');
+}
 
     function handleToggle() { applyTheme(!body.classList.contains('dark-mode')); }
     if (btnMobile)  btnMobile.addEventListener('click',  handleToggle);
